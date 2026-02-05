@@ -48,7 +48,9 @@ export function FeaturedCourses() {
         </motion.div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {featuredCourses.map((course, i) => (
+          {featuredCourses.map((course, i) => {
+            const IconComponent = course.icon;
+            return (
             <motion.div
               key={course.title}
               initial={{ opacity: 0, y: 24 }}
@@ -69,13 +71,13 @@ export function FeaturedCourses() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent"></div>
                     <div className="absolute top-4 left-4 p-2 rounded-lg bg-accent/10 border border-accent/20 backdrop-blur-sm">
-                      <course.icon className="h-6 w-6 text-accent" aria-hidden />
+                      <IconComponent className="h-6 w-6 text-accent" aria-hidden />
                     </div>
                   </div>
                 ) : (
                   <div className="relative mb-4 aspect-video w-full flex items-center justify-center rounded-xl bg-gradient-to-br from-navy-light to-navy border border-accent/20">
                     <div className="p-6 rounded-xl bg-accent/10 border border-accent/20 backdrop-blur-sm">
-                      <course.icon className="h-12 w-12 text-accent" aria-hidden />
+                      <IconComponent className="h-12 w-12 text-accent" aria-hidden />
                     </div>
                   </div>
                 )}
@@ -93,7 +95,8 @@ export function FeaturedCourses() {
                 </button>
               </HexagonCard>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

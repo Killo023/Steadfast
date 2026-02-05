@@ -29,6 +29,11 @@ export const metadata: Metadata = {
     "Firearm training Lenasia",
     "SAPS accredited firearm training",
   ],
+  icons: {
+    icon: "/images/logo emblem.png",
+    shortcut: "/images/logo emblem.png",
+    apple: "/images/logo emblem.png",
+  },
   openGraph: {
     title: "Steadfast Tactical | Firearm Competency Training Lenasia",
     description:
