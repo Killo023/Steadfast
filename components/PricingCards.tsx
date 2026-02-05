@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { SectionTitle } from "@/components/SectionTitle";
-import { HexagonCard } from "@/components/HexagonCard";
 import { Check } from "lucide-react";
 import { images, fallbackImage } from "@/lib/images";
 
@@ -120,32 +119,67 @@ export function PricingCards() {
           </p>
         </motion.div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {courses.map((course, i) => (
-            <motion.div
-              key={course.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-            >
-              <HexagonCard className="h-full flex flex-col justify-between">
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-white mb-4 leading-relaxed">
-                    {course.title}
-                  </h3>
-                  <p className="text-2xl font-bold text-accent mb-4">{course.price}</p>
-                </div>
-                <button
-                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                  className="w-full mt-4 px-4 py-2 bg-accent text-white font-semibold uppercase tracking-wide text-sm hover:bg-accent/90 transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-navy shadow-lg"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-8"
+        >
+          <div className="overflow-hidden rounded-xl border border-accent/20 bg-navy/60 backdrop-blur-sm">
+            <div className="divide-y divide-accent/10">
+              {courses.map((course, i) => (
+                <motion.div
+                  key={course.title}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: i * 0.1,
+                    ease: [0.4, 0, 0.2, 1]
+                  }}
+                  className="group relative"
                 >
-                  Enquiry
-                </button>
-              </HexagonCard>
-            </motion.div>
-          ))}
-        </div>
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-6 transition-all hover:bg-accent/5">
+                    <div className="flex-1">
+                      <h3 className="text-base sm:text-lg font-semibold text-white mb-1 leading-relaxed">
+                        {course.title}
+                      </h3>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.1 + 0.2 }}
+                      >
+                        <span className="text-2xl sm:text-3xl font-bold text-accent whitespace-nowrap">
+                          {course.price}
+                        </span>
+                      </motion.div>
+                      <motion.button
+                        onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                        className="px-6 py-2.5 modern-button text-white font-semibold uppercase tracking-wide text-sm shadow-lg whitespace-nowrap"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        Enquiry
+                      </motion.button>
+                    </div>
+                  </div>
+                  {/* Hover effect line */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 h-0.5 bg-accent origin-left"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
 
         <motion.p
           className="mt-6 text-center text-white/90"
@@ -157,23 +191,39 @@ export function PricingCards() {
         </motion.p>
 
         <motion.div
-          className="mt-12 modern-card p-8"
+          className="mt-12 rounded-xl border border-accent/20 bg-navy/60 backdrop-blur-sm p-8"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="mb-6 text-sm font-semibold uppercase tracking-wide text-accent">
+          <motion.p 
+            className="mb-6 text-sm font-semibold uppercase tracking-wide text-accent"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
             Prices include
-          </p>
+          </motion.p>
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {includes.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-gray-200 group/item">
-                <div className="flex-shrink-0 p-1 rounded-md bg-accent/10 group-hover/item:bg-accent/20 transition-colors">
+            {includes.map((item, i) => (
+              <motion.li 
+                key={item} 
+                className="flex items-center gap-3 text-gray-200 group/item"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.4 }}
+              >
+                <motion.div 
+                  className="flex-shrink-0 p-1 rounded-md bg-accent/10 group-hover/item:bg-accent/20 transition-colors"
+                  whileHover={{ scale: 1.2, rotate: 360 }}
+                  transition={{ duration: 0.5 }}
+                >
                   <Check className="h-4 w-4 text-accent" aria-hidden />
-                </div>
+                </motion.div>
                 <span className="text-sm text-white/90">{item}</span>
-              </li>
+              </motion.li>
             ))}
           </ul>
         </motion.div>

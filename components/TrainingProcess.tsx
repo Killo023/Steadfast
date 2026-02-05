@@ -61,29 +61,56 @@ export function TrainingProcess() {
           {steps.map((step, i) => (
             <motion.div
               key={step.number}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
+              initial={{ opacity: 0, y: 40, x: i % 2 === 0 ? -20 : 20 }}
+              whileInView={{ opacity: 1, y: 0, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ 
+                duration: 0.6, 
+                delay: i * 0.15,
+                ease: [0.4, 0, 0.2, 1]
+              }}
               className="relative"
             >
-              <HexagonCard className="h-full flex flex-col">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex-shrink-0 p-3 rounded-lg bg-accent/10 border border-accent/20">
-                    <step.icon className="h-6 w-6 text-accent" aria-hidden />
+              <motion.div
+                whileHover={{ y: -5, scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <HexagonCard className="h-full flex flex-col glow-effect">
+                  <div className="flex items-start justify-between mb-4">
+                    <motion.div 
+                      className="flex-shrink-0 p-3 rounded-lg bg-accent/10 border border-accent/20"
+                      whileHover={{ rotate: 360, scale: 1.1 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <step.icon className="h-6 w-6 text-accent" aria-hidden />
+                    </motion.div>
+                    <motion.span 
+                      className="text-4xl font-bold text-accent/20"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.15 + 0.3, type: "spring" }}
+                    >
+                      {step.number}
+                    </motion.span>
                   </div>
-                  <span className="text-4xl font-bold text-accent/20">{step.number}</span>
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">
-                  {step.title}
-                </h3>
-                <p className="text-sm text-white/80 leading-relaxed flex-1">
-                  {step.description}
-                </p>
-                {i < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-accent/30 transform -translate-y-1/2" />
-                )}
-              </HexagonCard>
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-white/80 leading-relaxed flex-1">
+                    {step.description}
+                  </p>
+                  {i < steps.length - 1 && (
+                    <motion.div 
+                      className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-accent/30 transform -translate-y-1/2"
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.15 + 0.5, duration: 0.5 }}
+                    />
+                  )}
+                </HexagonCard>
+              </motion.div>
             </motion.div>
           ))}
         </div>

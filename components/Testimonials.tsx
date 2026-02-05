@@ -60,36 +60,64 @@ export function Testimonials() {
           {testimonials.map((testimonial, i) => (
             <motion.div
               key={testimonial.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
+              initial={{ opacity: 0, y: 40, rotateX: -15 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ 
+                duration: 0.6, 
+                delay: i * 0.15,
+                ease: [0.4, 0, 0.2, 1]
+              }}
             >
-              <HexagonCard className="h-full flex flex-col">
-                <div className="flex items-start gap-3 mb-4">
-                  <div className="flex-shrink-0 p-2 rounded-lg bg-accent/10 border border-accent/20">
-                    <Quote className="h-5 w-5 text-accent" aria-hidden />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-1 mb-2">
-                      {[...Array(testimonial.rating)].map((_, idx) => (
-                        <Star
-                          key={idx}
-                          className="h-4 w-4 fill-accent text-accent"
-                          aria-hidden
-                        />
-                      ))}
+              <motion.div
+                whileHover={{ y: -5, scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <HexagonCard className="h-full flex flex-col glow-effect">
+                  <div className="flex items-start gap-3 mb-4">
+                    <motion.div 
+                      className="flex-shrink-0 p-2 rounded-lg bg-accent/10 border border-accent/20"
+                      initial={{ rotate: -180, scale: 0 }}
+                      whileInView={{ rotate: 0, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.15 + 0.2, type: "spring" }}
+                    >
+                      <Quote className="h-5 w-5 text-accent" aria-hidden />
+                    </motion.div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-1 mb-2">
+                        {[...Array(testimonial.rating)].map((_, idx) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, scale: 0 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.15 + 0.3 + idx * 0.1 }}
+                          >
+                            <Star
+                              className="h-4 w-4 fill-accent text-accent"
+                              aria-hidden
+                            />
+                          </motion.div>
+                        ))}
+                      </div>
+                      <motion.p 
+                        className="text-white/80 leading-relaxed mb-4 italic"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.15 + 0.4 }}
+                      >
+                        "{testimonial.text}"
+                      </motion.p>
+                      <div className="pt-4 border-t border-accent/20">
+                        <p className="text-white font-semibold text-sm">{testimonial.name}</p>
+                        <p className="text-white/70 text-xs">{testimonial.location}</p>
+                      </div>
                     </div>
-                    <p className="text-white/80 leading-relaxed mb-4 italic">
-                      "{testimonial.text}"
-                    </p>
-                    <div className="pt-4 border-t border-accent/20">
-                      <p className="text-white font-semibold text-sm">{testimonial.name}</p>
-                      <p className="text-white/70 text-xs">{testimonial.location}</p>
-                    </div>
                   </div>
-                </div>
-              </HexagonCard>
+                </HexagonCard>
+              </motion.div>
             </motion.div>
           ))}
         </div>

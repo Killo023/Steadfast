@@ -53,47 +53,64 @@ export function FeaturedCourses() {
             return (
             <motion.div
               key={course.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
+              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ 
+                duration: 0.6, 
+                delay: i * 0.15,
+                ease: [0.4, 0, 0.2, 1]
+              }}
             >
-              <HexagonCard className="h-full flex flex-col group">
-                {course.image ? (
-                  <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-xl">
-                    <img
-                      src={course.image}
-                      alt={course.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      onError={(e) => {
-                        e.currentTarget.src = fallbackImage;
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent"></div>
-                    <div className="absolute top-4 left-4 p-2 rounded-lg bg-accent/10 border border-accent/20 backdrop-blur-sm">
-                      <IconComponent className="h-6 w-6 text-accent" aria-hidden />
+              <motion.div
+                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <HexagonCard className="h-full flex flex-col group glow-effect">
+                  {course.image ? (
+                    <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-xl">
+                      <motion.img
+                        src={course.image}
+                        alt={course.title}
+                        className="h-full w-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.src = fallbackImage;
+                        }}
+                        whileHover={{ scale: 1.15 }}
+                        transition={{ duration: 0.5 }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/40 to-transparent"></div>
+                      <motion.div 
+                        className="absolute top-4 left-4 p-2 rounded-lg bg-accent/10 border border-accent/20 backdrop-blur-sm"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <IconComponent className="h-6 w-6 text-accent" aria-hidden />
+                      </motion.div>
                     </div>
-                  </div>
-                ) : (
-                  <div className="relative mb-4 aspect-video w-full flex items-center justify-center rounded-xl bg-gradient-to-br from-navy-light to-navy border border-accent/20">
-                    <div className="p-6 rounded-xl bg-accent/10 border border-accent/20 backdrop-blur-sm">
-                      <IconComponent className="h-12 w-12 text-accent" aria-hidden />
+                  ) : (
+                    <div className="relative mb-4 aspect-video w-full flex items-center justify-center rounded-xl bg-gradient-to-br from-navy-light to-navy border border-accent/20">
+                      <div className="p-6 rounded-xl bg-accent/10 border border-accent/20 backdrop-blur-sm">
+                        <IconComponent className="h-12 w-12 text-accent" aria-hidden />
+                      </div>
                     </div>
-                  </div>
-                )}
-                <h3 className="text-lg font-semibold text-white mb-3">
-                  {course.title}
-                </h3>
-                <p className="text-sm text-white/80 leading-relaxed mb-6 flex-1">
-                  {course.description}
-                </p>
-                <button
-                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                  className="w-full px-4 py-2 bg-accent text-white font-semibold uppercase tracking-wide text-sm hover:bg-accent/90 transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-navy shadow-lg"
-                >
-                  Enquiry
-                </button>
-              </HexagonCard>
+                  )}
+                  <h3 className="text-lg font-semibold text-white mb-3">
+                    {course.title}
+                  </h3>
+                  <p className="text-sm text-white/80 leading-relaxed mb-6 flex-1">
+                    {course.description}
+                  </p>
+                  <motion.button
+                    onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                    className="w-full px-4 py-2 modern-button text-white font-semibold uppercase tracking-wide text-sm shadow-lg"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Enquiry
+                  </motion.button>
+                </HexagonCard>
+              </motion.div>
             </motion.div>
             );
           })}

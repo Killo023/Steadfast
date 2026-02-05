@@ -71,43 +71,62 @@ export function FAQ() {
           {faqs.map((faq, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ 
+                duration: 0.5, 
+                delay: i * 0.08,
+                ease: [0.4, 0, 0.2, 1]
+              }}
             >
-              <div className="modern-card overflow-hidden">
-                <button
-                  onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                  className="w-full flex items-center justify-between p-6 text-left focus:outline-none focus:ring-2 focus:ring-accent rounded-lg"
-                  aria-expanded={openIndex === i}
-                >
-                  <span className="text-lg font-semibold text-white pr-4">
-                    {faq.question}
-                  </span>
-                  <ChevronDown
-                    className={`h-5 w-5 text-accent flex-shrink-0 transition-transform ${
-                      openIndex === i ? "rotate-180" : ""
-                    }`}
-                    aria-hidden
-                  />
-                </button>
-                <AnimatePresence>
-                  {openIndex === i && (
+              <motion.div
+                whileHover={{ scale: 1.01 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="modern-card overflow-hidden glow-effect">
+                  <motion.button
+                    onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                    className="w-full flex items-center justify-between p-6 text-left focus:outline-none focus:ring-2 focus:ring-accent rounded-lg"
+                    aria-expanded={openIndex === i}
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <span className="text-lg font-semibold text-white pr-4">
+                      {faq.question}
+                    </span>
                     <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
+                      animate={{ rotate: openIndex === i ? 180 : 0 }}
                       transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 pt-0">
-                        <p className="text-white/90 leading-relaxed">{faq.answer}</p>
-                      </div>
+                      <ChevronDown
+                        className="h-5 w-5 text-accent flex-shrink-0"
+                        aria-hidden
+                      />
                     </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                  </motion.button>
+                  <AnimatePresence>
+                    {openIndex === i && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <motion.div 
+                          className="px-6 pb-6 pt-0"
+                          initial={{ y: -10 }}
+                          animate={{ y: 0 }}
+                          transition={{ delay: 0.1 }}
+                        >
+                          <p className="text-white/90 leading-relaxed">{faq.answer}</p>
+                        </motion.div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>

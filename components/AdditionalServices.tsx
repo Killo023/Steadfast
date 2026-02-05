@@ -40,43 +40,61 @@ export function AdditionalServices() {
         </motion.div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {services.map((service, i) => (
+          {services.map((service, i) => {
+            const IconComponent = service.icon;
+            return (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
+              initial={{ opacity: 0, y: 50, x: i % 2 === 0 ? -30 : 30 }}
+              whileInView={{ opacity: 1, y: 0, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ 
+                duration: 0.6, 
+                delay: i * 0.2,
+                ease: [0.4, 0, 0.2, 1]
+              }}
             >
-              <HexagonCard className="group">
-                <div className="relative mb-6 aspect-video w-full overflow-hidden rounded-xl">
-                  <img
-                    src={service.image}
-                    alt=""
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    onError={(e) => {
-                      e.currentTarget.src = fallbackImage;
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-3 rounded-lg bg-accent/10 border border-accent/20 group-hover:bg-accent/20 transition-colors">
-                    <service.icon
-                      className="h-6 w-6 text-accent"
-                      aria-hidden
+              <motion.div
+                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <HexagonCard className="group glow-effect">
+                  <div className="relative mb-6 aspect-video w-full overflow-hidden rounded-xl">
+                    <motion.img
+                      src={service.image}
+                      alt=""
+                      className="h-full w-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = fallbackImage;
+                      }}
+                      whileHover={{ scale: 1.15 }}
+                      transition={{ duration: 0.5 }}
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-white mb-2">
-                      {service.title}
-                    </h3>
-                    <p className="text-white/80 leading-relaxed">{service.description}</p>
+                  <div className="flex items-start gap-4">
+                    <motion.div 
+                      className="flex-shrink-0 p-3 rounded-lg bg-accent/10 border border-accent/20"
+                      whileHover={{ rotate: 360, scale: 1.1 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <IconComponent
+                        className="h-6 w-6 text-accent"
+                        aria-hidden
+                      />
+                    </motion.div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold text-white mb-2">
+                        {service.title}
+                      </h3>
+                      <p className="text-white/80 leading-relaxed">{service.description}</p>
+                    </div>
                   </div>
-                </div>
-              </HexagonCard>
+                </HexagonCard>
+              </motion.div>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

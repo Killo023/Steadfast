@@ -11,10 +11,12 @@ import { FAQ } from "@/components/FAQ";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { ScrollProgress } from "@/components/ScrollProgress";
 
 export default function Home() {
   return (
     <>
+      <ScrollProgress />
       <Header />
       <main id="main-content">
         <Hero />
