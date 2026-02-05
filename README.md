@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Steadfast Tactical
 
-## Getting Started
+Modern marketing site for Steadfast Tactical — firearm competency training in Lenasia, South Africa.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router), TypeScript, Tailwind CSS v4
+- **Framer Motion** — section and CTA animations
+- **Lucide React** — icons
+- **Firebase (Firestore)** — contact form / lead storage
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Firebase setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Create a project at [Firebase Console](https://console.firebase.google.com).
+2. Enable **Firestore Database** (Create database → start in test mode, or production with rules below).
+3. Copy `.env.local.example` to `.env.local` and set your web app config (Project settings → Your apps → Add app → Web). You need:
+   - `NEXT_PUBLIC_FIREBASE_API_KEY`
+   - `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
+   - `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
+   - `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`
+   - `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID`
+   - `NEXT_PUBLIC_FIREBASE_APP_ID`
+4. In Firestore **Rules**, allow only writes to the contact collection (no public reads):
 
-## Learn More
+```javascript
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /contact_inquiries/{docId} {
+      allow read: if false;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+  }
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+5. Restart the dev server. Form submissions are stored in the `contact_inquiries` collection with fields: `name`, `email`, `phone`, `message`, `createdAt`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Images and video
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Images:** The site uses free images from [Unsplash](https://unsplash.com) (see `lib/images.ts`). All are loaded from Unsplash’s CDN; no attribution required.
+- **Hero video:** To show a background video in the hero, add an MP4 file at `public/video/hero.mp4`. You can use a free clip from [Pexels](https://www.pexels.com/search/videos/firearm%20training/) (e.g. “Woman firing a rifle” or “Man shooting in firing range”). See `public/video/README.md` for links. If the file is missing, the hero uses a static image.
 
-## Deploy on Vercel
+## Environment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Do not commit `.env.local`. Use `.env.local.example` as a template. No secrets are required for static build; Firebase config is only needed for the contact form at runtime.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Build
+
+```bash
+npm run build
+npm run start
+```
+
+## Deploy
+
+Works on Vercel, Netlify, or any static/Node host. Set the Firebase env vars in the deployment dashboard.
