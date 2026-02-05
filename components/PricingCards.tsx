@@ -100,7 +100,7 @@ export function PricingCards() {
             setVideoFailed(true);
           }}
         >
-          <source src="/images/section 3.mp4" type="video/mp4" />
+          <source src="/images/5243197-hd_1920_1080_25fps.mp4" type="video/mp4" />
         </video>
       )}
       {/* Overlay */}
