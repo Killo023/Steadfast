@@ -3,9 +3,10 @@
 import { MessageCircle } from "lucide-react";
 
 const WHATSAPP_NUMBER = "+27607696710"; // +27 60 769 6710 without spaces
+const WHATSAPP_MESSAGE = "Hi, I'm interested in firearm training at Steadfast Tactical. Could you please provide more information?";
 
 export function WhatsAppButton() {
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, "")}`;
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
   return (
     <a

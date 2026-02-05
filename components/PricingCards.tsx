@@ -7,7 +7,8 @@ import { Check } from "lucide-react";
 import { images, fallbackImage } from "@/lib/images";
 
 const WHATSAPP_NUMBER = "+27607696710";
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
+const WHATSAPP_MESSAGE = "Hi, I'm interested in your firearm training courses. Could you please provide more information about pricing and availability?";
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 const courses = [
   { title: "Handgun", price: "R1 200" },

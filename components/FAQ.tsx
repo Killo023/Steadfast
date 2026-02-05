@@ -153,7 +153,7 @@ export function FAQ() {
             Contact us directly and we'll get back to you as soon as possible.
           </p>
           <a
-            href="https://wa.me/+27607696710"
+            href={`https://wa.me/+27607696710?text=${encodeURIComponent("Hi, I have a question about your firearm training services. Could you please help?")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="modern-button inline-block px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-navy"

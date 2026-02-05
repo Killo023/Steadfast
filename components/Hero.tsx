@@ -101,7 +101,7 @@ export function Hero() {
       <div className="absolute inset-0 z-[1] animated-gradient" />
       {/* Overlays (above video/image so text stays readable) */}
       <motion.div 
-        className="absolute inset-0 z-[1] bg-gradient-to-b from-white/10 via-white/5 to-navy/95" 
+        className="absolute inset-0 z-[1] bg-gradient-to-b from-navy/40 via-navy/40 to-navy/95" 
         style={{ opacity }}
       />
       <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(59,130,246,0.15),transparent)]" />

@@ -7,7 +7,8 @@ import { Shield, Target, Users } from "lucide-react";
 import { images, fallbackImage } from "@/lib/images";
 
 const WHATSAPP_NUMBER = "+27607696710";
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
+const WHATSAPP_MESSAGE = "Hi, I'm interested in this training course. Could you please provide more information?";
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 const featuredCourses = [
   {
