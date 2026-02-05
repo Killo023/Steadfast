@@ -6,6 +6,9 @@ import { HexagonCard } from "@/components/HexagonCard";
 import { Shield, Target, Users } from "lucide-react";
 import { images, fallbackImage } from "@/lib/images";
 
+const WHATSAPP_NUMBER = "+27607696710";
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
+
 const featuredCourses = [
   {
     title: "Personal Purpose Firearm Training",
@@ -101,14 +104,16 @@ export function FeaturedCourses() {
                   <p className="text-sm text-white/80 leading-relaxed mb-6 flex-1">
                     {course.description}
                   </p>
-                  <motion.button
-                    onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                    className="w-full px-4 py-2 modern-button text-white font-semibold uppercase tracking-wide text-sm shadow-lg"
+                  <motion.a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full px-4 py-2 modern-button text-white font-semibold uppercase tracking-wide text-sm shadow-lg inline-block text-center"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     Enquiry
-                  </motion.button>
+                  </motion.a>
                 </HexagonCard>
               </motion.div>
             </motion.div>

@@ -6,6 +6,9 @@ import { SectionTitle } from "@/components/SectionTitle";
 import { Check } from "lucide-react";
 import { images, fallbackImage } from "@/lib/images";
 
+const WHATSAPP_NUMBER = "+27607696710";
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
+
 const courses = [
   { title: "Handgun", price: "R1 200" },
   { title: "Handgun & Shotgun", price: "R1 700" },
@@ -158,14 +161,16 @@ export function PricingCards() {
                           {course.price}
                         </span>
                       </motion.div>
-                      <motion.button
-                        onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                        className="px-6 py-2.5 modern-button text-white font-semibold uppercase tracking-wide text-sm shadow-lg whitespace-nowrap"
+                      <motion.a
+                        href={WHATSAPP_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-6 py-2.5 modern-button text-white font-semibold uppercase tracking-wide text-sm shadow-lg whitespace-nowrap inline-block text-center"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
                         Enquiry
-                      </motion.button>
+                      </motion.a>
                     </div>
                   </div>
                   {/* Hover effect line */}
