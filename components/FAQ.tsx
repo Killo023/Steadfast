@@ -121,26 +121,19 @@ export function FAQ() {
                       />
                     </motion.div>
                   </motion.button>
-                  <AnimatePresence>
-                    {openIndex === i && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                        className="overflow-hidden"
-                      >
-                        <motion.div 
-                          className="px-6 pb-6 pt-0"
-                          initial={{ y: -10 }}
-                          animate={{ y: 0 }}
-                          transition={{ delay: 0.1 }}
-                        >
-                          <p className="text-white/90 leading-relaxed">{faq.answer}</p>
-                        </motion.div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  {openIndex === i && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="border-t border-accent/10"
+                    >
+                      <div className="px-6 pb-6 pt-4">
+                        <p className="text-white/90 leading-relaxed">{faq.answer}</p>
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
               </motion.div>
             </motion.div>
