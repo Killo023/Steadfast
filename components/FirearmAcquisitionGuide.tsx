@@ -113,8 +113,8 @@ export function FirearmAcquisitionGuide() {
             How to acquire a firearm
           </h2>
           <div className="flex justify-center mb-6">
-            <div className="flex-shrink-0 p-4 bg-gradient-to-br from-accent/10 to-accent-muted/10 border border-accent/20">
-              <i className="fa-solid fa-gun text-accent text-4xl" aria-hidden></i>
+            <div className="flex-shrink-0 p-4 rounded-lg border border-accent/20 bg-accent/5 flex items-center justify-center">
+              <i className="fa-solid fa-person-rifle text-accent text-4xl md:text-5xl" aria-hidden />
             </div>
           </div>
           <SectionTitle className="mb-6">How to Acquire a Firearm</SectionTitle>
@@ -122,16 +122,6 @@ export function FirearmAcquisitionGuide() {
             Click on each step in the diagram below to learn more about the process. Follow these steps 
             to legally acquire a firearm in South Africa.
           </p>
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="authenticity-badge">
-              <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
-              <span>Legal Process</span>
-            </div>
-            <div className="authenticity-badge">
-              <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
-              <span>Interactive Guide</span>
-            </div>
-          </div>
         </motion.div>
 
         {/* Unsplash hero image - professional training context */}

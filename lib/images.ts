@@ -19,6 +19,9 @@ export const images = {
   section7: "/images/Section2 (7).jpg",
   regulation: "/images/regulation.jpg",
   
+  /** Custom brand icon (save your icon as public/images/brand-icon.png) */
+  brandIcon: "/images/brand-icon.png",
+
   // Logo variations (can be used for different sections)
   logo1: "/images/Logo (1).png",
   logo2: "/images/Logo (2).png",

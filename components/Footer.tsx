@@ -8,7 +8,10 @@ export function Footer() {
     <footer className="border-t border-gray-200 bg-white px-4 py-12" role="contentinfo">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          <Link href="/" className="flex-shrink-0">
+          <Link href="/" className="flex-shrink-0 flex items-center gap-3">
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded border border-gray-200 bg-gray-50 flex items-center justify-center text-accent">
+              <i className="fa-solid fa-person-rifle text-xl md:text-2xl" aria-hidden />
+            </div>
             <div className="relative h-14 w-[200px] md:h-16 md:w-[240px]">
               <Image
                 src={images.logoSide}
