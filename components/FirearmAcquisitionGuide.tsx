@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionTitle } from "@/components/SectionTitle";
 import { HexagonCard } from "@/components/HexagonCard";
@@ -129,6 +130,39 @@ export function FirearmAcquisitionGuide() {
             <div className="authenticity-badge">
               <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
               <span>Interactive Guide</span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Unsplash hero image - professional training context */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
+        >
+          <div className="relative aspect-[21/9] min-h-[200px] md:min-h-[260px] w-full overflow-hidden rounded-lg border border-accent/20 bg-[#0d1117]">
+            <Image
+              src="https://images.unsplash.com/photo-1577905027675-fcbe1521b1c8?w=1400&q=85"
+              alt="Man doing practice shooting at a range — firearm training and proficiency"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 1200px"
+              priority={false}
+            />
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-transparent"
+              aria-hidden
+            />
+            <div
+              className="absolute inset-0 bg-accent/10 mix-blend-overlay"
+              aria-hidden
+            />
+            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+              <p className="text-sm font-sans font-medium uppercase tracking-wider text-white/90">
+                Accredited training · Safe handling · Legal process
+              </p>
             </div>
           </div>
         </motion.div>
