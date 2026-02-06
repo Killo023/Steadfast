@@ -1,50 +1,55 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0f1419;
-  --foreground: #e2e8f0;
-  --navy: #1a202c;
-  --navy-light: #252b37;
+  /* Tactical Dark Theme */
+  --background: #0a0a0a;
+  --foreground: #d4d4d4;
+  --navy: #0d1117;
+  --navy-light: #161b22;
+  
+  /* Accent colors - logo blue */
   --accent: #4299e1;
   --accent-muted: #63b3ed;
+  --accent-dark: #3182ce;
   
-  /* Friendly dark professional palette */
-  --gray-50: #1a202c;
-  --gray-100: #252b37;
-  --gray-200: #2d3748;
-  --gray-300: #374151;
-  --gray-400: #4a5568;
-  --gray-500: #64748b;
-  --gray-600: #94a3b8;
-  --gray-700: #cbd5e1;
-  --gray-800: #e2e8f0;
-  --gray-900: #f1f5f9;
+  /* Tactical gray palette */
+  --gray-50: #0a0a0a;
+  --gray-100: #0d1117;
+  --gray-200: #161b22;
+  --gray-300: #21262d;
+  --gray-400: #30363d;
+  --gray-500: #484f58;
+  --gray-600: #656e7a;
+  --gray-700: #8b949e;
+  --gray-800: #b1bac4;
+  --gray-900: #c9d1d9;
   
-  /* Warm accent colors */
-  --warm-blue: #4299e1;
-  --warm-blue-light: #63b3ed;
-  --warm-blue-dark: #3182ce;
+  /* Tactical colors */
+  --tactical-blue: #4299e1;
+  --tactical-blue-dark: #3182ce;
+  --tactical-black: #000000;
+  --tactical-gray: #1a1a1a;
   
   /* Yellow/Gold for authenticity badges */
-  --yellow: #fbbf24;
-  --yellow-light: #fcd34d;
-  --yellow-dark: #f59e0b;
-  --yellow-glow: rgba(251, 191, 36, 0.3);
+  --yellow: #eab308;
+  --yellow-light: #facc15;
+  --yellow-dark: #ca8a04;
+  --yellow-glow: rgba(234, 179, 8, 0.3);
   
-  --accent-glow: rgba(66, 153, 225, 0.2);
+  --accent-glow: rgba(66, 153, 225, 0.15);
   --accent-hover: #3182ce;
   
-  /* Friendly dark backgrounds */
-  --bg-primary: #1a202c;
-  --bg-secondary: #0f1419;
-  --bg-tertiary: #252b37;
+  /* Tactical backgrounds */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #000000;
+  --bg-tertiary: #0d1117;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-navy: #1a202c;
-  --color-navy-light: #252b37;
+  --color-navy: #0d1117;
+  --color-navy-light: #161b22;
   --color-accent: #4299e1;
   --color-accent-muted: #63b3ed;
   --font-sans: var(--font-geist-sans);
@@ -61,30 +66,49 @@ body {
   line-height: 1.6;
 }
 
-/* Friendly dark professional card styling - sharp corners */
+/* Tactical professional card styling - sharp corners */
 .modern-card {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
-  border: 1px solid rgba(66, 153, 225, 0.2);
-  border-radius: 0.25rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(145deg, rgba(66, 153, 225, 0.05) 0%, rgba(0, 0, 0, 0.8) 100%);
+  border: 1px solid rgba(66, 153, 225, 0.15);
+  border-radius: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(66, 153, 225, 0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.modern-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(66, 153, 225, 0.5), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .modern-card:hover {
   border-color: rgba(66, 153, 225, 0.4);
-  box-shadow: 0 8px 32px rgba(66, 153, 225, 0.2), 0 4px 16px rgba(0, 0, 0, 0.4);
-  transform: translateY(-4px);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  box-shadow: 0 8px 40px rgba(66, 153, 225, 0.15), 0 4px 20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(66, 153, 225, 0.2);
+  transform: translateY(-2px);
+  background: linear-gradient(145deg, rgba(66, 153, 225, 0.08) 0%, rgba(0, 0, 0, 0.85) 100%);
 }
 
-/* Friendly dark professional primary button - sharp corners */
+.modern-card:hover::before {
+  opacity: 1;
+}
+
+/* Tactical professional primary button - sharp corners */
 .modern-button {
-  background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
-  border: none;
-  border-radius: 0.25rem;
-  box-shadow: 0 4px 16px rgba(66, 153, 225, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, #3182ce 0%, #4299e1 100%);
+  border: 1px solid rgba(66, 153, 225, 0.3);
+  border-radius: 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -97,7 +121,7 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
   transition: left 0.5s;
 }
 
@@ -106,14 +130,15 @@ body {
 }
 
 .modern-button:hover {
-  background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
-  box-shadow: 0 6px 24px rgba(66, 153, 225, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #4299e1 0%, #63b3ed 100%);
+  border-color: rgba(66, 153, 225, 0.5);
+  box-shadow: 0 6px 24px rgba(66, 153, 225, 0.3), 0 4px 16px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
   transform: translateY(-2px);
 }
 
 .modern-button:active {
   transform: translateY(0);
-  box-shadow: 0 2px 12px rgba(66, 153, 225, 0.3);
+  box-shadow: 0 2px 12px rgba(66, 153, 225, 0.2);
 }
 
 /* Smooth scroll */
@@ -131,7 +156,7 @@ html {
 *:focus-visible {
   outline: 2px solid #4299e1;
   outline-offset: 2px;
-  border-radius: 0.25rem;
+  border-radius: 0;
 }
 
 /* Yellow authenticity badge */
@@ -158,16 +183,38 @@ html {
   flex-shrink: 0;
 }
 
-/* Subtle animated gradient - friendly dark */
+/* Tactical animated gradient */
 @keyframes gradient-shift {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
 
 .animated-gradient {
-  background: linear-gradient(-45deg, rgba(66, 153, 225, 0.08), rgba(99, 179, 237, 0.05), rgba(66, 153, 225, 0.08));
+  background: linear-gradient(-45deg, rgba(66, 153, 225, 0.05), rgba(99, 179, 237, 0.03), rgba(66, 153, 225, 0.05));
   background-size: 400% 400%;
   animation: gradient-shift 15s ease infinite;
+}
+
+/* Tactical grid pattern */
+.tactical-grid {
+  background-image: 
+    linear-gradient(rgba(66, 153, 225, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(66, 153, 225, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Tactical border effect */
+.tactical-border {
+  position: relative;
+}
+
+.tactical-border::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(66, 153, 225, 0.2);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  pointer-events: none;
 }
 
 /* Parallax container */
@@ -191,7 +238,7 @@ html {
   animation: fade-in-up 0.8s ease-out forwards;
 }
 
-/* Subtle glow effect */
+/* Tactical glow effect */
 .glow-effect {
   position: relative;
 }
@@ -202,7 +249,7 @@ html {
   inset: -2px;
   border-radius: inherit;
   padding: 2px;
-  background: linear-gradient(45deg, rgba(66, 153, 225, 0.3), rgba(99, 179, 237, 0.3));
+  background: linear-gradient(45deg, rgba(66, 153, 225, 0.2), rgba(99, 179, 237, 0.2));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;

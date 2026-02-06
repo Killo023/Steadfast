@@ -1,27 +1,30 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Shield } from "lucide-react";
 import { images } from "@/lib/images";
 
 export function Footer() {
   return (
-    <footer className="border-t border-accent/20 bg-gradient-to-b from-navy to-navy-light px-4 py-12" role="contentinfo">
+    <footer className="border-t border-gray-200 bg-white px-4 py-12" role="contentinfo">
       <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
-          <div className="relative h-16 w-auto">
-            <Image
-              src={images.logoSide}
-              alt="Steadfast Tactical"
-              fill
-              className="object-contain"
-              unoptimized
-            />
-          </div>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          <Link href="/" className="flex-shrink-0">
+            <div className="relative h-14 w-[200px] md:h-16 md:w-[240px]">
+              <Image
+                src={images.logoSide}
+                alt="Steadfast Tactical"
+                fill
+                className="object-contain object-left"
+                unoptimized
+              />
+            </div>
+          </Link>
           <div className="text-center md:text-right">
-            <p className="text-lg font-medium italic text-white mb-2 flex items-center justify-center md:justify-end gap-2">
+            <p className="text-lg font-medium italic text-gray-800 mb-2 flex items-center justify-center md:justify-end gap-2">
               <Shield className="h-5 w-5 text-accent flex-shrink-0" aria-hidden />
               Chosen by Many. Trusted by More.
             </p>
-            <p className="text-sm text-gray-400 mb-2">
+            <p className="text-sm text-gray-600 mb-2">
               © {new Date().getFullYear()} Steadfast Tactical. SAPS & PFTC Accredited firearm competency training.
             </p>
             <div className="flex items-center justify-center md:justify-end gap-3 text-xs text-gray-500">

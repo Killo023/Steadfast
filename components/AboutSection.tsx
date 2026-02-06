@@ -33,7 +33,7 @@ const features = [
 export function AboutSection() {
   return (
     <section
-      className="bg-navy px-4 py-16 md:py-24 relative overflow-hidden"
+      className="bg-[#0a0a0a] px-4 py-16 md:py-24 relative overflow-hidden"
       aria-labelledby="about-heading"
     >
       {/* Decorative background elements */}
@@ -52,7 +52,7 @@ export function AboutSection() {
           }}
         />
         <motion.div
-          className="absolute bottom-20 right-10 w-40 h-40 bg-[#fbbf24]/5 rounded-full blur-3xl"
+          className="absolute bottom-20 right-10 w-40 h-40 bg-accent/5 rounded-full blur-3xl"
           animate={{
             x: [0, -30, 0],
             y: [0, -20, 0],
@@ -98,7 +98,7 @@ export function AboutSection() {
             About us
           </h2>
           <div className="flex justify-center mb-6">
-            <div className="flex-shrink-0 p-4 bg-gradient-to-br from-accent/10 to-accent-muted/10 border border-accent/20">
+            <div className="flex-shrink-0 p-4 bg-gradient-to-br from-accent/10 to-accent-muted/10 border-2 border-accent/30 relative tactical-border">
               <i className="fa-solid fa-gun text-accent text-4xl" aria-hidden></i>
             </div>
           </div>
@@ -123,7 +123,7 @@ export function AboutSection() {
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.5 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
               {/* Decorative corner elements */}
               <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-accent/30"></div>
               <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-accent/30"></div>

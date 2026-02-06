@@ -53,7 +53,7 @@ export function ContactForm() {
   }
 
   const inputClass =
-    "w-full border border-accent/30 bg-navy-light/50 backdrop-blur-sm px-4 py-3 text-white placeholder-gray-500 transition-all focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/50 focus:bg-navy-light";
+    "w-full border border-accent/30 bg-[#0d1117]/50 backdrop-blur-sm px-4 py-3 text-white placeholder-gray-500 transition-all focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/50 focus:bg-[#0d1117]";
 
   return (
     <motion.form

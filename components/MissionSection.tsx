@@ -7,7 +7,7 @@ import { images, fallbackImage } from "@/lib/images";
 export function MissionSection() {
   return (
     <section
-      className="bg-navy px-4 py-16 md:py-24 relative overflow-hidden"
+      className="bg-[#0a0a0a] px-4 py-16 md:py-24 relative overflow-hidden"
       aria-labelledby="mission-heading"
     >
       {/* Decorative elements */}
@@ -77,7 +77,7 @@ export function MissionSection() {
                 e.currentTarget.src = fallbackImage;
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-navy via-transparent to-navy"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-black via-transparent to-black"></div>
           </div>
 
           {/* Content */}

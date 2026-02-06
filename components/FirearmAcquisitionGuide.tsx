@@ -97,7 +97,7 @@ export function FirearmAcquisitionGuide() {
 
   return (
     <section
-      className="bg-navy px-4 py-16 md:py-24"
+      className="bg-[#0a0a0a] px-4 py-16 md:py-24"
       aria-labelledby="acquisition-heading"
     >
       <div className="mx-auto max-w-7xl">
@@ -271,7 +271,7 @@ export function FirearmAcquisitionGuide() {
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: idx * 0.08 }}
-                            className="flex items-start gap-4 p-4 bg-navy-light/50 border border-accent/10 hover:border-accent/30 transition-colors group"
+                            className="flex items-start gap-4 p-4 bg-[#0d1117]/50 border border-accent/10 hover:border-accent/30 transition-colors group"
                           >
                             <div className="flex-shrink-0 mt-0.5">
                               <div className="w-8 h-8 bg-gradient-to-br from-accent/20 to-accent-muted/10 border border-accent/30 flex items-center justify-center text-accent font-bold text-sm group-hover:scale-110 transition-transform">

@@ -59,7 +59,7 @@ export function PricingCards() {
   return (
     <section
       id="pricing"
-      className="relative scroll-mt-20 bg-navy-light px-4 py-16 md:py-24 overflow-hidden"
+      className="relative scroll-mt-20 bg-[#000000] px-4 py-16 md:py-24 overflow-hidden"
       aria-labelledby="pricing-heading"
     >
       {/* Background image fallback */}
@@ -117,7 +117,7 @@ export function PricingCards() {
         </video>
       )}
       {/* Overlay */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-navy-light/85 via-navy-light/80 to-navy-light/95" />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/90 via-black/85 to-black/95" />
       
       <div className="relative z-10 mx-auto max-w-6xl">
         <motion.div
@@ -148,7 +148,7 @@ export function PricingCards() {
             transition={{ duration: 0.5 }}
             className="flex justify-center mb-8"
           >
-            <div className="inline-flex bg-navy/60 backdrop-blur-sm border border-accent/20 p-1.5 gap-2">
+            <div className="inline-flex bg-black/60 backdrop-blur-sm border border-accent/20 p-1.5 gap-2">
               <motion.button
                 onClick={() => setActiveTab("personal")}
                 className={`relative px-6 py-3 font-semibold text-sm uppercase tracking-wide transition-all duration-300 ${
@@ -213,7 +213,7 @@ export function PricingCards() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="overflow-hidden border border-accent/20 bg-navy/60 backdrop-blur-sm shadow-lg"
+              className="overflow-hidden border border-accent/20 bg-black/60 backdrop-blur-sm shadow-lg"
             >
               <div className="divide-y divide-accent/10">
                 {currentCourses.map((course, i) => (
@@ -282,7 +282,7 @@ export function PricingCards() {
         </motion.p>
 
         <motion.div
-          className="mt-16 border border-accent/20 bg-navy/60 backdrop-blur-sm shadow-lg p-10"
+          className="mt-16 border border-accent/20 bg-black/60 backdrop-blur-sm shadow-lg p-10"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

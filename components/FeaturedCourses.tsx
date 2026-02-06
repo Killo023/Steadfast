@@ -34,7 +34,7 @@ const featuredCourses = [
 export function FeaturedCourses() {
   return (
     <section
-      className="bg-navy px-4 py-16 md:py-24"
+      className="bg-[#0d1117] px-4 py-16 md:py-24"
       aria-labelledby="featured-heading"
     >
       <div className="mx-auto max-w-6xl">
@@ -88,7 +88,7 @@ export function FeaturedCourses() {
                         whileHover={{ scale: 1.1 }}
                         transition={{ duration: 0.5 }}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/40 to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                       <motion.div 
                         className="absolute top-4 left-4 p-3 bg-accent/10 border border-accent/20 backdrop-blur-sm"
                         whileHover={{ scale: 1.1, rotate: 5 }}
@@ -98,7 +98,7 @@ export function FeaturedCourses() {
                       </motion.div>
                     </div>
                   ) : (
-                    <div className="relative mb-5 aspect-video w-full flex items-center justify-center bg-gradient-to-br from-navy-light to-navy border border-accent/20">
+                    <div className="relative mb-5 aspect-video w-full flex items-center justify-center bg-gradient-to-br from-[#0d1117] to-[#0a0a0a] border border-accent/20">
                       <div className="p-6 bg-accent/10 border border-accent/20 backdrop-blur-sm">
                         <IconComponent className="h-12 w-12 text-accent" aria-hidden />
                       </div>

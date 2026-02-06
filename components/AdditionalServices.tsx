@@ -24,7 +24,7 @@ const services = [
 export function AdditionalServices() {
   return (
     <section
-      className="bg-navy px-4 py-16 md:py-24"
+      className="bg-[#0a0a0a] px-4 py-16 md:py-24"
       aria-labelledby="services-heading"
     >
       <div className="mx-auto max-w-6xl">
@@ -75,7 +75,7 @@ export function AdditionalServices() {
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.5 }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                   <div className="flex items-start gap-4">
                     <motion.div 

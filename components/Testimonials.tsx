@@ -35,7 +35,7 @@ const testimonials = [
 export function Testimonials() {
   return (
     <section
-      className="bg-navy px-4 py-16 md:py-24"
+      className="bg-[#0d1117] px-4 py-16 md:py-24"
       aria-labelledby="testimonials-heading"
     >
       <div className="mx-auto max-w-6xl">

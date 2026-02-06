@@ -58,7 +58,7 @@ export function Header() {
             >
               <Link
                 href={link.href}
-                className="text-base font-medium text-gray-700 transition-all hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-white px-3 py-2 relative group"
+                className="text-base font-semibold text-gray-700 uppercase tracking-wide transition-all hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-white px-3 py-2 relative group"
               >
                 {link.label}
                 <motion.span

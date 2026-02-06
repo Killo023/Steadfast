@@ -57,7 +57,7 @@ const regulation21 = [
 export function AccreditationSection() {
   return (
     <section
-      className="bg-navy-light px-4 py-16 md:py-24 relative overflow-hidden"
+      className="bg-[#0d1117] px-4 py-16 md:py-24 relative overflow-hidden"
       aria-labelledby="accreditation-heading"
     >
       {/* Decorative background elements */}
@@ -262,7 +262,7 @@ export function AccreditationSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.1 }}
-                  className="flex items-center gap-2 p-3 bg-navy border border-accent/20"
+                  className="flex items-center gap-2 p-3 bg-[#0a0a0a] border border-accent/20"
                 >
                   <div className="flex-shrink-0 w-2 h-2 rounded-full bg-accent" />
                   <span className="text-white font-medium">{category}</span>

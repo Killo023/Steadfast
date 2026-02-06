@@ -37,7 +37,7 @@ const steps = [
 export function TrainingProcess() {
   return (
     <section
-      className="bg-navy-light px-4 py-16 md:py-24 relative overflow-hidden"
+      className="bg-[#0d1117] px-4 py-16 md:py-24 relative overflow-hidden"
       aria-labelledby="process-heading"
     >
       {/* Decorative background elements */}

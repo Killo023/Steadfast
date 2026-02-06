@@ -37,7 +37,7 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden bg-navy px-4 pt-[180px] pb-20"
+      className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden bg-[#000000] px-4 pt-[180px] pb-20 tactical-grid"
       aria-label="Hero"
     >
       {/* Background image: always visible; full opacity when no video */}
@@ -102,10 +102,10 @@ export function Hero() {
       <div className="absolute inset-0 z-[1] animated-gradient" />
       {/* Overlays (above video/image so text stays readable) */}
       <motion.div 
-        className="absolute inset-0 z-[1] bg-gradient-to-b from-navy/40 via-navy/50 to-navy/95" 
+        className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/70 to-black/95" 
         style={{ opacity }}
       />
-      <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(66,153,225,0.15),transparent)]" />
+      <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(34,197,94,0.08),transparent)]" />
       {/* Content */}
       <motion.div 
         className="relative z-10 mx-auto max-w-6xl text-center px-4"
@@ -122,12 +122,12 @@ export function Hero() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
           >
-            <span className="inline-block bg-gradient-to-r from-white via-accent-muted to-white bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
+            <span className="inline-block bg-gradient-to-r from-white via-accent to-white bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
               Steadfast Tactical
             </span>
           </motion.h1>
           <motion.p
-            className="text-2xl text-white md:text-3xl lg:text-4xl font-semibold mb-6 tracking-wide"
+            className="text-[19px] text-white md:text-[25px] lg:text-[31px] font-bold mb-6 tracking-wider uppercase"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -135,7 +135,7 @@ export function Hero() {
             Professional & Affordable Firearm Training
           </motion.p>
           <motion.p
-            className="text-lg text-gray-200 md:text-xl lg:text-2xl mb-6 tracking-wide"
+            className="text-lg text-gray-300 md:text-xl lg:text-2xl mb-6 tracking-wider uppercase font-medium"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}

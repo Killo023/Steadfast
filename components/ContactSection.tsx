@@ -10,7 +10,7 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="scroll-mt-20 bg-navy px-4 py-16 md:py-24"
+      className="scroll-mt-20 bg-[#0a0a0a] px-4 py-16 md:py-24"
       aria-labelledby="contact-heading"
     >
       <div className="mx-auto max-w-4xl">

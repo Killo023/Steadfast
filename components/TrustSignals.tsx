@@ -7,7 +7,7 @@ import { images, fallbackImage } from "@/lib/images";
 export function TrustSignals() {
   return (
     <section
-      className="bg-navy-light px-4 py-16 md:py-24 relative overflow-hidden"
+      className="bg-[#000000] px-4 py-16 md:py-24 relative overflow-hidden"
       aria-labelledby="trust-heading"
     >
       {/* Abstract background elements */}
@@ -25,7 +25,7 @@ export function TrustSignals() {
           }}
         />
         <motion.div
-          className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#fbbf24]/5 blur-3xl"
+          className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 blur-3xl"
           animate={{
             x: [0, -50, 0],
             y: [0, -30, 0],
@@ -53,7 +53,7 @@ export function TrustSignals() {
             transition={{ duration: 0.6 }}
             whileHover={{ y: -8 }}
           >
-            <div className="relative h-full min-h-[280px] bg-gradient-to-br from-navy via-navy-light to-navy border border-accent/20 overflow-hidden">
+            <div className="relative h-full min-h-[280px] bg-gradient-to-br from-[#0a0a0a] via-[#0d1117] to-[#0a0a0a] border border-accent/20 overflow-hidden">
               {/* Abstract geometric shapes */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 transform rotate-45 translate-x-8 -translate-y-8"></div>
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent/5 transform -rotate-12 -translate-x-4 translate-y-4"></div>
@@ -149,7 +149,7 @@ export function TrustSignals() {
             transition={{ duration: 0.6, delay: 0.2 }}
             whileHover={{ y: -8 }}
           >
-            <div className="relative h-full min-h-[280px] bg-gradient-to-br from-navy via-navy-light to-navy border border-accent/20 overflow-hidden">
+            <div className="relative h-full min-h-[280px] bg-gradient-to-br from-[#0a0a0a] via-[#0d1117] to-[#0a0a0a] border border-accent/20 overflow-hidden">
               {/* Abstract starfield background */}
               <div className="absolute inset-0 opacity-20">
                 {[...Array(12)].map((_, i) => (
@@ -232,8 +232,8 @@ export function TrustSignals() {
                 e.currentTarget.src = fallbackImage;
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-navy/30 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-navy/20"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/20"></div>
           </motion.div>
           <motion.div
             className="w-full lg:w-[40%] flex flex-col justify-center"
