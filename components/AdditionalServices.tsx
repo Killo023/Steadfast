@@ -3,19 +3,19 @@
 import { motion } from "framer-motion";
 import { SectionTitle } from "@/components/SectionTitle";
 import { HexagonCard } from "@/components/HexagonCard";
-import { Shield, Building2 } from "lucide-react";
+import { Shield, Building2, Target } from "lucide-react";
 import { images, fallbackImage } from "@/lib/images";
 
 const services = [
   {
-    title: "Firearm Motivation",
-    description: "Comprehensive firearm motivation training for individuals seeking competency certification. Covers all aspects of responsible firearm ownership, safety protocols, and legal requirements. Perfect for first-time applicants and those renewing their certification.",
+    title: "Firearm Motivation Training",
+    description: "Expert guidance and comprehensive training for completing your firearm motivation letter. Available for both personal and business license applications. Covers all aspects of responsible firearm ownership, safety protocols, and legal requirements. Perfect for first-time applicants and those renewing their certification.",
     icon: Shield,
     image: images.training,
   },
   {
-    title: "Regulation 21 Security Companies",
-    description: "Specialized training programs designed for security companies operating under Regulation 21. Includes group training options, corporate packages, and tailored programs to meet your organization's specific security training requirements.",
+    title: "Business & Corporate Training",
+    description: "Specialized training programs designed for businesses, security companies, and organizations. Includes Regulation 21 compliance training, group training options, corporate packages, and tailored programs to meet your organization's specific security training requirements.",
     icon: Building2,
     image: images.security,
   },
@@ -24,7 +24,7 @@ const services = [
 export function AdditionalServices() {
   return (
     <section
-      className="bg-navy px-4 py-16 md:py-20"
+      className="bg-navy px-4 py-16 md:py-24"
       aria-labelledby="services-heading"
     >
       <div className="mx-auto max-w-6xl">
@@ -36,7 +36,12 @@ export function AdditionalServices() {
           <h2 id="services-heading" className="sr-only">
             Additional services
           </h2>
-          <SectionTitle className="mb-10">Additional Services</SectionTitle>
+          <div className="flex justify-center mb-6">
+            <div className="flex-shrink-0 p-4 bg-gradient-to-br from-accent/10 to-accent-muted/10 border border-accent/20">
+              <i className="fa-solid fa-gun text-accent text-4xl" aria-hidden></i>
+            </div>
+          </div>
+          <SectionTitle className="mb-12">Additional Services</SectionTitle>
         </motion.div>
 
         <div className="grid gap-6 md:grid-cols-2">
@@ -59,7 +64,7 @@ export function AdditionalServices() {
                 transition={{ duration: 0.3 }}
               >
                 <HexagonCard className="group glow-effect">
-                  <div className="relative mb-6 aspect-video w-full overflow-hidden rounded-xl">
+                    <div className="relative mb-6 aspect-video w-full overflow-hidden">
                     <motion.img
                       src={service.image}
                       alt=""
@@ -67,14 +72,14 @@ export function AdditionalServices() {
                       onError={(e) => {
                         e.currentTarget.src = fallbackImage;
                       }}
-                      whileHover={{ scale: 1.15 }}
+                      whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.5 }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                   <div className="flex items-start gap-4">
                     <motion.div 
-                      className="flex-shrink-0 p-3 rounded-lg bg-accent/10 border border-accent/20"
+                      className="flex-shrink-0 p-3 bg-gradient-to-br from-accent/10 to-accent-muted/10 border border-accent/20"
                       whileHover={{ rotate: 360, scale: 1.1 }}
                       transition={{ duration: 0.5 }}
                     >
@@ -84,10 +89,10 @@ export function AdditionalServices() {
                       />
                     </motion.div>
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-white mb-2">
+                      <h3 className="text-xl font-semibold text-white mb-3">
                         {service.title}
                       </h3>
-                      <p className="text-white/80 leading-relaxed">{service.description}</p>
+                      <p className="text-gray-300 leading-relaxed">{service.description}</p>
                     </div>
                   </div>
                 </HexagonCard>

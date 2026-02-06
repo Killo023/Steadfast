@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { CheckCircle2 } from "lucide-react";
 import { images, fallbackImage } from "@/lib/images";
 
 export function Hero() {
@@ -36,7 +37,7 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden bg-navy px-4 pt-[194px] pb-30"
+      className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden bg-navy px-4 pt-[180px] pb-20"
       aria-label="Hero"
     >
       {/* Background image: always visible; full opacity when no video */}
@@ -101,10 +102,10 @@ export function Hero() {
       <div className="absolute inset-0 z-[1] animated-gradient" />
       {/* Overlays (above video/image so text stays readable) */}
       <motion.div 
-        className="absolute inset-0 z-[1] bg-gradient-to-b from-navy/40 via-navy/40 to-navy/95" 
+        className="absolute inset-0 z-[1] bg-gradient-to-b from-navy/40 via-navy/50 to-navy/95" 
         style={{ opacity }}
       />
-      <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(59,130,246,0.15),transparent)]" />
+      <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(66,153,225,0.15),transparent)]" />
       {/* Content */}
       <motion.div 
         className="relative z-10 mx-auto max-w-6xl text-center px-4"
@@ -116,7 +117,7 @@ export function Hero() {
           transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
         >
           <motion.h1
-            className="font-display text-4xl font-normal uppercase tracking-wide text-white sm:text-5xl md:text-6xl lg:text-7xl mb-4"
+            className="font-display text-4xl font-normal uppercase tracking-wide text-white sm:text-5xl md:text-6xl lg:text-7xl mb-6"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
@@ -126,51 +127,40 @@ export function Hero() {
             </span>
           </motion.h1>
           <motion.p
-            className="text-xl text-gray-200 md:text-2xl lg:text-3xl font-light mb-6"
+            className="text-2xl text-white md:text-3xl lg:text-4xl font-semibold mb-6 tracking-wide"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             Professional & Affordable Firearm Training
           </motion.p>
+          <motion.p
+            className="text-lg text-gray-200 md:text-xl lg:text-2xl mb-6 tracking-wide"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            For Personal & Business Purposes
+          </motion.p>
         </motion.div>
-        <motion.p
-          className="mt-4 text-base text-white md:text-lg max-w-3xl mx-auto leading-relaxed mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          Your starting point to firearm proficiency. Accredited SAPS training in Lenasia.
-        </motion.p>
         
-        {/* Additional Details */}
+        {/* Accreditation Badges - Yellow Authenticity */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-8 mb-8 max-w-4xl mx-auto"
+          className="flex flex-wrap items-center justify-center gap-4 mb-8"
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-            {[
-              { value: "SAPS", label: "Accredited Provider" },
-              { value: "100%", label: "Transparent Pricing" },
-              { value: "All", label: "Equipment Provided" },
-            ].map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                className="flex flex-col items-center modern-card p-6 glow-effect"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
-                whileHover={{ scale: 1.05, y: -5 }}
-              >
-                <div className="text-3xl font-bold text-accent mb-2">{stat.value}</div>
-                <p className="text-sm text-white/90">{stat.label}</p>
-              </motion.div>
-            ))}
+          <div className="authenticity-badge">
+            <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
+            <span>SAPS Accredited</span>
+          </div>
+          <div className="authenticity-badge">
+            <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
+            <span>PFTC Accredited</span>
           </div>
         </motion.div>
-
+        
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -179,7 +169,7 @@ export function Hero() {
         >
           <motion.button
             onClick={scrollToContact}
-            className="modern-button px-8 py-3 text-white font-semibold uppercase tracking-wide shadow-lg"
+            className="modern-button px-10 py-4 text-white font-semibold uppercase tracking-wide shadow-lg text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -187,7 +177,7 @@ export function Hero() {
           </motion.button>
           <motion.a
             href="#pricing"
-            className="px-8 py-3 border-2 border-accent text-white font-semibold uppercase tracking-wide hover:bg-accent/20 transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-navy glow-effect"
+            className="px-10 py-4 border-2 border-accent text-accent font-semibold uppercase tracking-wide hover:bg-accent hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-white text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

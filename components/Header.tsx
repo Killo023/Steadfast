@@ -16,23 +16,23 @@ export function Header() {
 
   return (
     <motion.header
-      className="fixed left-0 right-0 top-0 z-50 border-b border-gray-200 bg-white backdrop-blur-md shadow-md shadow-gray-200/50"
+      className="fixed left-0 right-0 top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur-lg shadow-md"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <motion.div
-        className="mx-auto flex max-w-7xl items-center justify-between px-6 py-[0.175rem]"
+        className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4"
         animate={{
-          paddingTop: scrolled ? "0.25rem" : "0.175rem",
-          paddingBottom: scrolled ? "0.25rem" : "0.175rem",
+          paddingTop: scrolled ? "0.875rem" : "1rem",
+          paddingBottom: scrolled ? "0.875rem" : "1rem",
         }}
         transition={{ duration: 0.3 }}
       >
         <Link href="/" className="flex items-center group">
           <motion.div
-            className="relative h-24 w-[288px] md:h-32 md:w-[384px] flex-shrink-0"
-            whileHover={{ scale: 1.05 }}
+            className="relative h-20 w-[240px] md:h-28 md:w-[336px] flex-shrink-0"
+            whileHover={{ scale: 1.03 }}
             transition={{ duration: 0.2 }}
           >
             <Image
@@ -44,7 +44,7 @@ export function Header() {
             />
           </motion.div>
         </Link>
-        <nav className="flex gap-6" aria-label="Main navigation">
+        <nav className="flex gap-8" aria-label="Main navigation">
           {[
             { href: "#pricing", label: "Pricing" },
             { href: "#faq", label: "FAQ" },
@@ -58,11 +58,11 @@ export function Header() {
             >
               <Link
                 href={link.href}
-                className="text-sm font-medium text-gray-800 transition-all hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-white rounded-md px-2 py-1 relative group"
+                className="text-base font-medium text-gray-700 transition-all hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-white px-3 py-2 relative group"
               >
                 {link.label}
                 <motion.span
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent origin-left"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent to-accent-muted origin-left"
                   initial={{ scaleX: 0 }}
                   whileHover={{ scaleX: 1 }}
                   transition={{ duration: 0.3 }}

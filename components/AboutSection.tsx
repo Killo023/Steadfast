@@ -3,19 +3,20 @@
 import { motion } from "framer-motion";
 import { SectionTitle } from "@/components/SectionTitle";
 import { HexagonCard } from "@/components/HexagonCard";
-import { Target, Users, Award, Shield } from "lucide-react";
+import { Target, Users, Award, Shield, Crosshair, Building2, CheckCircle2 } from "lucide-react";
 import { images, fallbackImage } from "@/lib/images";
 
 const features = [
   {
     icon: Award,
-    title: "SAPS Accredited",
-    description: "Fully accredited training provider recognized by the South African Police Service.",
+    title: "SAPS & PFTC Accredited",
+    description: "Fully accredited training provider recognized by the South African Police Service and Professional Firearm Trainers Council.",
+    useBullseye: true,
   },
   {
     icon: Users,
     title: "Experienced Instructors",
-    description: "Learn from certified professionals with years of real-world experience.",
+    description: "Learn from certified professionals including our range officer owner with years of real-world experience.",
   },
   {
     icon: Target,
@@ -32,26 +33,121 @@ const features = [
 export function AboutSection() {
   return (
     <section
-      className="bg-navy px-4 py-16 md:py-20"
+      className="bg-navy px-4 py-16 md:py-24 relative overflow-hidden"
       aria-labelledby="about-heading"
     >
-      <div className="mx-auto max-w-6xl">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-20 left-10 w-32 h-32 bg-accent/5 rounded-full blur-3xl"
+          animate={{
+            x: [0, 30, 0],
+            y: [0, 20, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-10 w-40 h-40 bg-[#fbbf24]/5 rounded-full blur-3xl"
+          animate={{
+            x: [0, -30, 0],
+            y: [0, -20, 0],
+            scale: [1, 1.3, 1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        {/* Small floating dots */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-accent/20 rounded-full"
+            style={{
+              left: `${15 + i * 15}%`,
+              top: `${20 + (i % 3) * 30}%`,
+            }}
+            animate={{
+              y: [0, -20, 0],
+              opacity: [0.2, 0.5, 0.2],
+            }}
+            transition={{
+              duration: 3 + i * 0.5,
+              repeat: Infinity,
+              delay: i * 0.3,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="mx-auto max-w-6xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
           <h2 id="about-heading" className="sr-only">
             About us
           </h2>
+          <div className="flex justify-center mb-6">
+            <div className="flex-shrink-0 p-4 bg-gradient-to-br from-accent/10 to-accent-muted/10 border border-accent/20">
+              <i className="fa-solid fa-gun text-accent text-4xl" aria-hidden></i>
+            </div>
+          </div>
           <SectionTitle className="mb-6">About Steadfast Tactical</SectionTitle>
-          <p className="text-lg text-white/90 max-w-3xl mx-auto leading-relaxed mb-8">
-            Steadfast Tactical is a leading firearm competency training provider based in Lenasia, 
-            South Africa. We are committed to delivering professional, comprehensive training that 
-            equips individuals with the knowledge and skills necessary for responsible firearm ownership.
-          </p>
+          
+          {/* Image and text layout */}
+          <div className="flex flex-col lg:flex-row items-center gap-8 mb-8">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative w-full lg:w-1/2 aspect-[4/3] overflow-hidden"
+            >
+              <motion.img
+                src={images.rifle}
+                alt="Professional firearm training"
+                className="h-full w-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = fallbackImage;
+                }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.5 }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent"></div>
+              {/* Decorative corner elements */}
+              <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-accent/30"></div>
+              <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-accent/30"></div>
+            </motion.div>
+            <div className="w-full lg:w-1/2">
+              <p className="text-lg text-gray-300 leading-relaxed mb-6">
+                Steadfast Tactical is a leading firearm competency training provider in 
+                South Africa. Our business owner is a certified range officer with extensive experience 
+                in firearm safety and training. We are committed to delivering professional, comprehensive 
+                training for both personal and business purposes, equipping individuals and organizations 
+                with the knowledge and skills necessary for responsible firearm ownership and operation.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+            <div className="authenticity-badge">
+              <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
+              <span>SAPS Accredited</span>
+            </div>
+            <div className="authenticity-badge">
+              <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
+              <span>PFTC Accredited</span>
+            </div>
+          </div>
         </motion.div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -73,46 +169,55 @@ export function AboutSection() {
                 whileHover={{ y: -8, scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               >
-                <HexagonCard className="h-full flex flex-col items-center text-center glow-effect">
+                <HexagonCard className="h-full flex flex-col items-center text-center glow-effect relative overflow-hidden group">
+                  {/* Small decorative corner badge */}
+                  <div className="absolute top-2 right-2 w-3 h-3 bg-accent/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  
                   <motion.div 
-                    className="flex-shrink-0 p-4 rounded-xl bg-accent/10 border border-accent/20 mb-4"
+                    className="flex-shrink-0 p-4 bg-gradient-to-br from-accent/10 to-accent-muted/10 border border-accent/20 mb-5 relative"
                     whileHover={{ rotate: 360, scale: 1.1 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <IconComponent className="h-8 w-8 text-accent" aria-hidden />
+                    {/* Animated ring around icon */}
+                    <motion.div
+                      className="absolute inset-0 border-2 border-accent/20 rounded-full"
+                      animate={{
+                        scale: [1, 1.3, 1],
+                        opacity: [0.5, 0, 0.5],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: i * 0.3,
+                      }}
+                    />
+                    {feature.title === "SAPS & PFTC Accredited" ? (
+                      <i className="fa-solid fa-bullseye text-accent text-3xl relative z-10" aria-hidden></i>
+                    ) : (
+                      <IconComponent className="h-8 w-8 text-accent relative z-10" aria-hidden />
+                    )}
                   </motion.div>
-                  <h3 className="text-lg font-semibold text-white mb-2">
+                  <h3 className="text-lg font-semibold text-white mb-3">
                     {feature.title}
                   </h3>
-                  <p className="text-sm text-white/80 leading-relaxed">
+                  <p className="text-sm text-gray-300 leading-relaxed">
                     {feature.description}
                   </p>
+                  
+                  {/* Bottom accent line */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent/30 to-transparent"
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.15 + 0.3, duration: 0.5 }}
+                  />
                 </HexagonCard>
               </motion.div>
             </motion.div>
             );
           })}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-12 modern-card p-8"
-        >
-          <h3 className="text-xl font-semibold text-white mb-4">Our Mission</h3>
-          <p className="text-white/90 leading-relaxed mb-4">
-            At Steadfast Tactical, our mission is to provide accessible, high-quality firearm 
-            competency training that promotes responsible ownership and enhances personal safety. 
-            We believe that proper training is essential for anyone considering firearm ownership, 
-            and we are dedicated to making this training accessible to all qualified individuals.
-          </p>
-          <p className="text-white/90 leading-relaxed">
-            With transparent pricing, no hidden charges, and a commitment to excellence, we strive 
-            to be the trusted choice for firearm competency training in Lenasia and beyond.
-          </p>
-        </motion.div>
       </div>
     </section>
   );

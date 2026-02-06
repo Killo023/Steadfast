@@ -1,16 +1,16 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { SectionTitle } from "@/components/SectionTitle";
-import { Check } from "lucide-react";
+import { Check, Target, User, Briefcase, CheckCircle2 } from "lucide-react";
 import { images, fallbackImage } from "@/lib/images";
 
 const WHATSAPP_NUMBER = "+27607696710";
 const WHATSAPP_MESSAGE = "Hi, I'm interested in your firearm training courses. Could you please provide more information about pricing and availability?";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
-const courses = [
+const personalCourses = [
   { title: "Handgun", price: "R1 200" },
   { title: "Handgun & Shotgun", price: "R1 700" },
   { title: "Handgun, Shotgun & Self Loading Rifle", price: "R2 100" },
@@ -20,18 +20,29 @@ const courses = [
   },
 ];
 
+const businessCourses = [
+  { title: "Handgun", price: "R1 800" },
+  { title: "Handgun & Shotgun", price: "R2 300" },
+  { title: "Handgun, Shotgun & Self Loading Rifle", price: "R2 800" },
+  {
+    title: "Handgun, Shotgun, Self Loading Rifle & Manual Action Rifle",
+    price: "R3 500",
+  },
+];
+
 const includes = [
   "Comprehensive Training",
   "All Assessment Materials",
   "Range Fees Included",
   "Qualification Shoot Ammunition",
   "Training Firearms Provided",
-  "SAPS-Accredited Certificate",
+  "SAPS & PFTC Accredited Certificate",
 ];
 
 export function PricingCards() {
   const [videoReady, setVideoReady] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
+  const [activeTab, setActiveTab] = useState<"personal" | "business">("personal");
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -43,10 +54,12 @@ export function PricingCards() {
     }
   }, [videoReady]);
 
+  const currentCourses = activeTab === "personal" ? personalCourses : businessCourses;
+
   return (
     <section
       id="pricing"
-      className="relative scroll-mt-20 bg-navy-light px-4 py-16 md:py-20 overflow-hidden"
+      className="relative scroll-mt-20 bg-navy-light px-4 py-16 md:py-24 overflow-hidden"
       aria-labelledby="pricing-heading"
     >
       {/* Background image fallback */}
@@ -112,15 +125,78 @@ export function PricingCards() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
           <h2 id="pricing-heading" className="sr-only">
             Course pricing
           </h2>
+          <div className="flex justify-center mb-6">
+            <div className="flex-shrink-0 p-4 bg-gradient-to-br from-accent/10 to-accent-muted/10 border border-accent/20">
+              <i className="fa-solid fa-gun text-accent text-4xl" aria-hidden></i>
+            </div>
+          </div>
           <SectionTitle className="mb-6">Our Courses</SectionTitle>
-          <p className="text-lg text-white/90 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-8">
             Steadfast Tactical has a wide range of training to suit personal and business requirements.
           </p>
+          
+          {/* Tab Selector */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex justify-center mb-8"
+          >
+            <div className="inline-flex bg-navy/60 backdrop-blur-sm border border-accent/20 p-1.5 gap-2">
+              <motion.button
+                onClick={() => setActiveTab("personal")}
+                className={`relative px-6 py-3 font-semibold text-sm uppercase tracking-wide transition-all duration-300 ${
+                  activeTab === "personal"
+                    ? "text-white"
+                    : "text-gray-400 hover:text-gray-300"
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {activeTab === "personal" && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute inset-0 bg-gradient-to-r from-accent to-accent-muted"
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                  />
+                )}
+                <span className="relative flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  Personal
+                </span>
+              </motion.button>
+              <motion.button
+                onClick={() => setActiveTab("business")}
+                className={`relative px-6 py-3 font-semibold text-sm uppercase tracking-wide transition-all duration-300 ${
+                  activeTab === "business"
+                    ? "text-white"
+                    : "text-gray-400 hover:text-gray-300"
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {activeTab === "business" && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute inset-0 bg-gradient-to-r from-accent to-accent-muted"
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                  />
+                )}
+                <span className="relative flex items-center gap-2">
+                  <Briefcase className="h-4 w-4" />
+                  Business
+                </span>
+              </motion.button>
+            </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
@@ -130,9 +206,17 @@ export function PricingCards() {
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <div className="overflow-hidden rounded-xl border border-accent/20 bg-navy/60 backdrop-blur-sm">
-            <div className="divide-y divide-accent/10">
-              {courses.map((course, i) => (
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="overflow-hidden border border-accent/20 bg-navy/60 backdrop-blur-sm shadow-lg"
+            >
+              <div className="divide-y divide-accent/10">
+                {currentCourses.map((course, i) => (
                 <motion.div
                   key={course.title}
                   initial={{ opacity: 0, x: -30 }}
@@ -176,59 +260,63 @@ export function PricingCards() {
                   </div>
                   {/* Hover effect line */}
                   <motion.div
-                    className="absolute bottom-0 left-0 h-0.5 bg-accent origin-left"
+                    className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-accent to-accent-muted origin-left"
                     initial={{ scaleX: 0 }}
                     whileHover={{ scaleX: 1 }}
                     transition={{ duration: 0.3 }}
                   />
                 </motion.div>
-              ))}
-            </div>
-          </div>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </motion.div>
 
         <motion.p
-          className="mt-6 text-center text-white/90"
+          className="mt-6 text-center text-gray-300 font-medium"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          Any combination can be arranged.
+          Any combination can be arranged. {activeTab === "business" && "Group discounts available for multiple participants."}
         </motion.p>
 
         <motion.div
-          className="mt-12 rounded-xl border border-accent/20 bg-navy/60 backdrop-blur-sm p-8"
+          className="mt-16 border border-accent/20 bg-navy/60 backdrop-blur-sm shadow-lg p-10"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <motion.p 
-            className="mb-6 text-sm font-semibold uppercase tracking-wide text-accent"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            Prices include
-          </motion.p>
-          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="flex items-center gap-3 mb-6">
+            <CheckCircle2 className="h-5 w-5 text-[#fbbf24]" aria-hidden />
+            <motion.p 
+              className="text-sm font-semibold uppercase tracking-wide text-accent"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              Prices include
+            </motion.p>
+          </div>
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {includes.map((item, i) => (
               <motion.li 
                 key={item} 
-                className="flex items-center gap-3 text-gray-200 group/item"
+                className="flex items-center gap-3 group/item"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.4 }}
               >
                 <motion.div 
-                  className="flex-shrink-0 p-1 rounded-md bg-accent/10 group-hover/item:bg-accent/20 transition-colors"
+                  className="flex-shrink-0 p-1.5 bg-accent/10 group-hover/item:bg-accent/20 transition-colors"
                   whileHover={{ scale: 1.2, rotate: 360 }}
                   transition={{ duration: 0.5 }}
                 >
                   <Check className="h-4 w-4 text-accent" aria-hidden />
                 </motion.div>
-                <span className="text-sm text-white/90">{item}</span>
+                <span className="text-sm text-gray-300 font-medium">{item}</span>
               </motion.li>
             ))}
           </ul>

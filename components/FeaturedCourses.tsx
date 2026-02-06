@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { SectionTitle } from "@/components/SectionTitle";
 import { HexagonCard } from "@/components/HexagonCard";
-import { Shield, Target, Users } from "lucide-react";
+import { Shield, Target, Users, Crosshair } from "lucide-react";
 import { images, fallbackImage } from "@/lib/images";
 
 const WHATSAPP_NUMBER = "+27607696710";
@@ -13,28 +13,28 @@ const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent
 const featuredCourses = [
   {
     title: "Personal Purpose Firearm Training",
-    description: "Comprehensive firearm competency training for personal use. Covers all firearm categories with SAPS-accredited certification.",
+    description: "Comprehensive firearm competency training for personal use. Covers all firearm categories with SAPS & PFTC accredited certification. Perfect for individuals seeking firearm ownership for self-defense, sport shooting, or hunting.",
     icon: Target,
     image: images.handgun,
   },
   {
-    title: "Firearm Motivation Training",
-    description: "Professional firearm motivation training for individuals seeking competency certification. Perfect for first-time applicants.",
-    icon: Shield,
-    image: images.section7,
-  },
-  {
-    title: "Regulation 21 Security Companies",
-    description: "Specialized training programs for security companies operating under Regulation 21. Group training and corporate packages available.",
+    title: "Business Purpose Firearm Training",
+    description: "Professional firearm competency training designed for business and commercial purposes. Ideal for security companies, private investigators, and businesses requiring armed personnel. Group training and corporate packages available.",
     icon: Users,
     image: images.regulation,
+  },
+  {
+    title: "Firearm Motivation Training",
+    description: "Expert guidance and training for completing your firearm motivation letter. Professional assistance for both personal and business license applications. Perfect for first-time applicants.",
+    icon: Shield,
+    image: images.section7,
   },
 ];
 
 export function FeaturedCourses() {
   return (
     <section
-      className="bg-navy px-4 py-16 md:py-20"
+      className="bg-navy px-4 py-16 md:py-24"
       aria-labelledby="featured-heading"
     >
       <div className="mx-auto max-w-6xl">
@@ -43,11 +43,16 @@ export function FeaturedCourses() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
           <h2 id="featured-heading" className="sr-only">
             Featured training courses
           </h2>
+          <div className="flex justify-center mb-6">
+            <div className="flex-shrink-0 p-4 bg-gradient-to-br from-accent/10 to-accent-muted/10 border border-accent/20">
+              <i className="fa-solid fa-gun text-accent text-4xl" aria-hidden></i>
+            </div>
+          </div>
           <SectionTitle className="mb-4">Featured Training Courses</SectionTitle>
         </motion.div>
 
@@ -72,7 +77,7 @@ export function FeaturedCourses() {
               >
                 <HexagonCard className="h-full flex flex-col group glow-effect">
                   {course.image ? (
-                    <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-xl">
+                    <div className="relative mb-5 aspect-video w-full overflow-hidden">
                       <motion.img
                         src={course.image}
                         alt={course.title}
@@ -80,12 +85,12 @@ export function FeaturedCourses() {
                         onError={(e) => {
                           e.currentTarget.src = fallbackImage;
                         }}
-                        whileHover={{ scale: 1.15 }}
+                        whileHover={{ scale: 1.1 }}
                         transition={{ duration: 0.5 }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/40 to-transparent"></div>
                       <motion.div 
-                        className="absolute top-4 left-4 p-2 rounded-lg bg-accent/10 border border-accent/20 backdrop-blur-sm"
+                        className="absolute top-4 left-4 p-3 bg-accent/10 border border-accent/20 backdrop-blur-sm"
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         transition={{ duration: 0.2 }}
                       >
@@ -93,8 +98,8 @@ export function FeaturedCourses() {
                       </motion.div>
                     </div>
                   ) : (
-                    <div className="relative mb-4 aspect-video w-full flex items-center justify-center rounded-xl bg-gradient-to-br from-navy-light to-navy border border-accent/20">
-                      <div className="p-6 rounded-xl bg-accent/10 border border-accent/20 backdrop-blur-sm">
+                    <div className="relative mb-5 aspect-video w-full flex items-center justify-center bg-gradient-to-br from-navy-light to-navy border border-accent/20">
+                      <div className="p-6 bg-accent/10 border border-accent/20 backdrop-blur-sm">
                         <IconComponent className="h-12 w-12 text-accent" aria-hidden />
                       </div>
                     </div>
@@ -102,14 +107,14 @@ export function FeaturedCourses() {
                   <h3 className="text-lg font-semibold text-white mb-3">
                     {course.title}
                   </h3>
-                  <p className="text-sm text-white/80 leading-relaxed mb-6 flex-1">
+                  <p className="text-sm text-gray-300 leading-relaxed mb-6 flex-1">
                     {course.description}
                   </p>
                   <motion.a
                     href={WHATSAPP_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full px-4 py-2 modern-button text-white font-semibold uppercase tracking-wide text-sm shadow-lg inline-block text-center"
+                    className="w-full px-4 py-3 modern-button text-white font-semibold uppercase tracking-wide text-sm shadow-lg inline-block text-center"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >

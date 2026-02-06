@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionTitle } from "@/components/SectionTitle";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Target } from "lucide-react";
 
 const faqs = [
   {
@@ -32,7 +32,7 @@ const faqs = [
   },
   {
     question: "What are your operating hours?",
-    answer: "We offer flexible scheduling to accommodate your needs, including weekday and weekend options. Training sessions typically run from 8:00 AM to 5:00 PM, but we can arrange custom schedules for groups or individuals with specific requirements. Contact us via WhatsApp (+27 60 769 6710) to discuss available training dates that suit your schedule. We're based in Lenasia and can arrange training at various times throughout the week.",
+    answer: "We offer flexible scheduling to accommodate your needs, including weekday and weekend options. Training sessions typically run from 8:00 AM to 5:00 PM, but we can arrange custom schedules for groups or individuals with specific requirements. Contact us via WhatsApp (+27 60 769 6710) to discuss available training dates that suit your schedule.",
   },
   {
     question: "Do you offer group training or corporate packages?",
@@ -40,7 +40,7 @@ const faqs = [
   },
   {
     question: "How long does the training take?",
-    answer: "Our comprehensive training program typically spans 2-3 days, depending on the firearm categories you select. The training includes both theoretical classroom instruction and practical range training. Single category training (handgun only) usually takes 2 days, while complete packages covering all categories may take 3 days. We ensure thorough coverage of all required topics while maintaining an efficient schedule. All training is conducted at our accredited facility in Lenasia.",
+    answer: "Our comprehensive training program typically spans 2-3 days, depending on the firearm categories you select. The training includes both theoretical classroom instruction and practical range training. Single category training (handgun only) usually takes 2 days, while complete packages covering all categories may take 3 days. We ensure thorough coverage of all required topics while maintaining an efficient schedule.",
   },
   {
     question: "What is included in the course price?",
@@ -62,7 +62,7 @@ export function FAQ() {
   return (
     <section
       id="faq"
-      className="scroll-mt-20 bg-navy-light px-4 py-16 md:py-20"
+      className="scroll-mt-20 bg-navy-light px-4 py-16 md:py-24"
       aria-labelledby="faq-heading"
     >
       <div className="mx-auto max-w-4xl">
@@ -71,13 +71,18 @@ export function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
           <h2 id="faq-heading" className="sr-only">
             Frequently asked questions
           </h2>
+          <div className="flex justify-center mb-6">
+            <div className="flex-shrink-0 p-4 bg-gradient-to-br from-accent/10 to-accent-muted/10 border border-accent/20">
+              <i className="fa-solid fa-gun text-accent text-4xl" aria-hidden></i>
+            </div>
+          </div>
           <SectionTitle className="mb-6">Frequently Asked Questions</SectionTitle>
-          <p className="text-lg text-white/90 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
             Have questions? We've got answers. Find everything you need to know about 
             our training programs and services.
           </p>
@@ -103,7 +108,7 @@ export function FAQ() {
                 <div className="modern-card overflow-hidden glow-effect">
                   <motion.button
                     onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                    className="w-full flex items-center justify-between p-6 text-left focus:outline-none focus:ring-2 focus:ring-accent rounded-lg"
+                    className="w-full flex items-center justify-between p-6 text-left focus:outline-none focus:ring-2 focus:ring-accent"
                     aria-expanded={openIndex === i}
                     whileHover={{ x: 5 }}
                     transition={{ duration: 0.2 }}
@@ -130,7 +135,7 @@ export function FAQ() {
                       className="border-t border-accent/10"
                     >
                       <div className="px-6 pb-6 pt-4">
-                        <p className="text-white/90 leading-relaxed">{faq.answer}</p>
+                        <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
                       </div>
                     </motion.div>
                   )}
@@ -145,10 +150,10 @@ export function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-12 modern-card p-8 text-center"
+          className="mt-16 modern-card p-10 text-center"
         >
           <h3 className="text-xl font-semibold text-white mb-4">Still have questions?</h3>
-          <p className="text-white/90 leading-relaxed mb-6">
+          <p className="text-gray-300 leading-relaxed mb-6 text-base">
             Can't find the answer you're looking for? We're here to help. 
             Contact us directly and we'll get back to you as soon as possible.
           </p>
@@ -156,7 +161,7 @@ export function FAQ() {
             href={`https://wa.me/+27607696710?text=${encodeURIComponent("Hi, I have a question about your firearm training services. Could you please help?")}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="modern-button inline-block px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-navy"
+            className="modern-button inline-block px-8 py-3 text-sm text-white font-semibold uppercase tracking-wider focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-navy"
           >
             Contact Us on WhatsApp
           </a>
