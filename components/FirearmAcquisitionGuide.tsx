@@ -165,6 +165,9 @@ export function FirearmAcquisitionGuide() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mb-16"
         >
+          <p className="text-center text-sm md:text-base text-accent font-sans font-medium uppercase tracking-wider mb-6">
+            Click any step below to view details
+          </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 lg:gap-8 px-4">
             {acquisitionSteps.map((step, i) => {
               const IconComponent = step.icon;
@@ -175,10 +178,13 @@ export function FirearmAcquisitionGuide() {
                 <div key={step.number} className="flex flex-col md:flex-row items-center">
                   {/* Clickable Step Node */}
                   <motion.button
+                    type="button"
                     onClick={() => setExpandedStep(isExpanded ? null : i)}
                     onMouseEnter={() => setHoveredStep(i)}
                     onMouseLeave={() => setHoveredStep(null)}
-                    className={`relative flex flex-col items-center gap-3 group cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-navy`}
+                    aria-label={`Step ${step.number}: ${step.title.split("(")[0].trim()} — click to view details`}
+                    aria-expanded={isExpanded}
+                    className={`relative flex flex-col items-center gap-3 group cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[#0a0a0a] rounded-lg transition-shadow ${isHovered && !isExpanded ? 'ring-2 ring-accent/50' : ''}`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     initial={{ opacity: 0, y: 20 }}
