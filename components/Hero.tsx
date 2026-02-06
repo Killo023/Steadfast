@@ -127,7 +127,7 @@ export function Hero() {
             </span>
           </motion.h1>
           <motion.p
-            className="text-[19px] text-white md:text-[25px] lg:text-[31px] font-bold mb-6 tracking-wider uppercase"
+            className="font-sans text-[19px] text-white md:text-[25px] lg:text-[31px] font-bold mb-6 tracking-wider uppercase"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}

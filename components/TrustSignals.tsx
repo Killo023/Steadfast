@@ -76,22 +76,14 @@ export function TrustSignals() {
                 </h3>
                 
                 <div className="flex flex-wrap items-center justify-center gap-3">
-                  <motion.div
-                    className="authenticity-badge"
-                    whileHover={{ scale: 1.05, rotate: 2 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  <div className="authenticity-badge">
                     <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
                     <span>SAPS</span>
-                  </motion.div>
-                  <motion.div
-                    className="authenticity-badge"
-                    whileHover={{ scale: 1.05, rotate: -2 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  </div>
+                  <div className="authenticity-badge">
                     <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
                     <span>PFTC</span>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
 

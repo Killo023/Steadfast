@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const basicUnitStandards = [
   { title: "Demonstrate knowledge of the firearms control Act", code: "Unit Standard 117705" },
@@ -19,7 +20,15 @@ const businessUnitStandards = [
 
 const regulation21 = ["Handgun", "Shotgun", "Self Loading rifle", "Manually operated rifle"];
 
+type ExpandedSection = "basic" | "business" | "regulation21" | null;
+
 export function AccreditationSection() {
+  const [expanded, setExpanded] = useState<ExpandedSection>(null);
+
+  const toggle = (key: ExpandedSection) => {
+    setExpanded((prev) => (prev === key ? null : key));
+  };
+
   return (
     <section
       className="bg-[#0d1117] px-4 py-20 md:py-28 relative overflow-hidden"
@@ -38,7 +47,6 @@ export function AccreditationSection() {
           animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.5, 0.2] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
-        {/* Bright floating dots */}
         {[...Array(12)].map((_, i) => (
           <motion.div
             key={i}
@@ -64,13 +72,13 @@ export function AccreditationSection() {
       </div>
 
       <div className="mx-auto max-w-6xl relative z-10">
-        {/* Header: modern + gun & target icons + bright underline */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="text-center mb-14"
         >
           <h2 id="accreditation-heading" className="sr-only">
             Accreditation and unit standards
@@ -123,151 +131,223 @@ export function AccreditationSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            We offer SAPS & PFTC accredited training and the following unit standards. All our courses meet the highest professional standards and are recognized nationwide.
+            We offer SAPS & PFTC accredited training and the following unit standards. Click a category to view details.
           </motion.p>
         </motion.div>
 
-        {/* Basic Unit Standards - abstract card grid with target icon */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
-        >
-          <div className="flex items-center gap-3 mb-8">
-            <div className="p-3 border border-accent/30 bg-accent/10">
-              <i className="fa-solid fa-bullseye text-accent text-2xl" aria-hidden />
+        {/* Minimal clickable tiles */}
+        <div className="grid gap-4 md:grid-cols-3 mb-6">
+          {/* Basic Unit Standards tile */}
+          <motion.button
+            type="button"
+            onClick={() => toggle("basic")}
+            aria-expanded={expanded === "basic"}
+            aria-controls="accreditation-basic-content"
+            id="accreditation-basic"
+            className={`text-left w-full p-5 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[#0d1117] ${
+              expanded === "basic"
+                ? "border-accent bg-accent/10"
+                : "border-accent/30 bg-black/30 hover:border-accent/50 hover:bg-accent/5"
+            }`}
+            whileHover={{ scale: expanded === "basic" ? 1 : 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 border border-accent/40 bg-accent/10 flex-shrink-0">
+                <i className="fa-solid fa-bullseye text-accent text-xl" aria-hidden />
+              </div>
+              <div>
+                <span className="text-white font-bold text-sm uppercase tracking-wide block">
+                  Basic Unit Standards
+                </span>
+                <span className="text-accent/80 text-xs font-mono">{basicUnitStandards.length} standards</span>
+              </div>
+              <span className={`ml-auto text-accent text-lg transition-transform duration-300 ${expanded === "basic" ? "rotate-180" : ""}`}>
+                <i className="fa-solid fa-chevron-down" aria-hidden />
+              </span>
             </div>
-            <h4 className="text-xl md:text-2xl font-bold text-white uppercase tracking-wide">
-              Basic Accredited Unit Standards
-            </h4>
-            <div className="h-px flex-1 max-w-[120px] bg-gradient-to-r from-accent/50 to-transparent" />
-          </div>
+          </motion.button>
 
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {basicUnitStandards.map((standard, i) => (
-              <motion.div
-                key={standard.code}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="group relative"
-              >
-                <div className="relative p-5 border border-accent/20 bg-black/40 backdrop-blur-sm hover:border-accent/40 transition-all duration-300 overflow-hidden">
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-accent/5 transform rotate-45 translate-x-10 -translate-y-10" />
-                  <div className="flex items-start gap-4 relative">
-                    <div className="flex-shrink-0 p-2.5 border border-accent/30 bg-accent/10 group-hover:bg-accent/20 transition-colors">
-                      <i className="fa-solid fa-bullseye text-accent text-lg" aria-hidden />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h5 className="text-white font-semibold text-sm md:text-base leading-snug mb-1">
-                        {standard.title}
-                      </h5>
-                      <p className="text-accent font-mono text-xs">{standard.code}</p>
-                    </div>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent/50 to-transparent scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+          {/* Business Unit Standards tile */}
+          <motion.button
+            type="button"
+            onClick={() => toggle("business")}
+            aria-expanded={expanded === "business"}
+            aria-controls="accreditation-business-content"
+            id="accreditation-business"
+            className={`text-left w-full p-5 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#fbbf24] focus:ring-offset-2 focus:ring-offset-[#0d1117] ${
+              expanded === "business"
+                ? "border-[#fbbf24] bg-[#fbbf24]/10"
+                : "border-[#fbbf24]/30 bg-black/30 hover:border-[#fbbf24]/50 hover:bg-[#fbbf24]/5"
+            }`}
+            whileHover={{ scale: expanded === "business" ? 1 : 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 border border-[#fbbf24]/40 bg-[#fbbf24]/10 flex-shrink-0">
+                <i className="fa-solid fa-gun text-[#fbbf24] text-xl" aria-hidden />
+              </div>
+              <div>
+                <span className="text-white font-bold text-sm uppercase tracking-wide block">
+                  Business Unit Standards
+                </span>
+                <span className="text-[#fbbf24]/80 text-xs font-mono">{businessUnitStandards.length} standards</span>
+              </div>
+              <span className={`ml-auto text-[#fbbf24] text-lg transition-transform duration-300 ${expanded === "business" ? "rotate-180" : ""}`}>
+                <i className="fa-solid fa-chevron-down" aria-hidden />
+              </span>
+            </div>
+          </motion.button>
+
+          {/* Regulation 21 tile */}
+          <motion.button
+            type="button"
+            onClick={() => toggle("regulation21")}
+            aria-expanded={expanded === "regulation21"}
+            aria-controls="accreditation-regulation21-content"
+            id="accreditation-regulation21"
+            className={`text-left w-full p-5 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[#0d1117] ${
+              expanded === "regulation21"
+                ? "border-accent bg-accent/10"
+                : "border-white/20 bg-black/30 hover:border-white/40 hover:bg-white/5"
+            }`}
+            whileHover={{ scale: expanded === "regulation21" ? 1 : 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <div className="flex items-center gap-3">
+              <div className="flex gap-1.5 flex-shrink-0">
+                <div className="p-2 border border-accent/40 bg-accent/10">
+                  <i className="fa-solid fa-bullseye text-accent text-sm" aria-hidden />
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Business Unit Standards - gun icon */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
-        >
-          <div className="flex items-center gap-3 mb-8">
-            <div className="p-3 border border-[#fbbf24]/30 bg-[#fbbf24]/10">
-              <i className="fa-solid fa-gun text-[#fbbf24] text-2xl" aria-hidden />
-            </div>
-            <h4 className="text-xl md:text-2xl font-bold text-white uppercase tracking-wide">
-              Business Unit Standards
-            </h4>
-            <div className="h-px flex-1 max-w-[120px] bg-gradient-to-r from-[#fbbf24]/50 to-transparent" />
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            {businessUnitStandards.map((standard, i) => (
-              <motion.div
-                key={standard.code}
-                initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="group relative"
-              >
-                <div className="relative p-5 border border-[#fbbf24]/20 bg-black/40 backdrop-blur-sm hover:border-[#fbbf24]/40 transition-all duration-300 overflow-hidden">
-                  <div className="absolute bottom-0 left-0 w-16 h-16 bg-[#fbbf24]/5 transform -rotate-12 -translate-x-4 translate-y-4" />
-                  <div className="flex items-start gap-4 relative">
-                    <div className="flex-shrink-0 p-2.5 border border-[#fbbf24]/30 bg-[#fbbf24]/10 group-hover:bg-[#fbbf24]/20 transition-colors">
-                      <i className="fa-solid fa-gun text-[#fbbf24] text-lg" aria-hidden />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h5 className="text-white font-semibold text-sm md:text-base leading-snug mb-1">
-                        {standard.title}
-                      </h5>
-                      <p className="text-[#fbbf24] font-mono text-xs">{standard.code}</p>
-                    </div>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#fbbf24]/50 to-transparent scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+                <div className="p-2 border border-[#fbbf24]/40 bg-[#fbbf24]/10">
+                  <i className="fa-solid fa-gun text-[#fbbf24] text-sm" aria-hidden />
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Regulation 21 - mixed gun & target + bright categories */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-3 border border-accent/30 bg-accent/10">
-              <i className="fa-solid fa-bullseye text-accent text-xl" aria-hidden />
+              </div>
+              <div>
+                <span className="text-white font-bold text-sm uppercase tracking-wide block">
+                  Regulation 21
+                </span>
+                <span className="text-gray-400 text-xs">Compliance training</span>
+              </div>
+              <span className={`ml-auto text-white/70 text-lg transition-transform duration-300 ${expanded === "regulation21" ? "rotate-180" : ""}`}>
+                <i className="fa-solid fa-chevron-down" aria-hidden />
+              </span>
             </div>
-            <div className="p-3 border border-[#fbbf24]/30 bg-[#fbbf24]/10">
-              <i className="fa-solid fa-gun text-[#fbbf24] text-xl" aria-hidden />
-            </div>
-            <h4 className="text-xl md:text-2xl font-bold text-white uppercase tracking-wide">
-              Regulation 21 Compliance Training
-            </h4>
-          </div>
+          </motion.button>
+        </div>
 
-          <div className="relative p-8 md:p-10 border border-accent/20 bg-black/40 backdrop-blur-sm overflow-hidden">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-accent/5 rounded-full blur-2xl" />
-            <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#fbbf24]/5 rounded-full blur-2xl" />
+        {/* Expanded content */}
+        <AnimatePresence mode="wait">
+          {expanded === "basic" && (
+            <motion.div
+              id="accreditation-basic-content"
+              role="region"
+              aria-labelledby="accreditation-basic"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="overflow-hidden mb-6"
+            >
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {basicUnitStandards.map((standard, i) => (
+                  <motion.div
+                    key={standard.code}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25, delay: i * 0.05 }}
+                    className="group relative"
+                  >
+                    <div className="relative p-4 border border-accent/20 bg-black/40 backdrop-blur-sm rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 p-2 border border-accent/30 bg-accent/10">
+                          <i className="fa-solid fa-bullseye text-accent text-sm" aria-hidden />
+                        </div>
+                        <div className="min-w-0">
+                          <h5 className="text-white font-semibold text-sm leading-snug mb-1">{standard.title}</h5>
+                          <p className="text-accent font-mono text-xs">{standard.code}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
 
-            <p className="text-gray-400 leading-relaxed mb-8 relative z-10">
-              In addition to these unit standards, we offer Regulation 21 compliance training to Security professionals. Each year Armed security officers are required by law to complete a Regulation 21 refresher course. We hold small classes whereby we provide the training necessary to remain compliant. We also teach peripheral skills and concepts not contained in the course, at no extra charge.
-            </p>
+          {expanded === "business" && (
+            <motion.div
+              id="accreditation-business-content"
+              role="region"
+              aria-labelledby="accreditation-business"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="overflow-hidden mb-6"
+            >
+              <div className="grid gap-4 md:grid-cols-2">
+                {businessUnitStandards.map((standard, i) => (
+                  <motion.div
+                    key={standard.code}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25, delay: i * 0.05 }}
+                    className="group relative"
+                  >
+                    <div className="relative p-4 border border-[#fbbf24]/20 bg-black/40 backdrop-blur-sm rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 p-2 border border-[#fbbf24]/30 bg-[#fbbf24]/10">
+                          <i className="fa-solid fa-gun text-[#fbbf24] text-sm" aria-hidden />
+                        </div>
+                        <div className="min-w-0">
+                          <h5 className="text-white font-semibold text-sm leading-snug mb-1">{standard.title}</h5>
+                          <p className="text-[#fbbf24] font-mono text-xs">{standard.code}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
 
-            <h5 className="text-white font-semibold mb-4 relative z-10">Regulation 21 Training Categories:</h5>
-            <div className="flex flex-wrap gap-3 relative z-10">
-              {regulation21.map((category, i) => (
-                <motion.div
-                  key={category}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: i * 0.1 }}
-                  className="flex items-center gap-2 px-4 py-3 border border-accent/30 bg-accent/5 hover:bg-accent/10 hover:border-accent/50 transition-all group"
-                >
-                  <span className="w-2 h-2 rounded-full bg-[#fbbf24] group-hover:scale-125 transition-transform" />
-                  <span className="text-white font-medium text-sm">{category}</span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+          {expanded === "regulation21" && (
+            <motion.div
+              id="accreditation-regulation21-content"
+              role="region"
+              aria-labelledby="accreditation-regulation21"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="overflow-hidden mb-6"
+            >
+              <div className="relative p-6 md:p-8 border border-accent/20 bg-black/40 backdrop-blur-sm rounded-lg overflow-hidden">
+                <div className="absolute top-0 right-0 w-40 h-40 bg-accent/5 rounded-full blur-2xl" />
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#fbbf24]/5 rounded-full blur-2xl" />
+                <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-6 relative z-10">
+                  In addition to these unit standards, we offer Regulation 21 compliance training to Security professionals. Each year Armed security officers are required by law to complete a Regulation 21 refresher course. We hold small classes whereby we provide the training necessary to remain compliant. We also teach peripheral skills and concepts not contained in the course, at no extra charge.
+                </p>
+                <h5 className="text-white font-semibold text-sm mb-3 relative z-10">Regulation 21 Training Categories:</h5>
+                <div className="flex flex-wrap gap-2 relative z-10">
+                  {regulation21.map((category, i) => (
+                    <motion.span
+                      key={category}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.2, delay: i * 0.06 }}
+                      className="inline-flex items-center gap-2 px-3 py-2 border border-accent/30 bg-accent/5 rounded-md text-white text-sm"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#fbbf24]" />
+                      {category}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );

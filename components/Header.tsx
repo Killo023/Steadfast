@@ -44,7 +44,7 @@ export function Header() {
             />
           </motion.div>
         </Link>
-        <nav className="flex gap-8" aria-label="Main navigation">
+        <nav className="flex gap-8 font-sans font-medium" aria-label="Main navigation">
           {[
             { href: "#pricing", label: "Pricing" },
             { href: "#faq", label: "FAQ" },
