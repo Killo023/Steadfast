@@ -84,31 +84,6 @@ export function AccreditationSection() {
             Accreditation and unit standards
           </h2>
 
-          <div className="flex justify-center gap-3 mb-6">
-            <motion.div
-              className="p-2.5 border-2 border-accent/40 bg-accent/5 relative"
-              initial={{ scale: 0.8, rotate: -10 }}
-              whileInView={{ scale: 1, rotate: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              transition={{ type: "spring", stiffness: 200 }}
-            >
-              <i className="fa-solid fa-gun text-accent text-2xl md:text-3xl" aria-hidden />
-              <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-[#fbbf24] rounded-full animate-pulse" />
-            </motion.div>
-            <motion.div
-              className="p-2.5 border-2 border-[#fbbf24]/50 bg-[#fbbf24]/5 relative"
-              initial={{ scale: 0.8, rotate: 10 }}
-              whileInView={{ scale: 1, rotate: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.1, rotate: -5 }}
-              transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
-            >
-              <i className="fa-solid fa-bullseye text-[#fbbf24] text-2xl md:text-3xl" aria-hidden />
-              <span className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
-            </motion.div>
-          </div>
-
           <motion.h3
             className="text-3xl md:text-4xl lg:text-5xl font-bold text-white uppercase tracking-wider mb-4"
             initial={{ opacity: 0, y: 16 }}
