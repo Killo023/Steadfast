@@ -4,6 +4,22 @@ import { motion } from "framer-motion";
 import { Award, Stamp, Star, CheckCircle2 } from "lucide-react";
 import { images, fallbackImage } from "@/lib/images";
 
+/** Fixed positions/delays for starfield dots (deterministic for SSR hydration) */
+const STARFIELD_DOTS = [
+  { left: 13, top: 20, duration: 3.2, delay: 0 },
+  { left: 78, top: 54, duration: 3.8, delay: 0.4 },
+  { left: 18, top: 28, duration: 2.5, delay: 1.1 },
+  { left: 99, top: 61, duration: 3.5, delay: 0.2 },
+  { left: 12, top: 86, duration: 2.8, delay: 1.6 },
+  { left: 9, top: 31, duration: 3.1, delay: 0.8 },
+  { left: 20, top: 26, duration: 2.2, delay: 1.3 },
+  { left: 27, top: 30, duration: 3.9, delay: 0.5 },
+  { left: 83, top: 59, duration: 2.6, delay: 1.0 },
+  { left: 93, top: 4, duration: 3.4, delay: 0.7 },
+  { left: 52, top: 62, duration: 2.9, delay: 1.4 },
+  { left: 39, top: 53, duration: 3.6, delay: 0.3 },
+];
+
 export function TrustSignals() {
   return (
     <section
@@ -142,24 +158,24 @@ export function TrustSignals() {
             whileHover={{ y: -8 }}
           >
             <div className="relative h-full min-h-[280px] bg-gradient-to-br from-[#0a0a0a] via-[#0d1117] to-[#0a0a0a] border border-accent/20 overflow-hidden">
-              {/* Abstract starfield background */}
+              {/* Abstract starfield background (fixed positions for hydration) */}
               <div className="absolute inset-0 opacity-20">
-                {[...Array(12)].map((_, i) => (
+                {STARFIELD_DOTS.map((dot, i) => (
                   <motion.div
                     key={i}
                     className="absolute w-1 h-1 bg-accent rounded-full"
                     style={{
-                      left: `${Math.random() * 100}%`,
-                      top: `${Math.random() * 100}%`,
+                      left: `${dot.left}%`,
+                      top: `${dot.top}%`,
                     }}
                     animate={{
                       opacity: [0.3, 1, 0.3],
                       scale: [1, 1.5, 1],
                     }}
                     transition={{
-                      duration: 2 + Math.random() * 2,
+                      duration: dot.duration,
                       repeat: Infinity,
-                      delay: Math.random() * 2,
+                      delay: dot.delay,
                     }}
                   />
                 ))}

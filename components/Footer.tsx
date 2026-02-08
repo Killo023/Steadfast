@@ -27,14 +27,9 @@ export function Footer() {
               <Shield className="h-5 w-5 text-accent flex-shrink-0" aria-hidden />
               Chosen by Many. Trusted by More.
             </p>
-            <p className="text-sm text-gray-600 mb-2">
+            <p className="text-sm text-gray-600">
               © {new Date().getFullYear()} Steadfast Tactical. SAPS & PFTC Accredited firearm competency training.
             </p>
-            <div className="flex items-center justify-center md:justify-end gap-3 text-xs text-gray-500">
-              <span>SAPS Accredited</span>
-              <span>•</span>
-              <span>PFTC Accredited</span>
-            </div>
           </div>
         </div>
       </div>

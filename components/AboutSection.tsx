@@ -9,7 +9,7 @@ import { images, fallbackImage } from "@/lib/images";
 const features = [
   {
     icon: Award,
-    title: "SAPS & PFTC Accredited",
+    title: "Nationally Accredited",
     description: "Fully accredited training provider recognized by the South African Police Service and Professional Firearm Trainers Council.",
     useBullseye: true,
   },
@@ -136,16 +136,6 @@ export function AboutSection() {
                 training for both personal and business purposes, equipping individuals and organizations 
                 with the knowledge and skills necessary for responsible firearm ownership and operation.
               </p>
-            </div>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
-            <div className="authenticity-badge">
-              <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
-              <span>SAPS Accredited</span>
-            </div>
-            <div className="authenticity-badge">
-              <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
-              <span>PFTC Accredited</span>
             </div>
           </div>
         </motion.div>

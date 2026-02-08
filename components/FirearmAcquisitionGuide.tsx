@@ -95,6 +95,7 @@ const acquisitionSteps = [
 export function FirearmAcquisitionGuide() {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+  const [mobilePopupOpen, setMobilePopupOpen] = useState(false);
 
   return (
     <section
@@ -157,18 +158,125 @@ export function FirearmAcquisitionGuide() {
           </div>
         </motion.div>
 
-        {/* Interactive Visual Flow Diagram */}
+        {/* Mobile: pop-up trigger and modal */}
+        <div className="md:hidden mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex justify-center"
+          >
+            <button
+              type="button"
+              onClick={() => setMobilePopupOpen(true)}
+              className="modern-button px-8 py-4 text-white font-sans font-semibold text-sm uppercase tracking-wide"
+            >
+              View steps to acquire a firearm
+            </button>
+          </motion.div>
+          <AnimatePresence>
+            {mobilePopupOpen && (
+              <>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
+                  onClick={() => { setMobilePopupOpen(false); setExpandedStep(null); }}
+                  aria-hidden
+                />
+                <motion.div
+                  initial={{ opacity: 0, y: "100%" }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: "100%" }}
+                  transition={{ type: "tween", duration: 0.3 }}
+                  className="fixed inset-x-0 bottom-0 z-50 max-h-[90vh] overflow-y-auto rounded-t-2xl border-t border-accent/20 bg-[#0d1117] shadow-2xl"
+                >
+                  <div className="sticky top-0 flex items-center justify-between px-4 py-3 border-b border-accent/20 bg-[#0d1117]">
+                    <h3 className="font-sans font-bold text-white text-lg">How to acquire a firearm</h3>
+                    <button
+                      type="button"
+                      onClick={() => { setMobilePopupOpen(false); setExpandedStep(null); }}
+                      className="p-2 rounded-lg hover:bg-white/10 text-white"
+                      aria-label="Close"
+                    >
+                      <ChevronDown className="h-6 w-6 rotate-180" aria-hidden />
+                    </button>
+                  </div>
+                  <div className="p-4 pb-8 space-y-3">
+                    <p className="text-sm text-gray-400 mb-4">Tap a step to view details.</p>
+                    {acquisitionSteps.map((step, i) => {
+                      const IconComponent = step.icon;
+                      const isExpanded = expandedStep === i;
+                      return (
+                        <div key={step.number} className="rounded-lg border border-accent/20 overflow-hidden bg-black/40">
+                          <button
+                            type="button"
+                            onClick={() => setExpandedStep(isExpanded ? null : i)}
+                            className="w-full flex items-center gap-3 p-4 text-left"
+                            aria-expanded={isExpanded}
+                          >
+                            <div className={`flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-lg bg-gradient-to-br ${step.color} border border-accent/30`}>
+                              {(step as any).useBullseye ? (
+                                <i className="fa-solid fa-bullseye text-accent text-xl" aria-hidden />
+                              ) : (
+                                <IconComponent className="h-6 w-6 text-accent" aria-hidden />
+                              )}
+                            </div>
+                            <span className="flex-1 font-medium text-white text-sm">{step.title.split("(")[0].trim()}</span>
+                            <span className="text-accent font-mono text-xs">{step.number}</span>
+                            <ChevronDown className={`h-5 w-5 text-accent transition-transform ${isExpanded ? "rotate-180" : ""}`} aria-hidden />
+                          </button>
+                          <AnimatePresence>
+                            {isExpanded && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                className="border-t border-accent/10 bg-[#0a0a0a]/80"
+                              >
+                                <div className="p-4 space-y-3">
+                                  <p className="text-gray-300 text-sm leading-relaxed">{step.description}</p>
+                                  <div className="space-y-2">
+                                    {step.details.map((detail, idx) => (
+                                      <div key={idx} className="flex gap-2 text-sm">
+                                        <span className="text-accent font-mono flex-shrink-0">{idx + 1}.</span>
+                                        <span className="text-gray-400">{detail}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Desktop: inline diagram */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mb-16"
+          className="mb-16 hidden md:block"
         >
-          <p className="text-center text-sm md:text-base text-accent font-sans font-medium uppercase tracking-wider mb-6">
-            Click any step below to view details
-          </p>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 lg:gap-8 px-4">
+          <div className="flex justify-center mb-6">
+            <button
+              type="button"
+              onClick={() => document.getElementById("acquisition-steps-diagram")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              className="modern-button px-8 py-4 text-white font-sans font-semibold text-sm uppercase tracking-wide shadow-lg"
+            >
+              Click any step below to view details
+            </button>
+          </div>
+          <div id="acquisition-steps-diagram" className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 lg:gap-8 px-4">
             {acquisitionSteps.map((step, i) => {
               const IconComponent = step.icon;
               const isExpanded = expandedStep === i;

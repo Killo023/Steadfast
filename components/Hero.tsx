@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { CheckCircle2 } from "lucide-react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { CheckCircle2, ChevronDown, BookOpen } from "lucide-react";
 import { images, fallbackImage } from "@/lib/images";
 
 export function Hero() {
   const [videoReady, setVideoReady] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
+  const [showTrainingDetail, setShowTrainingDetail] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   
@@ -117,54 +118,79 @@ export function Hero() {
           transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
         >
           <motion.h1
-            className="font-display text-4xl font-normal uppercase tracking-wide text-white sm:text-5xl md:text-6xl lg:text-7xl mb-6"
+            className="font-logo text-4xl uppercase tracking-wide sm:text-5xl md:text-6xl lg:text-7xl mb-6"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
           >
-            <span className="inline-block bg-gradient-to-r from-white via-accent to-white bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
-              Steadfast Tactical
-            </span>
+            <span className="text-accent drop-shadow-[0_0_20px_rgba(66,153,225,0.3)]">STEADFAST</span>
+            {" "}
+            <span className="text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.15)]">TACTICAL</span>
           </motion.h1>
-          <motion.p
-            className="font-sans text-[19px] text-white md:text-[25px] lg:text-[31px] font-bold mb-6 tracking-wider uppercase"
+          <p className="font-sans text-lg md:text-xl text-white font-semibold mb-6">
+            Competency starts with proper training.
+          </p>
+          <motion.div
+            className="max-w-md mx-auto mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Professional & Affordable Firearm Training
-          </motion.p>
-          <motion.p
-            className="text-lg text-gray-300 md:text-xl lg:text-2xl mb-6 tracking-wider uppercase font-medium"
+            <button
+              type="button"
+              onClick={() => setShowTrainingDetail((prev) => !prev)}
+              className="w-full flex items-center justify-between gap-4 text-left px-5 py-4 rounded-xl bg-transparent hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-black cursor-pointer transition-colors duration-300 group"
+            >
+              <span className="flex items-center gap-3">
+                <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-accent/15 group-hover:bg-accent/25 transition-colors">
+                  <BookOpen className="h-5 w-5 text-accent" aria-hidden />
+                </span>
+                <span className="text-white font-sans font-semibold text-sm md:text-base">How we train civilians</span>
+              </span>
+              <ChevronDown
+                className={`h-5 w-5 text-accent flex-shrink-0 transition-transform duration-300 ${showTrainingDetail ? "rotate-180" : ""}`}
+                aria-hidden
+              />
+            </button>
+            <AnimatePresence>
+              {showTrainingDetail && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden"
+                >
+                  <div className="mt-3 pl-5 py-3 space-y-3 text-gray-300 text-sm md:text-base leading-relaxed">
+                    <p>We teach civilians how to safely handle and confidently use a firearm through structured courses.</p>
+                    <p>Learn safe handling, clear fundamentals, and practical skills—step by step, no experience required.</p>
+                    <p>Our proficiency training develops safe habits, solid fundamentals, and real-world competency for everyday people.</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-wrap items-center justify-center gap-3 mb-8"
           >
-            For Personal & Business Purposes
-          </motion.p>
+            <div className="authenticity-badge">
+              <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
+              <span>SAPS Accredited</span>
+            </div>
+            <div className="authenticity-badge">
+              <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
+              <span>PFTC Accredited</span>
+            </div>
+          </motion.div>
         </motion.div>
         
-        {/* Accreditation Badges - Yellow Authenticity */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-wrap items-center justify-center gap-4 mb-8"
-        >
-          <div className="authenticity-badge">
-            <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
-            <span>SAPS Accredited</span>
-          </div>
-          <div className="authenticity-badge">
-            <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
-            <span>PFTC Accredited</span>
-          </div>
-        </motion.div>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <motion.button
