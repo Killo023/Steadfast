@@ -22,8 +22,8 @@ export default function Home() {
       <Header />
       <main id="main-content">
         <Hero />
-        <AccreditationSection />
         <PricingCards />
+        <AccreditationSection />
         <AboutSection />
         <MissionSection />
         <FeaturedCourses />
