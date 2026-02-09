@@ -162,7 +162,7 @@ export function TrainingProcess() {
                 playsInline
                 preload="metadata"
               >
-                <source src="/video/Firearm_Training_Drill_Video_Ready.mp4" type="video/mp4" />
+                <source src="/video/WhatsApp%20Video%202026-02-09%20at%2016.15.03.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
               {/* Decorative corner elements */}
