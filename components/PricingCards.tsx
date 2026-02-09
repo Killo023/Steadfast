@@ -117,7 +117,7 @@ export function PricingCards() {
         </video>
       )}
       {/* Overlay */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/90 via-black/85 to-black/95" />
+      <div className="absolute inset-0 z-[1] bg-[#000000]" />
       
       <div className="relative z-10 mx-auto max-w-6xl">
         <motion.div
@@ -213,7 +213,7 @@ export function PricingCards() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="overflow-hidden border border-accent/20 bg-black/60 backdrop-blur-sm shadow-lg"
+              className="overflow-hidden border border-accent/20 bg-[#0a0a0a] shadow-lg"
             >
               <div className="divide-y divide-accent/10">
                 {currentCourses.map((course, i) => (
