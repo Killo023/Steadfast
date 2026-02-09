@@ -18,6 +18,7 @@ export const images = {
   target: "/images/Section2 (6).jpg",
   section7: "/images/Section2 (7).jpg",
   regulation: "/images/regulation.jpg",
+  shootingRangeAction: "/images/shooting-range-action.png",
   
   /** Custom brand icon (save your icon as public/images/brand-icon.png) */
   brandIcon: "/images/brand-icon.png",

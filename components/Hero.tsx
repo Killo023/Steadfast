@@ -94,7 +94,7 @@ export function Hero() {
             setVideoFailed(true);
           }}
         >
-          <source src="/video/6456627_Shooting Range Aim Marksmanship Firearm_By_Pressmaster_Artlist_HD.mp4" type="video/mp4" />
+          <source src="/video/hero.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </motion.video>
       )}

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { SectionTitle } from "@/components/SectionTitle";
 import { HexagonCard } from "@/components/HexagonCard";
@@ -32,59 +31,11 @@ const features = [
 ];
 
 export function AboutSection() {
-  const [videoReady, setVideoReady] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current && videoReady) {
-      videoRef.current.play().catch((err) => {
-        console.warn("Video autoplay failed:", err);
-        setVideoFailed(true);
-      });
-    }
-  }, [videoReady]);
-
   return (
     <section
       className="bg-[#0a0a0a] px-4 py-16 md:py-24 relative overflow-hidden"
       aria-labelledby="about-heading"
     >
-      {/* Background video */}
-      {!videoFailed && (
-        <video
-          ref={videoRef}
-          className={`absolute inset-0 h-full w-full object-cover z-0 ${videoReady && !videoFailed ? "opacity-30" : "opacity-0"}`}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          aria-hidden
-          onLoadedData={() => {
-            setVideoReady(true);
-            const video = videoRef.current;
-            if (video) {
-              video.play().catch((err) => {
-                console.warn("Video play() failed:", err);
-                setVideoFailed(true);
-              });
-            }
-          }}
-          onCanPlay={() => {
-            setVideoReady(true);
-            const video = videoRef.current;
-            if (video && video.paused) {
-              video.play().catch(() => setVideoFailed(true));
-            }
-          }}
-          onError={() => setVideoFailed(true)}
-        >
-          <source src="/video/6456687_Portrait Looking At Camera Shooting Range Aim_By_Pressmaster_Artlist_HD.mp4" type="video/mp4" />
-        </video>
-      )}
-      {/* Overlay */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/90 via-black/85 to-black/95" />
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]">
         <motion.div
@@ -153,30 +104,29 @@ export function AboutSection() {
           </div>
           <SectionTitle className="mb-6">About Steadfast Tactical</SectionTitle>
           
-          {/* Video and text layout */}
+          {/* Image and text layout */}
           <div className="flex flex-col lg:flex-row items-center gap-8 mb-8">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="relative w-full lg:w-1/2 aspect-video overflow-hidden rounded-lg border-2 border-accent/30 shadow-2xl"
+              className="relative w-full lg:w-1/2 aspect-[4/3] overflow-hidden rounded-lg border-2 border-accent/30 shadow-2xl"
             >
-              <video
+              <motion.img
+                src={images.rifle}
+                alt="Professional firearm training at shooting range"
                 className="h-full w-full object-cover"
-                controls
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-              >
-                <source src="/video/10480528-hd_1920_1080_30fps.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+                onError={(e) => {
+                  e.currentTarget.src = fallbackImage;
+                }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.5 }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
               {/* Decorative corner elements */}
-              <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-accent/50 pointer-events-none"></div>
-              <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-accent/50 pointer-events-none"></div>
+              <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-accent/30"></div>
+              <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-accent/30"></div>
             </motion.div>
             <div className="w-full lg:w-1/2">
               <p className="text-lg text-gray-300 leading-relaxed mb-6">
