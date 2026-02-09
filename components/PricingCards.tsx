@@ -113,7 +113,7 @@ export function PricingCards() {
             setVideoFailed(true);
           }}
         >
-          <source src="/images/5243197-hd_1920_1080_25fps.mp4" type="video/mp4" />
+          <source src="/video/6456650_Shooting Range Aim Marksmanship Firearm_By_Pressmaster_Artlist_HD.mp4" type="video/mp4" />
         </video>
       )}
       {/* Overlay */}

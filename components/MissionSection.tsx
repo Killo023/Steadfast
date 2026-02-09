@@ -1,17 +1,66 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Crosshair } from "lucide-react";
 import { images, fallbackImage } from "@/lib/images";
 
 export function MissionSection() {
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current && videoReady) {
+      videoRef.current.play().catch((err) => {
+        console.warn("Video autoplay failed:", err);
+        setVideoFailed(true);
+      });
+    }
+  }, [videoReady]);
+
   return (
     <section
       className="bg-[#0a0a0a] px-4 py-16 md:py-24 relative overflow-hidden"
       aria-labelledby="mission-heading"
     >
+      {/* Background video */}
+      {!videoFailed && (
+        <video
+          ref={videoRef}
+          className={`absolute inset-0 h-full w-full object-cover z-0 ${videoReady && !videoFailed ? "opacity-30" : "opacity-0"}`}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden
+          onLoadedData={() => {
+            setVideoReady(true);
+            const video = videoRef.current;
+            if (video) {
+              video.play().catch((err) => {
+                console.warn("Video play() failed:", err);
+                setVideoFailed(true);
+              });
+            }
+          }}
+          onCanPlay={() => {
+            setVideoReady(true);
+            const video = videoRef.current;
+            if (video && video.paused) {
+              video.play().catch(() => setVideoFailed(true));
+            }
+          }}
+          onError={() => setVideoFailed(true)}
+        >
+          <source src="/video/6456688_Shooting Range Aim Marksmanship Firearm_By_Pressmaster_Artlist_HD.mp4" type="video/mp4" />
+        </video>
+      )}
+      {/* Overlay */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/90 via-black/85 to-black/95" />
       {/* Decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]">
         {/* Geometric shapes */}
         <motion.div
           className="absolute top-10 right-20 w-24 h-24 border border-accent/10 rotate-45"

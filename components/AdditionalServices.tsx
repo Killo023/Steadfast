@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { SectionTitle } from "@/components/SectionTitle";
 import { HexagonCard } from "@/components/HexagonCard";
@@ -22,12 +23,60 @@ const services = [
 ];
 
 export function AdditionalServices() {
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current && videoReady) {
+      videoRef.current.play().catch((err) => {
+        console.warn("Video autoplay failed:", err);
+        setVideoFailed(true);
+      });
+    }
+  }, [videoReady]);
+
   return (
     <section
-      className="bg-[#0a0a0a] px-4 py-16 md:py-24"
+      className="bg-[#0a0a0a] px-4 py-16 md:py-24 relative overflow-hidden"
       aria-labelledby="services-heading"
     >
-      <div className="mx-auto max-w-6xl">
+      {/* Background video */}
+      {!videoFailed && (
+        <video
+          ref={videoRef}
+          className={`absolute inset-0 h-full w-full object-cover z-0 ${videoReady && !videoFailed ? "opacity-30" : "opacity-0"}`}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden
+          onLoadedData={() => {
+            setVideoReady(true);
+            const video = videoRef.current;
+            if (video) {
+              video.play().catch((err) => {
+                console.warn("Video play() failed:", err);
+                setVideoFailed(true);
+              });
+            }
+          }}
+          onCanPlay={() => {
+            setVideoReady(true);
+            const video = videoRef.current;
+            if (video && video.paused) {
+              video.play().catch(() => setVideoFailed(true));
+            }
+          }}
+          onError={() => setVideoFailed(true)}
+        >
+          <source src="/video/6489579_Gun Firearm Shooting Interior_By_Nazarii_Ortynskyi_Artlist_HD.mp4" type="video/mp4" />
+        </video>
+      )}
+      {/* Overlay */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/90 via-black/85 to-black/95" />
+      <div className="mx-auto max-w-6xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

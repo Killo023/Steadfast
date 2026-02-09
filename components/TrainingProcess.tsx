@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { SectionTitle } from "@/components/SectionTitle";
 import { HexagonCard } from "@/components/HexagonCard";
@@ -35,13 +36,61 @@ const steps = [
 ];
 
 export function TrainingProcess() {
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current && videoReady) {
+      videoRef.current.play().catch((err) => {
+        console.warn("Video autoplay failed:", err);
+        setVideoFailed(true);
+      });
+    }
+  }, [videoReady]);
+
   return (
     <section
       className="bg-[#0d1117] px-4 py-16 md:py-24 relative overflow-hidden"
       aria-labelledby="process-heading"
     >
+      {/* Background video */}
+      {!videoFailed && (
+        <video
+          ref={videoRef}
+          className={`absolute inset-0 h-full w-full object-cover z-0 ${videoReady && !videoFailed ? "opacity-30" : "opacity-0"}`}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden
+          onLoadedData={() => {
+            setVideoReady(true);
+            const video = videoRef.current;
+            if (video) {
+              video.play().catch((err) => {
+                console.warn("Video play() failed:", err);
+                setVideoFailed(true);
+              });
+            }
+          }}
+          onCanPlay={() => {
+            setVideoReady(true);
+            const video = videoRef.current;
+            if (video && video.paused) {
+              video.play().catch(() => setVideoFailed(true));
+            }
+          }}
+          onError={() => setVideoFailed(true)}
+        >
+          <source src="/video/6456665_Shooting Range Aim Marksmanship Firearm_By_Pressmaster_Artlist_HD.mp4" type="video/mp4" />
+        </video>
+      )}
+      {/* Overlay */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/90 via-black/85 to-black/95" />
       {/* Decorative background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]">
         {/* Animated grid pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
@@ -90,10 +139,37 @@ export function TrainingProcess() {
             </div>
           </div>
           <SectionTitle className="mb-6">How It Works</SectionTitle>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-12">
             Our structured training program ensures you gain the knowledge and skills needed 
             for responsible firearm ownership.
           </p>
+          
+          {/* Prominent Video */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="max-w-4xl mx-auto mb-16"
+          >
+            <div className="relative aspect-video overflow-hidden rounded-lg border-2 border-accent/30 shadow-2xl">
+              <video
+                className="h-full w-full object-cover"
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+              >
+                <source src="/video/Firearm_Training_Drill_Video_Ready.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              {/* Decorative corner elements */}
+              <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-accent/50 pointer-events-none"></div>
+              <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-accent/50 pointer-events-none"></div>
+            </div>
+          </motion.div>
         </motion.div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">

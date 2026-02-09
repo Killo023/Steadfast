@@ -76,7 +76,30 @@ export function FeaturedCourses() {
                 transition={{ duration: 0.3 }}
               >
                 <HexagonCard className="h-full flex flex-col group glow-effect">
-                  {course.image ? (
+                  {i === 0 ? (
+                    // First course shows a video
+                    <div className="relative mb-5 aspect-video w-full overflow-hidden rounded-lg border border-accent/20">
+                      <video
+                        className="h-full w-full object-cover"
+                        controls
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                      >
+                        <source src="/video/13527996_3840_2160_25fps.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                      <motion.div 
+                        className="absolute top-4 left-4 p-3 bg-accent/10 border border-accent/20 backdrop-blur-sm"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <IconComponent className="h-6 w-6 text-accent" aria-hidden />
+                      </motion.div>
+                    </div>
+                  ) : course.image ? (
                     <div className="relative mb-5 aspect-video w-full overflow-hidden">
                       <motion.img
                         src={course.image}
