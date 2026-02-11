@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Shield, Target, Users, ArrowRight } from "lucide-react";
+import { Shield, Target, Users, ArrowRight, CheckCircle2 } from "lucide-react";
 import { images, fallbackImage } from "@/lib/images";
 
 export function Hero() {
@@ -16,9 +16,8 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  // Parallax effects
+  // Parallax for background only (content stays fully visible)
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   const scrollToContact = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
@@ -103,10 +102,7 @@ export function Hero() {
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/70 via-black/60 to-black/90" />
       
       {/* Content */}
-      <motion.div 
-        className="relative z-10 mx-auto max-w-6xl w-full px-4"
-        style={{ opacity }}
-      >
+      <div className="relative z-10 mx-auto max-w-6xl w-full px-4">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Column: Main Content */}
           <motion.div
@@ -124,6 +120,21 @@ export function Hero() {
               <span className="block text-accent drop-shadow-[0_0_30px_rgba(66,153,225,0.4)]">STEADFAST</span>
               <span className="block text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">TACTICAL</span>
             </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-6"
+            >
+              <div className="authenticity-badge">
+                <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
+                <span>SAPS Accredited</span>
+              </div>
+              <div className="authenticity-badge">
+                <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
+                <span>PFTC Accredited</span>
+              </div>
+            </motion.div>
             
             <motion.p
               className="text-xl md:text-2xl lg:text-3xl text-white font-sans font-bold mb-4"
@@ -229,7 +240,7 @@ export function Hero() {
             </motion.div>
           </motion.div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

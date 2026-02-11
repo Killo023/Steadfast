@@ -1,11 +1,12 @@
 "use client";
 
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone, MessageCircle, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 
 const PHONE = "+27 60 769 6710";
 const WHATSAPP_NUMBER = "+27607696710";
 const WHATSAPP_MESSAGE = "Hi, I'm interested in your firearm training services. Could you please provide more information?";
+const ADDRESS = "C/o Nirvana Drive, Dimple Rd, Lenasia, 1821";
 
 export function ContactInfo() {
   return (
@@ -15,6 +16,16 @@ export function ContactInfo() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
+      <div
+        className="flex items-center gap-4 p-4 bg-[#0d1117]/50 border border-accent/20"
+        aria-label="Address"
+      >
+        <div className="flex-shrink-0 p-2 bg-accent/10 border border-accent/20">
+          <MapPin className="h-5 w-5 text-accent" aria-hidden />
+        </div>
+        <span className="text-gray-300 font-medium">{ADDRESS}</span>
+      </div>
+
       <a
         href={`tel:${PHONE.replace(/\s/g, "")}`}
         className="group flex items-center gap-4 p-4 bg-[#0d1117]/50 border border-accent/20 transition-all hover:border-accent/40 hover:bg-[#0d1117] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[#0a0a0a]"

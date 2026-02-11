@@ -11,23 +11,19 @@ const WHATSAPP_MESSAGE = "Hi, I'm interested in your firearm training courses. C
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 const personalCourses = [
-  { title: "Handgun", price: "R1 200" },
-  { title: "Handgun & Shotgun", price: "R1 700" },
-  { title: "Handgun, Shotgun & Self Loading Rifle", price: "R2 100" },
+  { title: "Handgun", price: "R1 200 + Legal" },
+  { title: "Handgun & Shotgun", price: "R1 700 + Legal" },
+  { title: "Handgun, Shotgun & Self Loading Rifle", price: "R2 100 + Legal" },
   {
     title: "Handgun, Shotgun, Self Loading Rifle & Manual Action Rifle",
-    price: "R2 700",
+    price: "R2 700 + Legal",
   },
 ];
 
 const businessCourses = [
   { title: "Handgun", price: "R1 800" },
-  { title: "Handgun & Shotgun", price: "R2 300" },
-  { title: "Handgun, Shotgun & Self Loading Rifle", price: "R2 800" },
-  {
-    title: "Handgun, Shotgun, Self Loading Rifle & Manual Action Rifle",
-    price: "R3 500",
-  },
+  { title: "Shotgun", price: "R1 500" },
+  { title: "Self Loading Rifle", price: "R1 600" },
 ];
 
 const includes = [
@@ -278,7 +274,9 @@ export function PricingCards() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          Any combination can be arranged. {activeTab === "business" && "Group discounts available for multiple participants."}
+          {activeTab === "personal"
+            ? "Any combination can be arranged."
+            : "For combination packages, please enquire via WhatsApp or email."}
         </motion.p>
 
         <motion.div
