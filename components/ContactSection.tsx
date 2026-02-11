@@ -44,7 +44,7 @@ export function ContactSection() {
             className="mb-8 aspect-[2/1] w-full overflow-hidden"
           >
             <iframe
-              src="https://www.google.com/maps?q=C%2Fo+Nirvana+Drive%2C+Dimple+Rd%2C+Lenasia%2C+1821&output=embed"
+              src="https://www.google.com/maps?q=Turquoise+street%2C+Lenasia%2C+1821&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0, borderRadius: "0.75rem" }}
@@ -52,7 +52,7 @@ export function ContactSection() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               className="w-full h-full"
-              title="Steadfast Tactical Location - C/o Nirvana Drive, Dimple Rd, Lenasia, 1821"
+              title="Steadfast Tactical Location - Turquoise street, Lenasia, 1821"
             />
           </motion.div>
           <ContactInfo />

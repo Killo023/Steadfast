@@ -7,7 +7,7 @@ const PHONE = "+27 60 769 6710";
 const EMAIL = "info@steadfasttactical.co.za";
 const WHATSAPP_NUMBER = "+27607696710";
 const WHATSAPP_MESSAGE = "Hi, I'm interested in your firearm training services. Could you please provide more information?";
-const ADDRESS = "C/o Nirvana Drive, Dimple Rd, Lenasia, 1821";
+const ADDRESS = "Turquoise street, Lenasia, 1821";
 
 export function ContactInfo() {
   return (
