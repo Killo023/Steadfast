@@ -1,9 +1,10 @@
 "use client";
 
-import { Phone, MessageCircle, MapPin } from "lucide-react";
+import { Phone, MessageCircle, MapPin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 
 const PHONE = "+27 60 769 6710";
+const EMAIL = "info@steadfasttactical.co.za";
 const WHATSAPP_NUMBER = "+27607696710";
 const WHATSAPP_MESSAGE = "Hi, I'm interested in your firearm training services. Could you please provide more information?";
 const ADDRESS = "C/o Nirvana Drive, Dimple Rd, Lenasia, 1821";
@@ -25,6 +26,16 @@ export function ContactInfo() {
         </div>
         <span className="text-gray-300 font-medium">{ADDRESS}</span>
       </div>
+
+      <a
+        href={`mailto:${EMAIL}`}
+        className="group flex items-center gap-4 p-4 bg-[#0d1117]/50 border border-accent/20 transition-all hover:border-accent/40 hover:bg-[#0d1117] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[#0a0a0a]"
+      >
+        <div className="flex-shrink-0 p-2 bg-accent/10 border border-accent/20 group-hover:bg-accent/20 transition-colors">
+          <Mail className="h-5 w-5 text-accent" aria-hidden />
+        </div>
+        <span className="text-white group-hover:text-white transition-colors font-medium">{EMAIL}</span>
+      </a>
 
       <a
         href={`tel:${PHONE.replace(/\s/g, "")}`}

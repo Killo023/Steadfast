@@ -30,6 +30,9 @@ export function Footer() {
             <p className="text-sm text-gray-600">
               © {new Date().getFullYear()} Steadfast Tactical. SAPS & PFTC Accredited firearm competency training.
             </p>
+            <a href="mailto:info@steadfasttactical.co.za" className="text-sm text-accent hover:underline mt-1 inline-block">
+              info@steadfasttactical.co.za
+            </a>
           </div>
         </div>
       </div>
