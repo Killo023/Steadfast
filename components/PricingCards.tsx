@@ -21,9 +21,9 @@ const personalCourses = [
 ];
 
 const businessCourses = [
-  { title: "Handgun", price: "R1 800" },
   { title: "Shotgun", price: "R1 500" },
   { title: "Self Loading Rifle", price: "R1 600" },
+  { title: "Handgun", price: "R1 800" },
 ];
 
 const includes = [
