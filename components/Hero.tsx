@@ -93,7 +93,7 @@ export function Hero() {
             setVideoFailed(true);
           }}
         >
-          <source src="/video/hero.mp4" type="video/mp4" />
+          <source src="/video/hero%20(2).mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </motion.video>
       )}
