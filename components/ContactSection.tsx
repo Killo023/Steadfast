@@ -31,7 +31,8 @@ export function ContactSection() {
           </div>
           <SectionTitle className="mb-4">Get In Touch</SectionTitle>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Contact us for more information about our training courses and services.
+            Based in Lenasia, Johannesburg, Gauteng. Contact us for more information about our firearm
+            competency training courses and services.
           </p>
         </motion.div>
 

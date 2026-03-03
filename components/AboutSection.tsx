@@ -130,11 +130,12 @@ export function AboutSection() {
             </motion.div>
             <div className="w-full lg:w-1/2">
               <p className="text-lg text-gray-300 leading-relaxed mb-6">
-                Steadfast Tactical is a leading firearm competency training provider in 
-                South Africa. Our business owner is a certified range officer with extensive experience 
-                in firearm safety and training. We are committed to delivering professional, comprehensive 
-                training for both personal and business purposes, equipping individuals and organizations 
-                with the knowledge and skills necessary for responsible firearm ownership and operation.
+                Steadfast Tactical is a leading firearm competency training provider in Johannesburg, Gauteng,
+                based in Lenasia. Our business owner is a certified range officer with extensive experience in
+                firearm safety and training. We are committed to delivering professional, comprehensive training
+                for both personal and business purposes, equipping individuals and organizations in Johannesburg
+                and the wider Gauteng region with the knowledge and skills necessary for responsible firearm
+                ownership and operation.
               </p>
             </div>
           </div>

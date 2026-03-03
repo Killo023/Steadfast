@@ -14,10 +14,31 @@ const ibmPlexSans = IBM_Plex_Sans({
   weight: ["400", "500", "600", "700"],
 });
 
-export const metadata: Metadata = {
-  title: "Steadfast Tactical | Firearm Competency Training",
+const LOCAL_BUSINESS_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "Steadfast Tactical",
   description:
-    "SAPS & PFTC Accredited firearm competency training in South Africa. Tactical shooting courses, handgun, shotgun and rifle. Transparent pricing, no hidden charges.",
+    "SAPS & PFTC accredited firearm competency training centre in Lenasia, Johannesburg, Gauteng.",
+  url: "https://steadfasttactical.co.za",
+  telephone: "+27 60 769 6710",
+  email: "info@steadfasttactical.co.za",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Turquoise Street",
+    addressLocality: "Lenasia",
+    addressRegion: "Gauteng",
+    postalCode: "1821",
+    addressCountry: "ZA",
+  },
+  areaServed: ["Johannesburg", "Gauteng"],
+  sameAs: ["https://share.google/7LgpXSIhj5FKw48Iq"],
+};
+
+export const metadata: Metadata = {
+  title: "Steadfast Tactical | Firearm Training Johannesburg & Gauteng",
+  description:
+    "Steadfast Tactical provides SAPS & PFTC accredited firearm competency training in Lenasia, Johannesburg, Gauteng. Handgun, shotgun and rifle training with transparent pricing and no hidden charges.",
   keywords: [
     "Firearm Competency Training",
     "Accredited Firearm Training South Africa",
@@ -27,6 +48,11 @@ export const metadata: Metadata = {
     "Firearm training",
     "SAPS accredited firearm training",
     "SAPS & PFTC accredited firearm training",
+    "Firearm training Johannesburg",
+    "Firearm training Gauteng",
+    "Firearm training near me",
+    "Lenasia firearm training",
+    "firearm competency Johannesburg",
   ],
   icons: {
     icon: [
@@ -60,6 +86,12 @@ export default function RootLayout({
       <body
         className={`${sourceSerif.variable} ${ibmPlexSans.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(LOCAL_BUSINESS_JSON_LD),
+          }}
+        />
         <FontAwesomeLoader />
         <a
           href="#main-content"
