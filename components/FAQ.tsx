@@ -1,11 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { SectionTitle } from "@/components/SectionTitle";
-import { ChevronDown, Target } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 const faqs = [
+  {
+    question: "Where can I find firearm training near me in Gauteng?",
+    answer: "Steadfast Tactical offers SAPS & PFTC accredited firearm competency training in Lenasia, Johannesburg, Gauteng. We are based on Turquoise Street, Lenasia (1821), and serve clients across Johannesburg and the wider Gauteng region. Contact us via WhatsApp or email to book training or ask about sessions near you.",
+  },
+  {
+    question: "Do you offer firearm training in Johannesburg?",
+    answer: "Yes. We provide firearm competency training in Johannesburg, Gauteng. Our training centre is in Lenasia, southern Johannesburg, and we welcome individuals and businesses from across Johannesburg and Gauteng. All courses include theory, practical range training, and nationally accredited certification.",
+  },
+  {
+    question: "Where is Steadfast Tactical located?",
+    answer: "Steadfast Tactical is located at Turquoise Street, Lenasia, 1821—in the Johannesburg area of Gauteng, South Africa. We offer handgun, shotgun, and self-loading rifle training for personal and business purposes. Get in touch for directions or to book your training.",
+  },
+  {
+    question: "Do you offer firearm training for residents in Johannesburg North?",
+    answer:
+      "Yes. While our training range is in Lenasia on Turquoise Street, we welcome clients from across Johannesburg North and Johannesburg South—including Sandton, Randburg, and surrounding areas—with structured SAPS & PFTC accredited competency courses. Distance does not stop you from training with us; book via WhatsApp or email to arrange your course.",
+  },
   {
     question: "What documents do I need to bring for training?",
     answer: "You'll need a valid South African ID book or passport, proof of residence (utility bill or bank statement not older than 3 months), and any relevant medical certificates if applicable. We recommend bringing copies of these documents. We'll provide a complete checklist via WhatsApp when you book your training. All documents must be original or certified copies.",
@@ -56,15 +73,32 @@ const faqs = [
   },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <section
       id="faq"
-      className="scroll-mt-20 bg-navy-light px-4 py-16 md:py-24"
+      className="scroll-mt-20 bg-[#0d1117] px-4 py-16 md:py-24"
       aria-labelledby="faq-heading"
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="mx-auto max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -83,8 +117,8 @@ export function FAQ() {
           </div>
           <SectionTitle className="mb-6">Frequently Asked Questions</SectionTitle>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Have questions? We've got answers. Find everything you need to know about 
-            our training programs and services.
+            Firearm training in Gauteng and Johannesburg—common questions about our accredited
+            courses, location in Lenasia, and how to get started.
           </p>
         </motion.div>
 

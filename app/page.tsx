@@ -11,6 +11,7 @@ import { AdditionalServices } from "@/components/AdditionalServices";
 import { Testimonials } from "@/components/Testimonials";
 import { TrustSignals } from "@/components/TrustSignals";
 import { ContactSection } from "@/components/ContactSection";
+import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ScrollProgress } from "@/components/ScrollProgress";
@@ -32,6 +33,7 @@ export default function Home() {
         <AdditionalServices />
         <Testimonials />
         <TrustSignals />
+        <FAQ />
         <ContactSection />
       </main>
       <Footer />

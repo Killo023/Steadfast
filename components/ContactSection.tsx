@@ -31,8 +31,9 @@ export function ContactSection() {
           </div>
           <SectionTitle className="mb-4">Get In Touch</SectionTitle>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Based in Lenasia, Johannesburg, Gauteng. Contact us for more information about our firearm
-            competency training courses and services.
+            Based in Lenasia (Turquoise Street), serving Johannesburg South, Johannesburg North, Sandton,
+            Randburg, Soweto, Ennerdale, Ormonde, and wider Gauteng. Contact us about SAPS &amp; PFTC
+            firearm competency training—phone, WhatsApp, or email.
           </p>
         </motion.div>
 

@@ -33,6 +33,27 @@ export function Footer() {
             <a href="mailto:info@steadfasttactical.co.za" className="text-sm text-accent hover:underline mt-1 inline-block">
               info@steadfasttactical.co.za
             </a>
+            <nav
+              className="mt-4 flex flex-wrap items-center justify-center md:justify-end gap-x-4 gap-y-2 text-xs text-gray-500"
+              aria-label="Area landing pages"
+            >
+              <span className="text-gray-400">Areas:</span>
+              <Link
+                href="/firearm-training-johannesburg-south"
+                className="text-accent hover:underline"
+              >
+                Johannesburg South
+              </Link>
+              <span aria-hidden className="text-gray-300">
+                ·
+              </span>
+              <Link
+                href="/firearm-training-johannesburg-north"
+                className="text-accent hover:underline"
+              >
+                Johannesburg North
+              </Link>
+            </nav>
           </div>
         </div>
       </div>

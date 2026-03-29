@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Source_Serif_4, IBM_Plex_Sans } from "next/font/google";
 import { FontAwesomeLoader } from "@/components/FontAwesomeLoader";
+import { localBusinessJsonLd } from "@/lib/local-business-schema";
 import "./globals.css";
 
 const sourceSerif = Source_Serif_4({
@@ -13,27 +14,6 @@ const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
-
-const LOCAL_BUSINESS_JSON_LD = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "Steadfast Tactical",
-  description:
-    "SAPS & PFTC accredited firearm competency training centre in Lenasia, Johannesburg, Gauteng.",
-  url: "https://steadfasttactical.co.za",
-  telephone: "+27 60 769 6710",
-  email: "info@steadfasttactical.co.za",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Turquoise Street",
-    addressLocality: "Lenasia",
-    addressRegion: "Gauteng",
-    postalCode: "1821",
-    addressCountry: "ZA",
-  },
-  areaServed: ["Johannesburg", "Gauteng"],
-  sameAs: ["https://share.google/7LgpXSIhj5FKw48Iq"],
-};
 
 export const metadata: Metadata = {
   title: "Steadfast Tactical | Firearm Training Johannesburg & Gauteng",
@@ -53,6 +33,10 @@ export const metadata: Metadata = {
     "Firearm training near me",
     "Lenasia firearm training",
     "firearm competency Johannesburg",
+    "firearm training Johannesburg South",
+    "firearm training Johannesburg North",
+    "firearm training Lenasia",
+    "firearm competency near me",
   ],
   icons: {
     icon: [
@@ -89,7 +73,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(LOCAL_BUSINESS_JSON_LD),
+            __html: JSON.stringify(localBusinessJsonLd),
           }}
         />
         <FontAwesomeLoader />
