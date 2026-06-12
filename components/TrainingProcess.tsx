@@ -162,7 +162,7 @@ export function TrainingProcess() {
                 playsInline
                 preload="metadata"
               >
-                <source src="/video/WhatsApp%20Video%202026-02-09%20at%2016.15.03.mp4" type="video/mp4" />
+                <source src="/video/WhatsApp%20Video%202026-06-12%20at%2009.16.40.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
               {/* Decorative corner elements */}

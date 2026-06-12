@@ -88,7 +88,7 @@ export function FeaturedCourses() {
                         playsInline
                         preload="metadata"
                       >
-                        <source src="/video/13527996_3840_2160_25fps.mp4" type="video/mp4" />
+                        <source src="/video/WhatsApp%20Video%202026-06-12%20at%2009.14.12.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                       <motion.div 
