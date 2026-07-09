@@ -77,26 +77,28 @@ export function FeaturedCourses() {
               >
                 <HexagonCard className="h-full flex flex-col group glow-effect">
                   {i === 0 ? (
-                    // First course shows a video
-                    <div className="relative mb-5 aspect-video w-full overflow-hidden rounded-lg border border-accent/20">
-                      <video
-                        className="h-full w-full object-cover"
-                        controls
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        preload="metadata"
-                      >
-                        <source src="/video/WhatsApp%20Video%202026-06-12%20at%2009.14.12.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                      <motion.div 
-                        className="absolute top-4 left-4 p-3 bg-accent/10 border border-accent/20 backdrop-blur-sm"
-                        whileHover={{ scale: 1.1, rotate: 5 }}
+                    <div className="relative mb-5 mx-auto w-full max-w-[14rem] overflow-hidden rounded-xl border border-accent/20 bg-black">
+                      <div className="relative aspect-[9/16] w-full">
+                        <video
+                          className="absolute inset-0 h-full w-full object-contain bg-black"
+                          controls
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          preload="metadata"
+                          aria-label="Personal purpose firearm training preview"
+                        >
+                          <source src="/video/WhatsApp%20Video%202026-06-12%20at%2009.14.12.mp4" type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                      <motion.div
+                        className="absolute top-3 left-3 z-10 p-2.5 bg-black/60 border border-accent/20 backdrop-blur-sm rounded-lg"
+                        whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <IconComponent className="h-6 w-6 text-accent" aria-hidden />
+                        <IconComponent className="h-5 w-5 text-accent" aria-hidden />
                       </motion.div>
                     </div>
                   ) : course.image ? (

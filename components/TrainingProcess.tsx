@@ -144,31 +144,34 @@ export function TrainingProcess() {
             for responsible firearm ownership.
           </p>
           
-          {/* Prominent Video */}
+          {/* Featured training video (portrait — no stretch) */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="max-w-4xl mx-auto mb-16"
+            className="mx-auto mb-16 w-full max-w-[min(100%,22rem)] sm:max-w-xs md:max-w-sm"
           >
-            <div className="relative aspect-video overflow-hidden rounded-lg border-2 border-accent/30 shadow-2xl">
-              <video
-                className="h-full w-full object-cover"
-                controls
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-              >
-                <source src="/video/WhatsApp%20Video%202026-06-12%20at%2009.16.40.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              {/* Decorative corner elements */}
-              <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-accent/50 pointer-events-none"></div>
-              <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-accent/50 pointer-events-none"></div>
+            <div className="overflow-hidden rounded-2xl border border-accent/25 bg-[#0a0a0a] shadow-[0_24px_48px_-12px_rgba(0,0,0,0.75)] ring-1 ring-white/5">
+              <div className="relative aspect-[9/16] w-full">
+                <video
+                  className="absolute inset-0 h-full w-full object-contain bg-black"
+                  controls
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label="Steadfast Tactical firearm training session"
+                >
+                  <source src="/video/WhatsApp%20Video%202026-06-12%20at%2009.16.40.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
             </div>
+            <p className="mt-4 text-center text-sm font-medium text-gray-400">
+              Real training footage from our competency courses
+            </p>
           </motion.div>
         </motion.div>
 
