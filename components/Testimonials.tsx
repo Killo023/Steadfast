@@ -1,6 +1,6 @@
 "use client";
 
-import { Star, Quote, ShieldCheck, PlayCircle } from "lucide-react";
+import { Star, PlayCircle } from "lucide-react";
 import { Marquee } from "@/components/motion/Marquee";
 import { SectionHeading } from "@/components/motion/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
@@ -25,24 +25,59 @@ const rangeVideos = [
 
 const testimonials = [
   {
-    name: "John M.",
-    location: "Johannesburg",
-    text: "Excellent training! The instructors were professional, patient, and thorough. I felt confident and well-prepared after completing the course. Highly recommend Steadfast Tactical.",
+    name: "Michael Pillay",
+    meta: "Verified Google review · 21 weeks ago",
+    text: "Brilliant and practical. I will be returning again and again. Great instructor..better human being.",
   },
   {
-    name: "Sarah K.",
-    location: "Johannesburg",
-    text: "The training exceeded my expectations. Clear explanations, hands-on practice, and comprehensive coverage of all safety aspects. Worth every rand!",
+    name: "anusha pachai",
+    meta: "Verified Google review · 23 weeks ago",
+    text: "Very professional, honest and competent instructor. Relieved to be assisted by someone that knew exactly what he was doing. An excellent teacher. Would recommend Lushan any day.",
   },
   {
-    name: "Michael D.",
-    location: "Soweto",
-    text: "Professional service from start to finish. No hidden costs, transparent pricing, and quality instruction. Got my certificate without any hassle.",
+    name: "Praveshan Govender",
+    meta: "Local Guide · Verified Google review · 23 weeks ago",
+    text: "Professional, prompt and extremely knowledgeable.",
   },
   {
-    name: "Lisa T.",
-    location: "Johannesburg",
-    text: "As a first-time firearm owner, I was nervous about the training. The team made me feel comfortable and ensured I understood everything. Great experience!",
+    name: "Ahmad",
+    meta: "Verified Google review · 23 weeks ago",
+    text: "Have been training since last year, and I have improved a lot since I started.",
+  },
+  {
+    name: "Shaheed Symallin",
+    meta: "Verified Google review · 23 weeks ago",
+    text: "Very professional and helpful. Great at teaching and makes learning a new skill a breeze. Training and range days are awesome.",
+  },
+  {
+    name: "Sherwin Poonan",
+    meta: "Verified Google review · 23 weeks ago",
+    text: "Excellent training. You are taken through everything step by step and it makes sure you understand everything from the law...",
+  },
+  {
+    name: "Fazil Chothia",
+    meta: "Verified Google review · 23 weeks ago",
+    text: "Excellent training! I completed my firearm competency...",
+  },
+  {
+    name: "luwaine dixon",
+    meta: "Verified Google review · 23 weeks ago",
+    text: "I had a great experience at Steadfast Tactical. The instructor was professional, patient, and highly knowledgeable, with...",
+  },
+  {
+    name: "Ashton Jackson",
+    meta: "Verified Google review · 23 weeks ago",
+    text: "Huge shoutout to Lushen at Steadfast Tactical! I went in feeling overwhelmed and unsure of what to do, but he made the...",
+  },
+  {
+    name: "Vishay Bhula",
+    meta: "Verified Google review · 23 weeks ago",
+    text: "Great service. Very helpful.",
+  },
+  {
+    name: "Jeandre",
+    meta: "Verified Google review · 23 weeks ago",
+    text: "Very professional.",
   },
 ];
 
@@ -92,17 +127,22 @@ function TestimonialCard({ testimonial }: { testimonial: (typeof testimonials)[n
             <Star key={idx} className="h-4 w-4 fill-amber-400 text-amber-400" aria-hidden />
           ))}
         </div>
-        <Quote className="h-6 w-6 text-accent/30" aria-hidden />
+        <span
+          className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white font-sans text-[13px] font-bold text-[#4285F4]"
+          aria-hidden
+        >
+          G
+        </span>
       </div>
       <blockquote className="flex-1 text-sm leading-relaxed text-slate-300">
         &ldquo;{testimonial.text}&rdquo;
       </blockquote>
-      <figcaption className="mt-5 flex items-center justify-between border-t border-white/5 pt-4">
-        <div>
-          <p className="font-display text-sm font-bold uppercase text-white">{testimonial.name}</p>
-          <p className="readout text-slate-500">{testimonial.location}</p>
+      <figcaption className="mt-5 flex items-center justify-between gap-3 border-t border-white/5 pt-4">
+        <div className="min-w-0">
+          <p className="truncate font-display text-sm font-bold uppercase text-white">{testimonial.name}</p>
+          <p className="readout truncate text-slate-500">{testimonial.meta}</p>
         </div>
-        <ShieldCheck className="h-5 w-5 text-accent/60" aria-hidden />
+        <Star className="h-4 w-4 flex-shrink-0 fill-amber-400 text-amber-400" aria-hidden />
       </figcaption>
     </figure>
   );
@@ -130,7 +170,7 @@ export function Testimonials() {
             eyebrow="// 08 · Social Proof"
             title="Trusted by"
             highlight="Students"
-            description="Don't just take our word for it — here's what satisfied clients say about training with us."
+            description="Real, verified Google reviews from clients who trained with us in Johannesburg and Gauteng."
             className="mb-14"
           />
         </div>
