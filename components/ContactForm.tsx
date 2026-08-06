@@ -1,15 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Send, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { submitContactInquiry } from "@/lib/firebase";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
-    "idle"
-  );
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -53,7 +52,7 @@ export function ContactForm() {
   }
 
   const inputClass =
-    "w-full border border-accent/30 bg-[#0d1117]/50 backdrop-blur-sm px-4 py-3 text-white placeholder-gray-500 transition-all focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/50 focus:bg-[#0d1117]";
+    "w-full border border-white/10 bg-black/40 px-4 py-3 text-white placeholder-slate-500 transition-all duration-300 focus:border-accent/60 focus:bg-black/60 focus:outline-none focus:ring-2 focus:ring-accent/30";
 
   return (
     <motion.form
@@ -63,22 +62,37 @@ export function ContactForm() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
-      <div>
-        <label htmlFor="contact-name" className="mb-1 block text-sm text-gray-300">
-          Name *
-        </label>
-        <input
-          id="contact-name"
-          type="text"
-          name="name"
-          required
-          className={inputClass}
-          placeholder="Your name"
-          disabled={status === "loading"}
-        />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label htmlFor="contact-name" className="readout mb-1.5 block text-slate-400">
+            Name *
+          </label>
+          <input
+            id="contact-name"
+            type="text"
+            name="name"
+            required
+            className={inputClass}
+            placeholder="Your name"
+            disabled={status === "loading"}
+          />
+        </div>
+        <div>
+          <label htmlFor="contact-phone" className="readout mb-1.5 block text-slate-400">
+            Phone
+          </label>
+          <input
+            id="contact-phone"
+            type="tel"
+            name="phone"
+            className={inputClass}
+            placeholder="+27 ..."
+            disabled={status === "loading"}
+          />
+        </div>
       </div>
       <div>
-        <label htmlFor="contact-email" className="mb-1 block text-sm text-gray-300">
+        <label htmlFor="contact-email" className="readout mb-1.5 block text-slate-400">
           Email *
         </label>
         <input
@@ -92,20 +106,7 @@ export function ContactForm() {
         />
       </div>
       <div>
-        <label htmlFor="contact-phone" className="mb-1 block text-sm text-gray-300">
-          Phone
-        </label>
-        <input
-          id="contact-phone"
-          type="tel"
-          name="phone"
-          className={inputClass}
-          placeholder="+27 ..."
-          disabled={status === "loading"}
-        />
-      </div>
-      <div>
-        <label htmlFor="contact-message" className="mb-1 block text-sm text-gray-300">
+        <label htmlFor="contact-message" className="readout mb-1.5 block text-slate-400">
           Message
         </label>
         <textarea
@@ -113,25 +114,55 @@ export function ContactForm() {
           name="message"
           rows={4}
           className={inputClass}
-          placeholder="Your message"
+          placeholder="Which course are you interested in? Preferred dates?"
           disabled={status === "loading"}
         />
       </div>
 
-      {status === "success" && (
-        <p className="text-sm text-green-400">Thanks! We&apos;ll be in touch soon.</p>
-      )}
-      {status === "error" && (
-        <p className="text-sm text-red-400">{errorMessage}</p>
-      )}
+      <AnimatePresence>
+        {status === "success" && (
+          <motion.p
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="flex items-center gap-2 border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-300"
+          >
+            <CheckCircle2 className="h-4 w-4" aria-hidden />
+            Thanks! Your message is in. We&apos;ll be in touch soon.
+          </motion.p>
+        )}
+        {status === "error" && (
+          <motion.p
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="flex items-center gap-2 border border-red-400/30 bg-red-400/10 px-4 py-3 text-sm text-red-300"
+          >
+            <AlertCircle className="h-4 w-4" aria-hidden />
+            {errorMessage}
+          </motion.p>
+        )}
+      </AnimatePresence>
 
-      <button
+      <motion.button
         type="submit"
         disabled={status === "loading"}
-        className="modern-button w-full py-3 font-semibold text-navy focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-navy disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:transform-none"
+        className="btn-primary w-full text-sm disabled:cursor-not-allowed disabled:opacity-60"
+        whileHover={status !== "loading" ? { scale: 1.02 } : undefined}
+        whileTap={status !== "loading" ? { scale: 0.98 } : undefined}
       >
-        {status === "loading" ? "Sending…" : "Send message"}
-      </button>
+        {status === "loading" ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+            Sending…
+          </>
+        ) : (
+          <>
+            <Send className="h-4 w-4" aria-hidden />
+            Send Message
+          </>
+        )}
+      </motion.button>
     </motion.form>
   );
 }

@@ -3,186 +3,167 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { SectionTitle } from "@/components/SectionTitle";
-import { HexagonCard } from "@/components/HexagonCard";
-import { 
-  GraduationCap, 
-  FileText, 
-  ShoppingCart, 
-  Shield, 
-  CheckCircle2,
-  ArrowRight,
-  ChevronDown,
-  Info
-} from "lucide-react";
+import { GraduationCap, FileText, ShoppingCart, Shield, ArrowRight, ChevronDown, Info, Target } from "lucide-react";
+import { SectionHeading } from "@/components/motion/SectionHeading";
+import { Reveal } from "@/components/motion/Reveal";
+import { GlowOrb } from "@/components/motion/GlowOrb";
 
 const acquisitionSteps = [
   {
     number: "01",
     icon: GraduationCap,
     title: "Training and Proficiency (Proficiency Certificate)",
-    description: "Complete training at an accredited training institution and pass tests regarding the Firearms Control Act, 2000, and safe, efficient handling of the specific firearm type.",
+    short: "Training & Proficiency",
+    description:
+      "Complete training at an accredited training institution and pass tests regarding the Firearms Control Act, 2000, and safe, efficient handling of the specific firearm type.",
     details: [
-      "Locate Accredited Training: Find a PFTC (Professional Firearm Training Council) or Sasseta accredited institution",
-      "Complete Coursework: Attend training, which includes both theoretical (knowledge of the Act) and practical (safe handling) tests for specific firearm types (handgun, rifle, shotgun)",
+      "Locate Accredited Training: Find a PFTC or Sasseta accredited institution",
+      "Complete Coursework: Attend training covering theory (knowledge of the Act) and practical (safe handling) tests for handgun, rifle, and shotgun",
       "Pass Assessments: Complete open-book tests, closed-book exams, and practical shooting assessments",
-      "Obtain Certificate: Upon passing, the training provider will issue a proficiency certificate and a Statement of Results"
+      "Obtain Certificate: Upon passing, the provider issues a proficiency certificate and a Statement of Results",
     ],
-    color: "from-accent/20 to-accent-muted/10"
+    color: "from-cyan-500/25 to-transparent",
   },
   {
     number: "02",
     icon: FileText,
     title: "Apply for Competency Certificate (SAPS 517)",
-    description: "Submit your training certificate and required documents to your local Designated Firearms Officer (DFO) for background checks and competency approval.",
+    short: "Competency Certificate",
+    description:
+      "Submit your training certificate and required documents to your local Designated Firearms Officer (DFO) for background checks and competency approval.",
     details: [
-      "Gather Documents: Prepare your ID, training proficiency certificate, Statement of Results, two color passport photos, and proof of residence",
+      "Gather Documents: ID, training proficiency certificate, Statement of Results, two colour passport photos, proof of residence",
       "Obtain Testimonials: Get two character testimonials from friends or family",
-      "Submit Application: Take all documents to your local DFO to fill out the SAPS 517 form",
-      "Background Check & Fingerprints: SAPS will conduct background checks to verify no criminal record, mental health issues, or substance abuse problems exist",
-      "Waiting Period: The competency application process can take several months"
+      "Submit Application: Take documents to your local DFO to complete the SAPS 517 form",
+      "Background Check & Fingerprints: SAPS verifies no criminal record, mental health issues, or substance abuse problems",
+      "Waiting Period: The competency application process can take several months",
     ],
-    color: "from-[#fbbf24]/20 to-[#f59e0b]/10",
-    useBullseye: true,
+    color: "from-amber-500/25 to-transparent",
   },
   {
     number: "03",
     icon: ShoppingCart,
     title: "Purchase the Firearm",
-    description: "Once you have a competency certificate, you can purchase a firearm from a licensed dealer. The firearm remains with the dealer until your license is approved.",
+    short: "Purchase the Firearm",
+    description:
+      "Once you have a competency certificate, you can purchase a firearm from a licensed dealer. The firearm remains with the dealer until your license is approved.",
     details: [
-      "Select firearm from licensed dealer",
+      "Select a firearm from a licensed dealer",
       "Pay for the firearm",
-      "Firearm remains with dealer until licensed",
+      "Firearm remains with the dealer until licensed",
       "Dealer provides dealer stock return (SAP350a)",
-      "Receive necessary documentation from dealer"
+      "Receive necessary documentation from the dealer",
     ],
-    color: "from-accent/20 to-accent-muted/10"
+    color: "from-cyan-500/25 to-transparent",
   },
   {
     number: "04",
     icon: FileText,
     title: "Apply for the Firearm License (SAPS 271)",
-    description: "Submit the license application (SAPS 271) to your DFO with competency certificate, dealer documentation, and a detailed motivation letter explaining why you need the firearm.",
+    short: "Firearm License",
+    description:
+      "Submit the license application (SAPS 271) to your DFO with competency certificate, dealer documentation, and a detailed motivation letter explaining why you need the firearm.",
     details: [
-      "Complete SAPS 271 license application",
-      "Submit competency certificate",
+      "Complete the SAPS 271 license application",
+      "Submit your competency certificate",
       "Provide dealer documentation (SAP350a)",
-      "Write detailed motivation letter",
-      "Explain reason (self-defense, sport, hunting)",
+      "Write a detailed motivation letter",
+      "Explain your reason (self-defence, sport, hunting)",
       "Police may inspect your safe",
-      "Ensure safe complies with regulations",
-      "Submit all documents to DFO"
+      "Ensure the safe complies with regulations",
+      "Submit all documents to the DFO",
     ],
-    color: "from-[#fbbf24]/20 to-[#f59e0b]/10"
+    color: "from-amber-500/25 to-transparent",
   },
   {
     number: "05",
     icon: Shield,
     title: "Collection",
-    description: "Once the license is approved, you will receive a license card and can collect your firearm from the dealer.",
+    short: "Collection",
+    description:
+      "Once the license is approved, you will receive a license card and can collect your firearm from the dealer.",
     details: [
       "Wait for license approval",
       "Receive license card from SAPS",
-      "Present license card to dealer",
-      "Collect firearm from dealer",
-      "Firearm is now legally yours"
+      "Present license card to the dealer",
+      "Collect firearm from the dealer",
+      "Firearm is now legally yours",
     ],
-    color: "from-accent/20 to-accent-muted/10"
+    color: "from-cyan-500/25 to-transparent",
   },
 ];
 
 export function FirearmAcquisitionGuide() {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
-  const [mobilePopupOpen, setMobilePopupOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <section
-      className="bg-[#0a0a0a] px-4 py-16 md:py-24"
+      id="guide"
+      className="relative scroll-mt-20 overflow-hidden bg-[#070a10] py-24 md:py-32"
       aria-labelledby="acquisition-heading"
     >
-      <div className="mx-auto max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 id="acquisition-heading" className="sr-only">
-            How to acquire a firearm
-          </h2>
-          <div className="flex justify-center mb-6">
-            <div className="flex-shrink-0 p-4 rounded-lg border border-accent/20 bg-accent/5 flex items-center justify-center">
-              <i className="fa-solid fa-person-rifle text-accent text-4xl md:text-5xl" aria-hidden />
-            </div>
-          </div>
-          <SectionTitle className="mb-6">How to Acquire a Firearm</SectionTitle>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-            Click on each step in the diagram below to learn more about the process. Follow these steps 
-            to legally acquire a firearm in South Africa.
-          </p>
-        </motion.div>
+      <div className="tactical-grid absolute inset-0 opacity-15" aria-hidden />
+      <GlowOrb className="right-[-120px] top-24" size="w-80 h-80" color="rgba(251,191,36,0.07)" duration={14} />
 
-        {/* Unsplash hero image - professional training context */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
-          <div className="relative aspect-[21/9] min-h-[200px] md:min-h-[260px] w-full overflow-hidden rounded-lg border border-accent/20 bg-[#0d1117]">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
+        <h2 id="acquisition-heading" className="sr-only">
+          How to acquire a firearm in South Africa
+        </h2>
+        <SectionHeading
+          eyebrow="// 06 · The Journey"
+          title="How to Acquire"
+          highlight="a Firearm"
+          description="Follow these steps to legally acquire a firearm in South Africa. Tap any step to see exactly what's involved."
+          className="mb-14"
+        />
+
+        {/* Cinematic hero strip */}
+        <Reveal direction="up" className="mb-16">
+          <div className="group relative aspect-[21/9] min-h-[220px] w-full overflow-hidden border border-white/10">
             <Image
               src="https://images.unsplash.com/photo-1577905027675-fcbe1521b1c8?w=1400&q=85"
-              alt="Man doing practice shooting at a range — firearm training and proficiency"
+              alt="Accredited firearm competency training and proficiency at a South African shooting range"
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
               sizes="(max-width: 768px) 100vw, 1200px"
-              priority={false}
             />
-            <div
-              className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-transparent"
-              aria-hidden
-            />
-            <div
-              className="absolute inset-0 bg-accent/10 mix-blend-overlay"
-              aria-hidden
-            />
-            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-              <p className="text-sm font-sans font-medium uppercase tracking-wider text-white/90">
-                Accredited training · Safe handling · Legal process
-              </p>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" aria-hidden />
+            <div className="absolute inset-0 bg-accent/10 mix-blend-overlay" aria-hidden />
+            <div className="scanlines absolute inset-0 opacity-30" aria-hidden />
+            <div className="absolute bottom-0 left-0 right-0 flex flex-wrap items-center gap-x-6 gap-y-2 p-6 md:p-8">
+              <p className="readout text-white/90">Accredited training</p>
+              <span className="hidden h-1 w-1 rounded-full bg-accent md:block" aria-hidden />
+              <p className="readout text-white/90">Safe handling</p>
+              <span className="hidden h-1 w-1 rounded-full bg-accent md:block" aria-hidden />
+              <p className="readout text-white/90">Legal process</p>
             </div>
           </div>
-        </motion.div>
+        </Reveal>
 
-        {/* Mobile: pop-up trigger and modal */}
-        <div className="md:hidden mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex justify-center"
-          >
-            <button
-              type="button"
-              onClick={() => setMobilePopupOpen(true)}
-              className="modern-button px-8 py-4 text-white font-sans font-semibold text-sm uppercase tracking-wide"
-            >
-              View steps to acquire a firearm
-            </button>
-          </motion.div>
+        {/* Mobile: modal */}
+        <div className="mb-16 md:hidden">
+          <Reveal direction="fade">
+            <div className="flex justify-center">
+              <button
+                type="button"
+                onClick={() => setMobileOpen(true)}
+                className="btn-primary text-sm"
+              >
+                View the 5 steps
+              </button>
+            </div>
+          </Reveal>
           <AnimatePresence>
-            {mobilePopupOpen && (
+            {mobileOpen && (
               <>
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
-                  onClick={() => { setMobilePopupOpen(false); setExpandedStep(null); }}
+                  className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm"
+                  onClick={() => { setMobileOpen(false); setExpandedStep(null); }}
                   aria-hidden
                 />
                 <motion.div
@@ -190,61 +171,58 @@ export function FirearmAcquisitionGuide() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: "100%" }}
                   transition={{ type: "tween", duration: 0.3 }}
-                  className="fixed inset-x-0 bottom-0 z-50 max-h-[90vh] overflow-y-auto rounded-t-2xl border-t border-accent/20 bg-[#0d1117] shadow-2xl"
+                  className="fixed inset-x-0 bottom-0 z-[60] max-h-[90vh] overflow-y-auto border-t border-accent/20 bg-[#070a10] shadow-2xl"
                 >
-                  <div className="sticky top-0 flex items-center justify-between px-4 py-3 border-b border-accent/20 bg-[#0d1117]">
-                    <h3 className="font-sans font-bold text-white text-lg">How to acquire a firearm</h3>
+                  <div className="sticky top-0 flex items-center justify-between border-b border-accent/20 bg-[#070a10] px-4 py-3">
+                    <h3 className="font-display text-lg font-bold uppercase text-white">
+                      How to acquire a firearm
+                    </h3>
                     <button
                       type="button"
-                      onClick={() => { setMobilePopupOpen(false); setExpandedStep(null); }}
-                      className="p-2 rounded-lg hover:bg-white/10 text-white"
+                      onClick={() => { setMobileOpen(false); setExpandedStep(null); }}
+                      className="p-2 text-white"
                       aria-label="Close"
                     >
                       <ChevronDown className="h-6 w-6 rotate-180" aria-hidden />
                     </button>
                   </div>
-                  <div className="p-4 pb-8 space-y-3">
-                    <p className="text-sm text-gray-400 mb-4">Tap a step to view details.</p>
+                  <div className="space-y-3 p-4 pb-10">
                     {acquisitionSteps.map((step, i) => {
                       const IconComponent = step.icon;
-                      const isExpanded = expandedStep === i;
+                      const isOpen = expandedStep === i;
                       return (
-                        <div key={step.number} className="rounded-lg border border-accent/20 overflow-hidden bg-black/40">
+                        <div key={step.number} className="overflow-hidden border border-white/10 bg-black/40">
                           <button
                             type="button"
-                            onClick={() => setExpandedStep(isExpanded ? null : i)}
-                            className="w-full flex items-center gap-3 p-4 text-left"
-                            aria-expanded={isExpanded}
+                            onClick={() => setExpandedStep(isOpen ? null : i)}
+                            className="flex w-full items-center gap-3 p-4 text-left"
+                            aria-expanded={isOpen}
                           >
-                            <div className={`flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-lg bg-gradient-to-br ${step.color} border border-accent/30`}>
-                              {(step as any).useBullseye ? (
-                                <i className="fa-solid fa-bullseye text-accent text-xl" aria-hidden />
-                              ) : (
-                                <IconComponent className="h-6 w-6 text-accent" aria-hidden />
-                              )}
-                            </div>
-                            <span className="flex-1 font-medium text-white text-sm">{step.title.split("(")[0].trim()}</span>
-                            <span className="text-accent font-mono text-xs">{step.number}</span>
-                            <ChevronDown className={`h-5 w-5 text-accent transition-transform ${isExpanded ? "rotate-180" : ""}`} aria-hidden />
+                            <span className={`flex h-11 w-11 flex-shrink-0 items-center justify-center border border-accent/30 bg-gradient-to-br ${step.color}`}>
+                              <IconComponent className="h-5 w-5 text-accent" aria-hidden />
+                            </span>
+                            <span className="flex-1 text-sm font-semibold text-white">{step.short}</span>
+                            <span className="font-display text-xl font-bold text-accent/50">{step.number}</span>
+                            <ChevronDown className={`h-5 w-5 text-accent transition-transform ${isOpen ? "rotate-180" : ""}`} aria-hidden />
                           </button>
                           <AnimatePresence>
-                            {isExpanded && (
+                            {isOpen && (
                               <motion.div
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: "auto", opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
-                                className="border-t border-accent/10 bg-[#0a0a0a]/80"
+                                className="border-t border-white/5"
                               >
-                                <div className="p-4 space-y-3">
-                                  <p className="text-gray-300 text-sm leading-relaxed">{step.description}</p>
-                                  <div className="space-y-2">
+                                <div className="space-y-3 p-4">
+                                  <p className="text-sm leading-relaxed text-slate-300">{step.description}</p>
+                                  <ul className="space-y-2">
                                     {step.details.map((detail, idx) => (
-                                      <div key={idx} className="flex gap-2 text-sm">
-                                        <span className="text-accent font-mono flex-shrink-0">{idx + 1}.</span>
-                                        <span className="text-gray-400">{detail}</span>
-                                      </div>
+                                      <li key={idx} className="flex gap-2 text-sm">
+                                        <span className="font-mono text-accent">{idx + 1}.</span>
+                                        <span className="text-slate-400">{detail}</span>
+                                      </li>
                                     ))}
-                                  </div>
+                                  </ul>
                                 </div>
                               </motion.div>
                             )}
@@ -259,171 +237,141 @@ export function FirearmAcquisitionGuide() {
           </AnimatePresence>
         </div>
 
-        {/* Desktop: inline diagram */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mb-16 hidden md:block"
-        >
-          <div className="flex justify-center mb-6">
-            <button
-              type="button"
-              onClick={() => document.getElementById("acquisition-steps-diagram")?.scrollIntoView({ behavior: "smooth", block: "start" })}
-              className="modern-button px-8 py-4 text-white font-sans font-semibold text-sm uppercase tracking-wide shadow-lg"
-            >
-              Click any step below to view details
-            </button>
-          </div>
-          <div id="acquisition-steps-diagram" className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 lg:gap-8 px-4">
+        {/* Desktop: interactive diagram */}
+        <Reveal direction="fade" delay={0.1} className="hidden md:block">
+          <div className="relative flex flex-col items-center justify-center gap-4 md:flex-row md:gap-0 lg:gap-2">
+            {/* Connector line */}
+            <motion.div
+              className="absolute left-[8%] right-[8%] top-12 hidden h-px origin-left bg-gradient-to-r from-accent/50 via-accent/20 to-transparent md:block"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              aria-hidden
+            />
             {acquisitionSteps.map((step, i) => {
               const IconComponent = step.icon;
-              const isExpanded = expandedStep === i;
+              const isOpen = expandedStep === i;
               const isHovered = hoveredStep === i;
-              
               return (
-                <div key={step.number} className="flex flex-col md:flex-row items-center">
-                  {/* Clickable Step Node */}
+                <div key={step.number} className="relative z-10 flex flex-col items-center md:flex-1">
                   <motion.button
                     type="button"
-                    onClick={() => setExpandedStep(isExpanded ? null : i)}
+                    onClick={() => setExpandedStep(isOpen ? null : i)}
                     onMouseEnter={() => setHoveredStep(i)}
                     onMouseLeave={() => setHoveredStep(null)}
-                    aria-label={`Step ${step.number}: ${step.title.split("(")[0].trim()} — click to view details`}
-                    aria-expanded={isExpanded}
-                    className={`relative flex flex-col items-center gap-3 group cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[#0a0a0a] rounded-lg transition-shadow ${isHovered && !isExpanded ? 'ring-2 ring-accent/50' : ''}`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    initial={{ opacity: 0, y: 20 }}
+                    aria-label={`Step ${step.number}: ${step.short} — click to view details`}
+                    aria-expanded={isOpen}
+                    initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1, duration: 0.5 }}
+                    whileHover={{ scale: 1.06 }}
+                    whileTap={{ scale: 0.96 }}
+                    className="group flex flex-col items-center gap-3 rounded-md p-2 focus:outline-none"
                   >
-                    <div className={`w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br ${step.color} border-2 ${isExpanded ? 'border-accent' : 'border-accent/30'} flex items-center justify-center relative transition-all duration-300 ${isHovered ? 'shadow-lg shadow-accent/30' : ''}`}>
-                      {(step as any).useBullseye ? (
-                        <i className={`fa-solid fa-bullseye text-accent transition-transform duration-300 ${isHovered ? 'scale-110' : ''} text-4xl md:text-5xl`} aria-hidden></i>
-                      ) : (
-                        <IconComponent className={`h-10 w-10 md:h-12 md:w-12 text-accent transition-transform duration-300 ${isHovered ? 'scale-110' : ''}`} aria-hidden />
-                      )}
-                      <span className="absolute -top-2 -right-2 w-7 h-7 bg-accent text-white text-xs font-bold flex items-center justify-center">
+                    <div
+                      className={`relative flex h-24 w-24 items-center justify-center border bg-black/60 backdrop-blur-sm transition-all duration-300 ${
+                        isOpen ? "border-accent shadow-[0_0_30px_-6px_rgba(56,189,248,0.6)]" : "border-accent/30"
+                      }`}
+                    >
+                      <div className={`absolute inset-0 bg-gradient-to-br ${step.color}`} aria-hidden />
+                      <IconComponent
+                        className={`relative z-10 h-9 w-9 text-accent transition-transform duration-300 ${isHovered ? "scale-110" : ""}`}
+                        aria-hidden
+                      />
+                      <span className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center bg-gradient-to-r from-accent to-indigo-500 font-display text-xs font-bold text-black">
                         {step.number}
                       </span>
-                      {!isExpanded && (
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: isHovered ? 1 : 0 }}
-                          className="absolute inset-0 bg-accent/10 flex items-center justify-center"
-                        >
-                          <Info className="h-6 w-6 text-accent" aria-hidden />
-                        </motion.div>
-                      )}
+                      <AnimatePresence>
+                        {!isOpen && isHovered && (
+                          <motion.span
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute inset-0 flex items-center justify-center bg-accent/10"
+                          >
+                            <Info className="h-6 w-6 text-accent" aria-hidden />
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
                     </div>
-                    <div className="text-center max-w-[120px] md:max-w-[140px]">
-                      <span className={`text-xs md:text-sm font-medium transition-colors ${isExpanded ? 'text-accent' : 'text-gray-400'}`}>
-                        {step.title.split("(")[0].trim()}
-                      </span>
-                    </div>
-                    <motion.div
-                      animate={{ rotate: isExpanded ? 180 : 0 }}
-                      transition={{ duration: 0.3 }}
-                      className={`text-accent ${isExpanded ? 'block' : 'hidden'}`}
-                    >
-                      <ChevronDown className="h-5 w-5" aria-hidden />
-                    </motion.div>
+                    <span className={`max-w-[110px] text-center text-xs font-semibold uppercase tracking-wide ${isOpen ? "text-accent" : "text-slate-400"}`}>
+                      {step.short}
+                    </span>
                   </motion.button>
-
-                  {/* Arrow Connector */}
                   {i < acquisitionSteps.length - 1 && (
-                    <motion.div
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.1 + 0.3, duration: 0.5 }}
-                      className="hidden md:flex items-center mx-2 lg:mx-4"
-                    >
-                      <ArrowRight className="h-6 w-6 lg:h-8 lg:w-8 text-accent/50" aria-hidden />
-                    </motion.div>
+                    <ArrowRight className="absolute -right-2 top-11 z-20 hidden h-5 w-5 text-accent/40 md:block" aria-hidden />
                   )}
                 </div>
               );
             })}
           </div>
 
-          {/* Expanded Step Details */}
+          {/* Expanded details */}
           <AnimatePresence>
             {expandedStep !== null && (
               <motion.div
-                initial={{ opacity: 0, y: -20, height: 0 }}
-                animate={{ opacity: 1, y: 0, height: "auto" }}
-                exit={{ opacity: 0, y: -20, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="mt-12 overflow-hidden"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="overflow-hidden"
               >
-                <HexagonCard className="p-8 md:p-10">
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="flex items-center gap-4">
-                      <div className={`p-4 bg-gradient-to-br ${acquisitionSteps[expandedStep].color} border border-accent/20`}>
-                        {(acquisitionSteps[expandedStep] as any).useBullseye ? (
-                          <i className="fa-solid fa-bullseye text-accent text-3xl" aria-hidden></i>
-                        ) : (
-                          (() => {
+                <div className="tactical-card relative mt-12 overflow-hidden p-8 md:p-10">
+                  <div className="scanlines absolute inset-0 opacity-20" aria-hidden />
+                  <div className="relative z-10">
+                    <div className="mb-6 flex flex-wrap items-start justify-between gap-4 border-b border-white/5 pb-6">
+                      <div className="flex items-center gap-4">
+                        <span className="flex h-14 w-14 items-center justify-center border border-accent/30 bg-accent/10">
+                          {(() => {
                             const IconComponent = acquisitionSteps[expandedStep].icon;
-                            return <IconComponent className="h-8 w-8 text-accent" aria-hidden />;
-                          })()
-                        )}
+                            return <IconComponent className="h-7 w-7 text-accent" aria-hidden />;
+                          })()}
+                        </span>
+                        <div>
+                          <p className="readout text-accent">STEP {acquisitionSteps[expandedStep].number}</p>
+                          <h3 className="font-display text-2xl font-bold uppercase text-white md:text-3xl">
+                            {acquisitionSteps[expandedStep].title}
+                          </h3>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-2xl font-bold text-white mb-2">
-                          Step {acquisitionSteps[expandedStep].number}: {acquisitionSteps[expandedStep].title}
-                        </h3>
-                        <p className="text-gray-300 leading-relaxed">
-                          {acquisitionSteps[expandedStep].description}
-                        </p>
-                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setExpandedStep(null)}
+                        className="border border-white/15 p-2 text-slate-400 transition-colors hover:border-accent/50 hover:text-accent"
+                        aria-label="Close details"
+                      >
+                        <ChevronDown className="h-5 w-5 rotate-180" aria-hidden />
+                      </button>
                     </div>
-                    <button
-                      onClick={() => setExpandedStep(null)}
-                      className="flex-shrink-0 p-2 hover:bg-accent/10 transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
-                      aria-label="Close details"
-                    >
-                      <ChevronDown className="h-5 w-5 text-gray-400 rotate-180" aria-hidden />
-                    </button>
-                  </div>
-                  
-                  <div className="pt-6 border-t border-accent/10">
-                    <h4 className="text-lg font-semibold text-accent-muted mb-6 flex items-center gap-2">
-                      <CheckCircle2 className="h-5 w-5" aria-hidden />
-                      Step-by-Step Instructions:
-                    </h4>
-                    <div className="space-y-4">
+
+                    <p className="mb-6 text-slate-300">{acquisitionSteps[expandedStep].description}</p>
+
+                    <div className="grid gap-3 md:grid-cols-2">
                       {acquisitionSteps[expandedStep].details.map((detail, idx) => {
-                        // Split detail into title and description if it contains a colon
                         const parts = detail.split(": ");
                         const title = parts[0];
-                        const description = parts.slice(1).join(": ");
-                        
+                        const desc = parts.slice(1).join(": ");
                         return (
                           <motion.div
                             key={idx}
-                            initial={{ opacity: 0, x: -20 }}
+                            initial={{ opacity: 0, x: -14 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: idx * 0.08 }}
-                            className="flex items-start gap-4 p-4 bg-[#0d1117]/50 border border-accent/10 hover:border-accent/30 transition-colors group"
+                            transition={{ delay: idx * 0.05 }}
+                            className="flex items-start gap-3 border border-white/5 bg-black/30 p-4 transition-colors hover:border-accent/30"
                           >
-                            <div className="flex-shrink-0 mt-0.5">
-                              <div className="w-8 h-8 bg-gradient-to-br from-accent/20 to-accent-muted/10 border border-accent/30 flex items-center justify-center text-accent font-bold text-sm group-hover:scale-110 transition-transform">
-                                {idx + 1}
-                              </div>
-                            </div>
-                            <div className="flex-1">
-                              {title && description ? (
+                            <span className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center border border-accent/30 bg-accent/10 font-display text-xs font-bold text-accent">
+                              {idx + 1}
+                            </span>
+                            <div>
+                              {desc ? (
                                 <>
-                                  <h5 className="text-white font-semibold mb-1 text-sm">{title}:</h5>
-                                  <p className="text-gray-300 text-sm leading-relaxed">{description}</p>
+                                  <p className="text-sm font-semibold text-white">{title}:</p>
+                                  <p className="text-sm text-slate-400">{desc}</p>
                                 </>
                               ) : (
-                                <p className="text-gray-300 text-sm leading-relaxed">{detail}</p>
+                                <p className="text-sm text-slate-400">{detail}</p>
                               )}
                             </div>
                           </motion.div>
@@ -431,76 +379,84 @@ export function FirearmAcquisitionGuide() {
                       })}
                     </div>
                   </div>
-                </HexagonCard>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.div>
+        </Reveal>
 
-
-        {/* SEO-Friendly Content Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mt-16"
-        >
-          <HexagonCard className="p-8 md:p-10">
+        {/* SEO-friendly content */}
+        <Reveal direction="up" className="mt-16">
+          <div className="tactical-card p-8 md:p-12">
             <div className="prose prose-invert max-w-none">
-              <h2 className="text-2xl font-bold text-white mb-6">Complete Guide to Firearm Competency Training in South Africa</h2>
-              
-              <div className="space-y-6 text-gray-300">
+              <h2 className="font-display text-3xl font-extrabold uppercase text-white md:text-4xl">
+                Complete Guide to Firearm Competency Training in South Africa
+              </h2>
+
+              <div className="mt-8 space-y-8 text-slate-300">
                 <section>
-                  <h3 className="text-xl font-semibold text-white mb-3">Key Requirements for Firearm Ownership</h3>
-                  <p className="mb-3 leading-relaxed">
-                    To legally acquire a firearm in South Africa, you must meet specific requirements set by the South African Police Service (SAPS). 
-                    Applicants must be 21 years or older, be a South African citizen or permanent resident, have no criminal record, and be mentally 
-                    and physically fit to handle firearms responsibly. It's important to note that a separate license is required for every firearm you 
-                    wish to own, and all licenses must be renewed 90 days before expiry to maintain legal compliance.
+                  <h3 className="mb-3 flex items-center gap-2 font-display text-2xl font-bold text-accent">
+                    <Target className="h-5 w-5" aria-hidden /> Key Requirements for Firearm Ownership
+                  </h3>
+                  <p className="leading-relaxed">
+                    To legally acquire a firearm in South Africa, you must meet specific requirements set by
+                    the South African Police Service (SAPS). Applicants must be 21 years or older, be a South
+                    African citizen or permanent resident, have no criminal record, and be mentally and
+                    physically fit to handle firearms responsibly. A separate license is required for every
+                    firearm you wish to own, and all licenses must be renewed 90 days before expiry to maintain
+                    legal compliance.
                   </p>
                 </section>
 
                 <section>
-                  <h3 className="text-xl font-semibold text-white mb-3">Training and Certification Process</h3>
+                  <h3 className="mb-3 flex items-center gap-2 font-display text-2xl font-bold text-accent">
+                    <Target className="h-5 w-5" aria-hidden /> Training and Certification Process
+                  </h3>
                   <p className="mb-3 leading-relaxed">
-                    Professional firearm competency training typically spans 2-3 days at an accredited institution, depending on the firearm categories 
-                    you select. Our SAPS & PFTC accredited training programs cover all essential aspects of firearm safety, legal requirements, and 
-                    practical handling. After completing your training, you'll receive a proficiency certificate and Statement of Results, which are 
-                    required for your competency certificate application.
+                    Professional firearm competency training typically spans 2–3 days at an accredited
+                    institution, depending on the firearm categories you select. Our SAPS &amp; PFTC accredited
+                    training programs cover all essential aspects of firearm safety, legal requirements, and
+                    practical handling. After completing your training, you receive a proficiency certificate
+                    and Statement of Results, both required for your competency certificate application.
                   </p>
-                  <p className="mb-3 leading-relaxed">
-                    The competency certificate processing time varies by Designated Firearms Officer (DFO) and can take several months. Once approved, 
-                    you can proceed with purchasing your firearm and applying for your license. The license application process typically takes 3-6 months, 
-                    during which time your firearm will remain securely stored with the licensed dealer until approval.
-                  </p>
-                </section>
-
-                <section>
-                  <h3 className="text-xl font-semibold text-white mb-3">What's Included in Our Training Program</h3>
-                  <p className="mb-3 leading-relaxed">
-                    Our comprehensive firearm competency training includes comprehensive theory training covering the Firearms Control Act, 2000, hands-on 
-                    practical training with live fire exercises, all assessment materials and evaluations, range fees, qualification shoot ammunition, 
-                    training firearms provided for use, safety equipment including eye and ear protection, and your SAPS & PFTC accredited competency 
-                    certificate upon successful completion. We ensure transparent pricing with no hidden charges.
+                  <p className="leading-relaxed">
+                    The competency certificate processing time varies by Designated Firearms Officer (DFO) and
+                    can take several months. Once approved, you can proceed with purchasing your firearm and
+                    applying for your license. The license application process typically takes 3–6 months,
+                    during which time your firearm remains securely stored with the licensed dealer.
                   </p>
                 </section>
 
                 <section>
-                  <h3 className="text-xl font-semibold text-white mb-3">Important Safety and Legal Considerations</h3>
-                  <p className="mb-3 leading-relaxed">
-                    Safe storage is a critical requirement for firearm ownership. A police official may inspect your safe to ensure it complies with SAPS 
-                    regulations before your license is approved. All safes must meet specific security standards to prevent unauthorized access. Additionally, 
-                    responsible firearm ownership requires ongoing commitment to safety protocols, regular training, and compliance with all South African 
-                    firearm laws and regulations.
+                  <h3 className="mb-3 flex items-center gap-2 font-display text-2xl font-bold text-accent">
+                    <Target className="h-5 w-5" aria-hidden /> What&apos;s Included in Our Training Program
+                  </h3>
+                  <p className="leading-relaxed">
+                    Our comprehensive firearm competency training includes theory covering the Firearms Control
+                    Act, 2000, hands-on practical training with live-fire exercises, all assessment materials,
+                    range fees, qualification-shoot ammunition, training firearms, safety equipment including
+                    eye and ear protection, and your SAPS &amp; PFTC accredited competency certificate upon
+                    successful completion. Pricing is transparent — no hidden charges.
+                  </p>
+                </section>
+
+                <section>
+                  <h3 className="mb-3 flex items-center gap-2 font-display text-2xl font-bold text-accent">
+                    <Target className="h-5 w-5" aria-hidden /> Important Safety and Legal Considerations
+                  </h3>
+                  <p className="leading-relaxed">
+                    Safe storage is a critical requirement for firearm ownership. A police official may inspect
+                    your safe to ensure it complies with SAPS regulations before your license is approved. All
+                    safes must meet specific security standards to prevent unauthorised access. Responsible
+                    firearm ownership also requires ongoing commitment to safety protocols, regular training,
+                    and compliance with all South African firearm laws and regulations.
                   </p>
                 </section>
               </div>
             </div>
-          </HexagonCard>
-        </motion.div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
 }
-

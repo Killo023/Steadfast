@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Aileron Bold Italic - self-hosted for reliable loading */
+/* Aileron Bold Italic - self-hosted for reliable loading (brand logo font) */
 @font-face {
   font-family: "Aileron";
   font-style: italic;
@@ -11,16 +11,17 @@
 
 :root {
   /* Tactical Dark Theme */
-  --background: #0a0a0a;
-  --foreground: #d4d4d4;
-  --navy: #0d1117;
-  --navy-light: #161b22;
-  
-  /* Accent colors - logo blue */
-  --accent: #4299e1;
-  --accent-muted: #63b3ed;
-  --accent-dark: #3182ce;
-  
+  --background: #050505;
+  --foreground: #e2e8f0;
+  --navy: #0b0e14;
+  --navy-light: #12161f;
+
+  /* Accent colors - electric blue energy */
+  --accent: #38bdf8;
+  --accent-muted: #7dd3fc;
+  --accent-dark: #0284c7;
+  --accent-deep: #0ea5e9;
+
   /* Tactical gray palette */
   --gray-50: #0a0a0a;
   --gray-100: #0d1117;
@@ -32,107 +33,276 @@
   --gray-700: #8b949e;
   --gray-800: #b1bac4;
   --gray-900: #c9d1d9;
-  
+
   /* Tactical colors */
-  --tactical-blue: #4299e1;
-  --tactical-blue-dark: #3182ce;
+  --tactical-blue: #38bdf8;
+  --tactical-blue-dark: #0284c7;
   --tactical-black: #000000;
-  --tactical-gray: #1a1a1a;
-  
-  /* Yellow/Gold for authenticity badges */
-  --yellow: #eab308;
-  --yellow-light: #facc15;
-  --yellow-dark: #ca8a04;
-  --yellow-glow: rgba(234, 179, 8, 0.3);
-  
-  --accent-glow: rgba(66, 153, 225, 0.15);
-  --accent-hover: #3182ce;
-  
+  --tactical-gray: #0e1116;
+
+  /* Amber / gold for authenticity & trust */
+  --yellow: #f59e0b;
+  --yellow-light: #fbbf24;
+  --yellow-dark: #d97706;
+  --yellow-glow: rgba(245, 158, 11, 0.28);
+
+  --accent-glow: rgba(56, 189, 248, 0.16);
+  --accent-hover: #0ea5e9;
+
   /* Tactical backgrounds */
-  --bg-primary: #0a0a0a;
+  --bg-primary: #050505;
   --bg-secondary: #000000;
-  --bg-tertiary: #0d1117;
+  --bg-tertiary: #0b0e14;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0.05, 0.36, 1);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-navy: #0d1117;
-  --color-navy-light: #161b22;
-  --color-accent: #4299e1;
-  --color-accent-muted: #63b3ed;
-  --font-sans: var(--font-sans-display);
-  --font-serif: var(--font-serif);
-  --font-logo: "Aileron", var(--font-sans-display), system-ui, sans-serif;
-  --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, monospace;
+  --color-navy: #0b0e14;
+  --color-navy-light: #12161f;
+  --color-accent: #38bdf8;
+  --color-accent-muted: #7dd3fc;
+  --color-accent-dark: #0284c7;
+  --font-sans: var(--font-plex-sans);
+  --font-display: var(--font-barlow-condensed);
+  --font-mono: var(--font-plex-mono);
+  --font-logo: "Aileron", var(--font-plex-sans), system-ui, sans-serif;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
 }
 
 body {
   background: var(--bg-secondary);
   color: var(--foreground);
-  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  font-family: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-sans-display), system-ui, sans-serif;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  font-family: var(--font-barlow-condensed), var(--font-plex-sans), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
 }
 
-/* Logo / brand heading: Aileron Bold Italic (override h1 when used) */
+/* Logo / brand heading: Aileron Bold Italic */
 h1.font-logo,
 .font-logo {
-  font-family: "Aileron", var(--font-sans-display), system-ui, sans-serif !important;
+  font-family: "Aileron", var(--font-plex-sans), system-ui, sans-serif !important;
   font-weight: 700;
   font-style: italic;
+  text-transform: none;
 }
 
-/* UI elements use sans for a sharper, professional look */
-.modern-button,
-.authenticity-badge {
-  font-family: var(--font-sans-display), system-ui, sans-serif;
+::selection {
+  background: rgba(56, 189, 248, 0.35);
+  color: #ffffff;
 }
 
-/* Tactical professional card styling - sharp corners */
+*:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #0ea5e9, #0284c7);
+  border-radius: 8px;
+  border: 2px solid #050505;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #38bdf8;
+}
+
+/* ------------------------------------------------------------------ */
+/* Typography helpers                                                  */
+/* ------------------------------------------------------------------ */
+
+.font-display {
+  font-family: var(--font-barlow-condensed), sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.font-mono {
+  font-family: var(--font-plex-mono), monospace;
+}
+
+.text-gradient {
+  background: linear-gradient(92deg, #7dd3fc 0%, #38bdf8 45%, #818cf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-amber {
+  background: linear-gradient(92deg, #fbbf24 0%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Uppercase micro-label / readout */
+.readout {
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ */
+/* Cards, surfaces, buttons                                            */
+/* ------------------------------------------------------------------ */
+
+/* Tactical clipped-corner card surface */
+.tactical-card {
+  position: relative;
+  background: linear-gradient(160deg, rgba(56, 189, 248, 0.06) 0%, rgba(6, 10, 16, 0.9) 55%);
+  border: 1px solid rgba(56, 189, 248, 0.14);
+  backdrop-filter: blur(12px);
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+  transition: border-color 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
+}
+
+.tactical-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(56, 189, 248, 0.14), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.tactical-card:hover::before {
+  opacity: 1;
+}
+
+.tactical-card:hover {
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(56, 189, 248, 0.12), 0 0 40px -8px rgba(56, 189, 248, 0.25);
+}
+
+/* Legacy card (kept for landing pages) */
 .modern-card {
-  background: linear-gradient(145deg, rgba(66, 153, 225, 0.05) 0%, rgba(0, 0, 0, 0.8) 100%);
-  border: 1px solid rgba(66, 153, 225, 0.15);
+  background: linear-gradient(145deg, rgba(56, 189, 248, 0.05) 0%, rgba(0, 0, 0, 0.8) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.15);
   border-radius: 0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(66, 153, 225, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(56, 189, 248, 0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 }
 
 .modern-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(66, 153, 225, 0.5), transparent);
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.5), transparent);
   opacity: 0;
   transition: opacity 0.3s;
 }
 
 .modern-card:hover {
-  border-color: rgba(66, 153, 225, 0.4);
-  box-shadow: 0 8px 40px rgba(66, 153, 225, 0.15), 0 4px 20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(66, 153, 225, 0.2);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 8px 40px rgba(56, 189, 248, 0.15), 0 4px 20px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(56, 189, 248, 0.2);
   transform: translateY(-2px);
-  background: linear-gradient(145deg, rgba(66, 153, 225, 0.08) 0%, rgba(0, 0, 0, 0.85) 100%);
 }
 
 .modern-card:hover::before {
   opacity: 1;
 }
 
-/* Tactical professional primary button - sharp corners */
+/* Primary CTA button */
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(120deg, #0ea5e9 0%, #38bdf8 50%, #7dd3fc 100%);
+  background-size: 200% auto;
+  color: #03151f;
+  font-family: var(--font-barlow-condensed), sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  box-shadow: 0 10px 30px -10px rgba(14, 165, 233, 0.6);
+  transition: background-position 0.6s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo), transform 0.2s;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: translateX(-120%);
+  transition: transform 0.7s var(--ease-out-expo);
+}
+
+.btn-primary:hover {
+  background-position: right center;
+  box-shadow: 0 16px 44px -12px rgba(14, 165, 233, 0.8);
+}
+
+.btn-primary:hover::after {
+  transform: translateX(120%);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  font-family: var(--font-barlow-condensed), sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  transition: all 0.3s var(--ease-out-expo);
+}
+
+.btn-ghost:hover {
+  border-color: rgba(125, 211, 252, 0.6);
+  background: rgba(56, 189, 248, 0.08);
+  box-shadow: 0 0 30px -8px rgba(56, 189, 248, 0.4);
+}
+
+/* Legacy button kept for landing pages */
 .modern-button {
-  background: linear-gradient(135deg, #3182ce 0%, #4299e1 100%);
-  border: 1px solid rgba(66, 153, 225, 0.3);
+  background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
+  border: 1px solid rgba(56, 189, 248, 0.3);
   border-radius: 0;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   color: #ffffff;
@@ -145,7 +315,7 @@ h1.font-logo,
 }
 
 .modern-button::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
@@ -160,36 +330,13 @@ h1.font-logo,
 }
 
 .modern-button:hover {
-  background: linear-gradient(135deg, #4299e1 0%, #63b3ed 100%);
-  border-color: rgba(66, 153, 225, 0.5);
-  box-shadow: 0 6px 24px rgba(66, 153, 225, 0.3), 0 4px 16px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #38bdf8 0%, #7dd3fc 100%);
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 6px 24px rgba(56, 189, 248, 0.3), 0 4px 16px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
   transform: translateY(-2px);
 }
 
-.modern-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 12px rgba(66, 153, 225, 0.2);
-}
-
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Selection styling */
-::selection {
-  background: rgba(66, 153, 225, 0.3);
-  color: #ffffff;
-}
-
-/* Focus visible for accessibility */
-*:focus-visible {
-  outline: 2px solid #4299e1;
-  outline-offset: 2px;
-  border-radius: 0;
-}
-
-/* Minimal badge labels (not buttons) – yellow accents for importance */
+/* Yellow authenticity badge */
 .authenticity-badge {
   display: inline-flex;
   align-items: center;
@@ -203,7 +350,6 @@ html {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   border-radius: 0.125rem;
-  box-shadow: none;
 }
 
 .authenticity-badge-icon {
@@ -214,80 +360,349 @@ html {
   flex-shrink: 0;
 }
 
-/* Tactical animated gradient */
+/* ------------------------------------------------------------------ */
+/* Backgrounds & textures                                              */
+/* ------------------------------------------------------------------ */
+
+/* Fine tactical grid */
+.tactical-grid {
+  background-image:
+    linear-gradient(rgba(56, 189, 248, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Animated grid that slowly drifts (perspective illusion) */
+.grid-drift {
+  background-image:
+    linear-gradient(rgba(56, 189, 248, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  animation: grid-drift 22s linear infinite;
+}
+
+@keyframes grid-drift {
+  from { background-position: 0 0; }
+  to { background-position: 0 56px; }
+}
+
+/* Diagonal hazard/accent stripes */
+.hazard-stripes {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(56, 189, 248, 0.12) 0,
+    rgba(56, 189, 248, 0.12) 12px,
+    transparent 12px,
+    transparent 24px
+  );
+}
+
+.hazard-stripes-amber {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(251, 191, 36, 0.16) 0,
+    rgba(251, 191, 36, 0.16) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+}
+
+/* Film grain */
+.noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Radial spotlight */
+.spotlight {
+  background: radial-gradient(ellipse 70% 55% at 50% 0%, rgba(56, 189, 248, 0.09), transparent 70%);
+}
+
+/* Vertical scanlines (CRT / tactical HUD) */
+.scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.02) 0px,
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+/* Animated horizontal scan sweep */
+.scan-sweep {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.6), transparent);
+  animation: scan-sweep 6s linear infinite;
+}
+
+@keyframes scan-sweep {
+  0% { top: -2%; opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { top: 102%; opacity: 0; }
+}
+
+/* Corner brackets (HUD frame) */
+.hud-corners::before,
+.hud-corners::after {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-color: rgba(56, 189, 248, 0.55);
+  transition: all 0.4s var(--ease-out-expo);
+}
+.hud-corners::before {
+  top: 8px;
+  left: 8px;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+.hud-corners::after {
+  bottom: 8px;
+  right: 8px;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
+.hud-corners:hover::before {
+  top: 4px;
+  left: 4px;
+  width: 32px;
+  height: 32px;
+}
+.hud-corners:hover::after {
+  bottom: 4px;
+  right: 4px;
+  width: 32px;
+  height: 32px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion primitives                                                   */
+/* ------------------------------------------------------------------ */
+
 @keyframes gradient-shift {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
 
 .animated-gradient {
-  background: linear-gradient(-45deg, rgba(66, 153, 225, 0.05), rgba(99, 179, 237, 0.03), rgba(66, 153, 225, 0.05));
+  background: linear-gradient(-45deg, rgba(56, 189, 248, 0.05), rgba(129, 140, 248, 0.04), rgba(56, 189, 248, 0.06));
   background-size: 400% 400%;
   animation: gradient-shift 15s ease infinite;
 }
 
-/* Tactical grid pattern */
-.tactical-grid {
-  background-image: 
-    linear-gradient(rgba(66, 153, 225, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(66, 153, 225, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Tactical border effect */
-.tactical-border {
-  position: relative;
+.fade-in-up {
+  animation: fade-in-up 0.8s var(--ease-out-expo) forwards;
 }
 
-.tactical-border::after {
-  content: '';
+/* Pulsing rings */
+@keyframes ring-pulse {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+.ring-pulse::after {
+  content: "";
   position: absolute;
   inset: 0;
-  border: 1px solid rgba(66, 153, 225, 0.2);
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
-  pointer-events: none;
+  border-radius: 9999px;
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  animation: ring-pulse 2.4s var(--ease-out-expo) infinite;
 }
+
+/* Floating */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+.float-y {
+  animation: float-y 6s ease-in-out infinite;
+}
+
+/* Marquee */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Blinking cursor / status light */
+.blink {
+  animation: blink 1.6s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to { visibility: hidden; }
+}
+
+/* Slow spin (emblem, rings) */
+.spin-slow {
+  animation: spin-slow 24s linear infinite;
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+/* Shooting star / tracer streak */
+@keyframes tracer {
+  0% { transform: translateX(-120%) translateY(0); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateX(520%) translateY(-30%); opacity: 0; }
+}
+
+.tracer {
+  animation: tracer 7s linear infinite;
+}
+
+/* Bordered outline glitch */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: inset(0);
+}
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 rgba(14, 165, 233, 0.7);
+  animation: glitch-shift 3.2s infinite linear alternate-reverse;
+}
+.glitch-text::after {
+  left: -2px;
+  text-shadow: 2px 0 rgba(129, 140, 248, 0.7);
+  animation: glitch-shift 2.7s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-shift {
+  0% { clip-path: inset(20% 0 60% 0); }
+  20% { clip-path: inset(80% 0 5% 0); }
+  40% { clip-path: inset(35% 0 45% 0); }
+  60% { clip-path: inset(60% 0 20% 0); }
+  80% { clip-path: inset(5% 0 85% 0); }
+  100% { clip-path: inset(45% 0 40% 0); }
+}
+
+/* Section angle divider */
+.section-divider {
+  position: relative;
+}
+.section-divider::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 48px;
+  background: inherit;
+  clip-path: polygon(0 0, 100% 0, 100% 40%, 0 100%);
+  z-index: 2;
+}
+
+/* ------------------------------------------------------------------ */
+/* Misc                                                                */
+/* ------------------------------------------------------------------ */
 
 /* Parallax container */
 .parallax-container {
   will-change: transform;
 }
 
-/* Smooth fade-in animation */
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.fade-in-up {
-  animation: fade-in-up 0.8s ease-out forwards;
-}
-
-/* Tactical glow effect */
+/* Glow border */
 .glow-effect {
   position: relative;
 }
 
 .glow-effect::before {
-  content: '';
+  content: "";
   position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  padding: 2px;
-  background: linear-gradient(45deg, rgba(66, 153, 225, 0.2), rgba(99, 179, 237, 0.2));
+  inset: -1px;
+  padding: 1px;
+  background: linear-gradient(45deg, rgba(56, 189, 248, 0.25), rgba(125, 211, 252, 0.25), rgba(129, 140, 248, 0.25));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
   transition: opacity 0.3s;
+  pointer-events: none;
 }
 
 .glow-effect:hover::before {
   opacity: 1;
+}
+
+/* Tactical border (legacy) */
+.tactical-border {
+  position: relative;
+}
+
+.tactical-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  pointer-events: none;
+}
+
+/* Shine sweep on images */
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+.shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.7s var(--ease-out-expo);
+}
+.shine:hover::after {
+  left: 130%;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

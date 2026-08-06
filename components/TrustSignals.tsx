@@ -1,10 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Award, Stamp, Star, CheckCircle2 } from "lucide-react";
+import { Award, Stamp, Star, CheckCircle2, Quote } from "lucide-react";
+import { SectionHeading } from "@/components/motion/SectionHeading";
+import { Reveal } from "@/components/motion/Reveal";
+import { TiltCard } from "@/components/motion/TiltCard";
+import { GlowOrb } from "@/components/motion/GlowOrb";
 import { images, fallbackImage } from "@/lib/images";
 
-/** Fixed positions/delays for starfield dots (deterministic for SSR hydration) */
 const STARFIELD_DOTS = [
   { left: 13, top: 20, duration: 3.2, delay: 0 },
   { left: 78, top: 54, duration: 3.8, delay: 0.4 },
@@ -23,242 +26,157 @@ const STARFIELD_DOTS = [
 export function TrustSignals() {
   return (
     <section
-      className="bg-[#000000] px-4 py-16 md:py-24 relative overflow-hidden"
+      id="trust"
+      className="relative scroll-mt-20 overflow-hidden bg-[#050505] py-24 md:py-32"
       aria-labelledby="trust-heading"
     >
-      {/* Abstract background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-0 left-1/4 w-96 h-96 bg-accent/5 blur-3xl"
-          animate={{
-            x: [0, 50, 0],
-            y: [0, 30, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 blur-3xl"
-          animate={{
-            x: [0, -50, 0],
-            y: [0, -30, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-      </div>
+      <div className="scanlines absolute inset-0 opacity-20" aria-hidden />
+      <GlowOrb className="left-1/3 top-0" size="w-96 h-96" duration={18} />
+      <GlowOrb className="right-1/4 bottom-0" size="w-80 h-80" color="rgba(251,191,36,0.06)" duration={20} delay={3} />
 
-      <div className="mx-auto max-w-7xl relative z-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
         <h2 id="trust-heading" className="sr-only">
-          Why choose us
+          Why choose Steadfast Tactical
         </h2>
-        {/* Modern Abstract Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
-          {/* Card 1: Accredited Training Provider - Abstract Geometric Design */}
-          <motion.div
-            className="relative group"
-            initial={{ opacity: 0, y: 30, rotateX: -15 }}
-            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            whileHover={{ y: -8 }}
-          >
-            <div className="relative h-full min-h-[280px] bg-gradient-to-br from-[#0a0a0a] via-[#0d1117] to-[#0a0a0a] border border-accent/20 overflow-hidden">
-              {/* Abstract geometric shapes */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 transform rotate-45 translate-x-8 -translate-y-8"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent/5 transform -rotate-12 -translate-x-4 translate-y-4"></div>
-              
-              {/* Content */}
-              <div className="relative h-full flex flex-col items-center justify-center p-8 text-center">
-                <motion.div
-                  className="mb-6 relative"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="relative">
-                    <i className="fa-solid fa-bullseye text-accent text-5xl relative z-10" aria-hidden></i>
-                    <div className="absolute inset-0 bg-accent/20 blur-xl"></div>
-                  </div>
-                </motion.div>
-                
-                <h3 className="text-lg font-bold text-white mb-6 tracking-wide uppercase">
-                  Accredited Training Provider
-                </h3>
-                
-                <div className="flex flex-wrap items-center justify-center gap-3">
-                  <div className="authenticity-badge">
-                    <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
-                    <span>SAPS</span>
-                  </div>
-                  <div className="authenticity-badge">
-                    <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
-                    <span>PFTC</span>
+        <SectionHeading
+          eyebrow="// 09 · Why Us"
+          title="Built on"
+          highlight="Trust"
+          description="Accreditation, transparency, and results — the three pillars behind every course we run."
+          className="mb-16"
+        />
+
+        <div className="grid gap-6 lg:grid-cols-3">
+          {/* Card 1: Accredited */}
+          <Reveal direction="up" delay={0.05}>
+            <TiltCard maxTilt={8} className="h-full">
+              <div className="tactical-card group relative h-full min-h-[300px] overflow-hidden p-8">
+                <div className="hazard-stripes absolute inset-0 opacity-20" aria-hidden />
+                <div className="absolute right-0 top-0 h-32 w-32 translate-x-8 -translate-y-8 rotate-45 bg-accent/10 transition-transform duration-700 group-hover:translate-x-4 group-hover:-translate-y-4" aria-hidden />
+                <div className="relative flex h-full flex-col items-center justify-center text-center">
+                  <motion.div className="relative mb-6" whileHover={{ scale: 1.12, rotate: 6 }}>
+                    <span className="ring-pulse absolute inset-0" aria-hidden />
+                    <div className="relative flex h-16 w-16 items-center justify-center border border-accent/30 bg-accent/10">
+                      <Award className="h-8 w-8 text-accent" aria-hidden />
+                    </div>
+                  </motion.div>
+                  <h3 className="font-display text-xl font-bold uppercase text-white">
+                    Accredited Provider
+                  </h3>
+                  <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+                    <span className="authenticity-badge">
+                      <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
+                      SAPS
+                    </span>
+                    <span className="authenticity-badge">
+                      <CheckCircle2 className="authenticity-badge-icon" aria-hidden />
+                      PFTC
+                    </span>
                   </div>
                 </div>
               </div>
+            </TiltCard>
+          </Reveal>
 
-              {/* Hover effect overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/0 via-accent/0 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-          </motion.div>
-
-          {/* Card 2: No Hidden Charges - Abstract Diagonal Design */}
-          <motion.div
-            className="relative group"
-            initial={{ opacity: 0, y: 30, rotateX: -15 }}
-            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            whileHover={{ y: -8 }}
-          >
-            <div className="relative h-full min-h-[280px] bg-gradient-to-br from-[#f59e0b]/20 via-[#fbbf24]/10 to-[#f59e0b]/20 border border-[#fbbf24]/30 overflow-hidden">
-              {/* Abstract diagonal stripes */}
-              <div className="absolute inset-0 opacity-10">
-                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-transparent via-[#fbbf24]/20 to-transparent transform -skew-y-12"></div>
-                <div className="absolute top-0 right-0 w-40 h-40 bg-[#fbbf24]/10 transform rotate-45 translate-x-12 -translate-y-12"></div>
+          {/* Card 2: No hidden charges */}
+          <Reveal direction="up" delay={0.15}>
+            <TiltCard maxTilt={8} className="h-full">
+              <div className="tactical-card group relative h-full min-h-[300px] overflow-hidden p-8">
+                <div className="hazard-stripes-amber absolute inset-0 opacity-25" aria-hidden />
+                <div className="relative flex h-full flex-col items-center justify-center text-center">
+                  <motion.div className="relative mb-6" whileHover={{ scale: 1.12, rotate: -6 }}>
+                    <span className="ring-pulse absolute inset-0 !border-amber-400/50" aria-hidden />
+                    <div className="relative flex h-16 w-16 items-center justify-center border border-amber-400/30 bg-amber-400/10">
+                      <Stamp className="h-8 w-8 text-amber-400" aria-hidden />
+                    </div>
+                  </motion.div>
+                  <h3 className="font-display text-xl font-bold uppercase text-white">
+                    No Hidden Charges
+                  </h3>
+                  <p className="mt-3 text-sm text-slate-400">100% transparent pricing — what you see is what you pay.</p>
+                </div>
               </div>
-              
-              {/* Content */}
-              <div className="relative h-full flex flex-col items-center justify-center p-8 text-center">
-                <motion.div
-                  className="mb-6 relative"
-                  whileHover={{ scale: 1.1, rotate: -5 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="relative">
-                    <Stamp className="h-12 w-12 text-[#fbbf24] relative z-10" aria-hidden />
-                    <div className="absolute inset-0 bg-[#fbbf24]/30 blur-xl"></div>
-                  </div>
-                </motion.div>
-                
-                <h3 className="text-lg font-bold text-white mb-2 tracking-wide uppercase">
-                  No Hidden Charges
-                </h3>
-                <p className="text-sm text-gray-300">100% Transparent Pricing</p>
-              </div>
+            </TiltCard>
+          </Reveal>
 
-              {/* Hover effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#fbbf24]/0 via-[#fbbf24]/5 to-[#fbbf24]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-          </motion.div>
-
-          {/* Card 3: Rated 5 Stars - Abstract Starfield Design */}
-          <motion.div
-            className="relative group"
-            initial={{ opacity: 0, y: 30, rotateX: -15 }}
-            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            whileHover={{ y: -8 }}
-          >
-            <div className="relative h-full min-h-[280px] bg-gradient-to-br from-[#0a0a0a] via-[#0d1117] to-[#0a0a0a] border border-accent/20 overflow-hidden">
-              {/* Abstract starfield background (fixed positions for hydration) */}
-              <div className="absolute inset-0 opacity-20">
-                {STARFIELD_DOTS.map((dot, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-1 h-1 bg-accent rounded-full"
-                    style={{
-                      left: `${dot.left}%`,
-                      top: `${dot.top}%`,
-                    }}
-                    animate={{
-                      opacity: [0.3, 1, 0.3],
-                      scale: [1, 1.5, 1],
-                    }}
-                    transition={{
-                      duration: dot.duration,
-                      repeat: Infinity,
-                      delay: dot.delay,
-                    }}
-                  />
-                ))}
-              </div>
-              
-              {/* Content */}
-              <div className="relative h-full flex flex-col items-center justify-center p-8 text-center">
-                <motion.div
-                  className="mb-6 flex items-center gap-1"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <motion.div
+          {/* Card 3: Rated 5 stars */}
+          <Reveal direction="up" delay={0.25}>
+            <TiltCard maxTilt={8} className="h-full">
+              <div className="tactical-card group relative h-full min-h-[300px] overflow-hidden p-8">
+                <div className="absolute inset-0 opacity-25" aria-hidden>
+                  {STARFIELD_DOTS.map((dot, i) => (
+                    <motion.span
                       key={i}
-                      initial={{ opacity: 0, scale: 0 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.1 * i, type: "spring" }}
-                      whileHover={{ scale: 1.2, rotate: 15 }}
-                    >
-                      <Star
-                        className="h-8 w-8 fill-accent text-accent drop-shadow-[0_0_8px_rgba(66,153,225,0.5)]"
-                        aria-hidden
-                      />
-                    </motion.div>
+                      className="absolute h-1 w-1 rounded-full bg-accent"
+                      style={{ left: `${dot.left}%`, top: `${dot.top}%` }}
+                      animate={{ opacity: [0.3, 1, 0.3], scale: [1, 1.6, 1] }}
+                      transition={{ duration: dot.duration, repeat: Infinity, delay: dot.delay }}
+                    />
                   ))}
-                </motion.div>
-                
-                <h3 className="text-lg font-bold text-white mb-2 tracking-wide uppercase">
-                  Rated 5 Stars
-                </h3>
-                <p className="text-sm text-gray-300">Trusted by Clients</p>
+                </div>
+                <div className="relative flex h-full flex-col items-center justify-center text-center">
+                  <div className="mb-6 flex gap-1.5">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <motion.span
+                        key={i}
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 * i, type: "spring" }}
+                        whileHover={{ scale: 1.25, rotate: 12 }}
+                      >
+                        <Star className="h-8 w-8 fill-accent text-accent drop-shadow-[0_0_10px_rgba(56,189,248,0.6)]" aria-hidden />
+                      </motion.span>
+                    ))}
+                  </div>
+                  <h3 className="font-display text-xl font-bold uppercase text-white">
+                    Rated 5 Stars
+                  </h3>
+                  <p className="mt-3 text-sm text-slate-400">Trusted by clients across Johannesburg &amp; Gauteng.</p>
+                </div>
               </div>
-
-              {/* Hover effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/0 via-accent/0 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-          </motion.div>
+            </TiltCard>
+          </Reveal>
         </div>
 
-        <motion.div
-          className="mt-16 flex flex-col items-center gap-8 lg:flex-row lg:justify-between lg:items-center lg:gap-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.div
-            className="relative w-full lg:w-[55%] aspect-[4/3] lg:aspect-[3/2] overflow-hidden border-2 border-accent/40 shadow-2xl shadow-accent/20 group glow-effect"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            whileHover={{ scale: 1.02 }}
-          >
-            <img
-              src={images.target}
-              alt="Professional firearm training at Steadfast Tactical"
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-              onError={(e) => {
-                e.currentTarget.src = fallbackImage;
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/20"></div>
-          </motion.div>
-          <motion.div
-            className="w-full lg:w-[40%] flex flex-col justify-center"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <p className="text-center text-3xl md:text-4xl lg:text-5xl font-bold italic text-white lg:text-left leading-tight mb-4">
-              <span className="block">Chosen by Many.</span>
-              <span className="block text-accent mt-2">Trusted by More.</span>
-            </p>
-            <p className="text-center text-gray-300 text-base md:text-lg lg:text-left mt-4 leading-relaxed">
-              Join hundreds of satisfied clients who have chosen Steadfast Tactical for their firearm competency training needs.
-            </p>
-          </motion.div>
-        </motion.div>
+        {/* Statement band */}
+        <Reveal direction="up" className="mt-20">
+          <div className="grid items-center gap-10 lg:grid-cols-2">
+            <div className="group relative order-2 lg:order-1">
+              <div className="absolute -left-3 -top-3 h-20 w-20 border-l-2 border-t-2 border-accent/40" aria-hidden />
+              <div className="relative aspect-[4/3] overflow-hidden border border-white/10">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={images.target}
+                  alt="Professional firearm competency training at the Steadfast Tactical range in Lenasia"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  onError={(e) => {
+                    e.currentTarget.src = fallbackImage;
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" aria-hidden />
+                <div className="scanlines absolute inset-0 opacity-25" aria-hidden />
+              </div>
+              <div className="absolute -bottom-3 -right-3 h-20 w-20 border-b-2 border-r-2 border-accent/40" aria-hidden />
+            </div>
+
+            <div className="order-1 lg:order-2">
+              <Quote className="mb-6 h-10 w-10 text-accent/40" aria-hidden />
+              <p className="font-display text-3xl font-extrabold uppercase leading-[1.1] text-white md:text-5xl">
+                Chosen by Many.
+                <span className="mt-3 block text-gradient">Trusted by More.</span>
+              </p>
+              <p className="mt-6 max-w-xl text-slate-300">
+                Join hundreds of satisfied clients who have chosen Steadfast Tactical for their
+                firearm competency training needs — with SAPS &amp; PFTC accreditation, transparent
+                pricing, and instruction led by a certified range officer.
+              </p>
+              <a href="#contact" className="btn-ghost mt-8 text-sm">
+                Start Training Today
+              </a>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

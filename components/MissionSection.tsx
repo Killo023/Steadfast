@@ -1,198 +1,84 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Crosshair } from "lucide-react";
-import { images, fallbackImage } from "@/lib/images";
+import { GlowOrb } from "@/components/motion/GlowOrb";
 
 export function MissionSection() {
-  const [videoReady, setVideoReady] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current && videoReady) {
-      videoRef.current.play().catch((err) => {
-        console.warn("Video autoplay failed:", err);
-        setVideoFailed(true);
-      });
-    }
-  }, [videoReady]);
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
 
   return (
     <section
-      className="bg-[#0a0a0a] px-4 py-16 md:py-24 relative overflow-hidden"
+      ref={ref}
+      className="relative overflow-hidden py-28 md:py-40"
       aria-labelledby="mission-heading"
     >
-      {/* Background video */}
-      {!videoFailed && (
-        <video
-          ref={videoRef}
-          className={`absolute inset-0 h-full w-full object-cover z-0 ${videoReady && !videoFailed ? "opacity-30" : "opacity-0"}`}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          aria-hidden
-          onLoadedData={() => {
-            setVideoReady(true);
-            const video = videoRef.current;
-            if (video) {
-              video.play().catch((err) => {
-                console.warn("Video play() failed:", err);
-                setVideoFailed(true);
-              });
-            }
-          }}
-          onCanPlay={() => {
-            setVideoReady(true);
-            const video = videoRef.current;
-            if (video && video.paused) {
-              video.play().catch(() => setVideoFailed(true));
-            }
-          }}
-          onError={() => setVideoFailed(true)}
-        >
-          <source src="/video/6456688_Shooting Range Aim Marksmanship Firearm_By_Pressmaster_Artlist_HD.mp4" type="video/mp4" />
-        </video>
-      )}
-      {/* Overlay */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/90 via-black/85 to-black/95" />
-      {/* Decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]">
-        {/* Geometric shapes */}
-        <motion.div
-          className="absolute top-10 right-20 w-24 h-24 border border-accent/10 rotate-45"
-          animate={{
-            rotate: [45, 225, 45],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        <motion.div
-          className="absolute bottom-10 left-20 w-16 h-16 border border-accent/10 rotate-45"
-          animate={{
-            rotate: [45, -135, 45],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        {/* Small particles */}
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1.5 h-1.5 bg-accent/30 rounded-full"
-            style={{
-              left: `${10 + i * 12}%`,
-              top: `${15 + (i % 4) * 25}%`,
-            }}
-            animate={{
-              y: [0, -15, 0],
-              opacity: [0.3, 0.7, 0.3],
-            }}
-            transition={{
-              duration: 2 + i * 0.2,
-              repeat: Infinity,
-              delay: i * 0.2,
-            }}
-          />
-        ))}
-      </div>
+      {/* Parallax background */}
+      <motion.div className="absolute inset-0 z-0" style={{ y, scale: 1.2 }} aria-hidden>
+        <div className="absolute inset-0 bg-[url('/images/Section2%20(6).jpg')] bg-cover bg-center opacity-25" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/70 to-black" />
+        <div className="tactical-grid absolute inset-0 opacity-20" />
+      </motion.div>
+      <GlowOrb className="left-1/4 top-0" size="w-96 h-96" duration={12} />
+      <GlowOrb className="right-1/4 bottom-0" size="w-80 h-80" color="rgba(129,140,248,0.12)" duration={16} delay={2} />
 
-      <div className="mx-auto max-w-6xl relative z-10">
+      <div className="relative z-10 mx-auto max-w-5xl px-4 text-center md:px-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ type: "spring", stiffness: 120, damping: 16 }}
+          className="mx-auto mb-8 flex h-16 w-16 items-center justify-center border border-accent/30 bg-black/50 backdrop-blur-sm"
+        >
+          <span className="ring-pulse absolute inset-0" aria-hidden />
+          <Crosshair className="h-8 w-8 text-accent" aria-hidden />
+        </motion.div>
+
+        <h2 id="mission-heading" className="sr-only">
+          Our mission
+        </h2>
+
+        <motion.blockquote
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p className="font-display text-4xl font-extrabold uppercase leading-[1.1] text-white sm:text-5xl md:text-6xl">
+            Proper training builds{" "}
+            <span className="text-gradient">responsible owners</span>. Safe hands. Confident
+            citizens.
+          </p>
+        </motion.blockquote>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-slate-300 md:text-lg"
+        >
+          Our mission is to make high-quality, accredited firearm competency training accessible
+          to every qualified individual — with transparent pricing, no hidden charges, and an
+          uncompromising commitment to safety and legal compliance.
+        </motion.p>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="modern-card p-10 relative overflow-hidden group"
+          transition={{ delay: 0.45, duration: 0.6 }}
+          className="mx-auto mt-10 flex max-w-xs items-center justify-center gap-3"
         >
-          {/* Background image */}
-          <div className="absolute inset-0 opacity-10 group-hover:opacity-15 transition-opacity">
-            <img
-              src={images.target}
-              alt=""
-              className="h-full w-full object-cover"
-              onError={(e) => {
-                e.currentTarget.src = fallbackImage;
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-black via-transparent to-black"></div>
-          </div>
-
-          {/* Content */}
-          <div className="relative z-10">
-            <div className="flex items-center gap-4 mb-6">
-              <motion.div 
-                className="flex-shrink-0 p-3 bg-gradient-to-br from-accent/10 to-accent-muted/10 border border-accent/20 relative"
-                whileHover={{ rotate: 90, scale: 1.1 }}
-                transition={{ duration: 0.3 }}
-              >
-                {/* Pulsing ring */}
-                <motion.div
-                  className="absolute inset-0 border-2 border-accent/30 rounded-full"
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [0.5, 0, 0.5],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                  }}
-                />
-                <Crosshair className="h-7 w-7 text-accent relative z-10" aria-hidden />
-              </motion.div>
-              <h2 id="mission-heading" className="text-2xl font-semibold text-white">Our Mission</h2>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <p className="text-gray-300 leading-relaxed mb-4 text-base">
-                  At Steadfast Tactical, our mission is to provide accessible, high-quality firearm 
-                  competency training that promotes responsible ownership and enhances personal safety. 
-                  We believe that proper training is essential for anyone considering firearm ownership, 
-                  and we are dedicated to making this training accessible to all qualified individuals.
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-300 leading-relaxed text-base">
-                  With transparent pricing, no hidden charges, and a commitment to excellence, we strive 
-                  to be the trusted choice for firearm competency training.
-                </p>
-                {/* Small decorative elements */}
-                <div className="flex gap-2 mt-4">
-                  {[...Array(3)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="w-2 h-2 bg-accent/40 rounded-full"
-                      animate={{
-                        scale: [1, 1.3, 1],
-                        opacity: [0.4, 0.8, 0.4],
-                      }}
-                      transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        delay: i * 0.3,
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Corner decorations */}
-          <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-accent/20"></div>
-          <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-accent/20"></div>
+          <span className="h-px flex-1 bg-gradient-to-r from-transparent to-accent/60" aria-hidden />
+          <span className="readout text-accent">Chosen by Many · Trusted by More</span>
+          <span className="h-px flex-1 bg-gradient-to-l from-transparent to-accent/60" aria-hidden />
         </motion.div>
       </div>
     </section>

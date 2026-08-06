@@ -1,24 +1,36 @@
 import type { Metadata } from "next";
-import { Source_Serif_4, IBM_Plex_Sans } from "next/font/google";
+import { IBM_Plex_Sans, Barlow_Condensed, IBM_Plex_Mono } from "next/font/google";
 import { FontAwesomeLoader } from "@/components/FontAwesomeLoader";
-import { localBusinessJsonLd } from "@/lib/local-business-schema";
+import { localBusinessJsonLd, websiteJsonLd, organizationJsonLd, servicesJsonLd, courseJsonLd } from "@/lib/local-business-schema";
 import "./globals.css";
 
-const sourceSerif = Source_Serif_4({
-  variable: "--font-serif",
-  subsets: ["latin"],
-});
-
-const ibmPlexSans = IBM_Plex_Sans({
-  variable: "--font-sans-display",
+const plexSans = IBM_Plex_Sans({
+  variable: "--font-plex-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
 
+const barlowCondensed = Barlow_Condensed({
+  variable: "--font-barlow-condensed",
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+});
+
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+});
+
 export const metadata: Metadata = {
-  title: "Steadfast Tactical | Firearm Training Johannesburg & Gauteng",
+  metadataBase: new URL("https://steadfasttactical.co.za"),
+  title: {
+    default:
+      "Steadfast Tactical | SAPS & PFTC Accredited Firearm Training Johannesburg",
+    template: "%s | Steadfast Tactical",
+  },
   description:
-    "Steadfast Tactical provides SAPS & PFTC accredited firearm competency training in Lenasia, Johannesburg, Gauteng. Handgun, shotgun and rifle training with transparent pricing and no hidden charges.",
+    "SAPS & PFTC accredited firearm competency training in Lenasia, Johannesburg, Gauteng. Handgun, shotgun & rifle competency courses for personal and business use. Transparent pricing, no hidden charges.",
   keywords: [
     "Firearm Competency Training",
     "Accredited Firearm Training South Africa",
@@ -27,7 +39,6 @@ export const metadata: Metadata = {
     "Tactical Shooting Courses",
     "Firearm training",
     "SAPS accredited firearm training",
-    "SAPS & PFTC accredited firearm training",
     "Firearm training Johannesburg",
     "Firearm training Gauteng",
     "Firearm training near me",
@@ -35,9 +46,45 @@ export const metadata: Metadata = {
     "firearm competency Johannesburg",
     "firearm training Johannesburg South",
     "firearm training Johannesburg North",
-    "firearm training Lenasia",
+    "firearm competency Lenasia",
+    "handgun competency training",
+    "shotgun competency training",
+    "self loading rifle training",
+    "Regulation 21 training security",
     "firearm competency near me",
   ],
+  authors: [{ name: "Steadfast Tactical" }],
+  creator: "Steadfast Tactical",
+  category: "firearm-training",
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Steadfast Tactical",
+    title: "Steadfast Tactical | SAPS & PFTC Accredited Firearm Training",
+    description:
+      "Accredited firearm competency training in Johannesburg, Gauteng. Handgun, shotgun & rifle courses with transparent pricing.",
+    url: "https://steadfasttactical.co.za",
+    locale: "en_ZA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Steadfast Tactical | Firearm Competency Training",
+    description:
+      "SAPS & PFTC accredited firearm competency training in Johannesburg, Gauteng.",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -45,18 +92,10 @@ export const metadata: Metadata = {
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
     shortcut: "/favicon.ico",
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
-  openGraph: {
-    title: "Steadfast Tactical | Firearm Competency Training",
-    description:
-      "SAPS & PFTC Accredited firearm competency training. Professional, transparent pricing.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Steadfast Tactical | Firearm Competency Training",
+  other: {
+    "format-detection": "telephone=no",
   },
 };
 
@@ -66,15 +105,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en-ZA">
       <body
-        className={`${sourceSerif.variable} ${ibmPlexSans.variable} antialiased`}
+        className={`${plexSans.variable} ${barlowCondensed.variable} ${plexMono.variable} antialiased bg-[#000000]`}
       >
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(localBusinessJsonLd),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
         />
         <FontAwesomeLoader />
         <a

@@ -1,280 +1,159 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { SectionTitle } from "@/components/SectionTitle";
-import { HexagonCard } from "@/components/HexagonCard";
-import { BookOpen, Target, FileCheck, Award, Crosshair } from "lucide-react";
-import { images, fallbackImage } from "@/lib/images";
+import { BookOpen, Target, FileCheck, Award, Play } from "lucide-react";
+import { SectionHeading } from "@/components/motion/SectionHeading";
+import { Reveal } from "@/components/motion/Reveal";
+import { GlowOrb } from "@/components/motion/GlowOrb";
 
 const steps = [
   {
     number: "01",
     icon: BookOpen,
     title: "Theory Training",
-    description: "Comprehensive classroom instruction covering firearm laws, safety protocols, maintenance, and responsible ownership principles.",
+    description:
+      "Comprehensive classroom instruction covering firearm laws, safety protocols, maintenance, and responsible ownership principles.",
   },
   {
     number: "02",
     icon: Target,
     title: "Practical Training",
-    description: "Hands-on range training with live fire exercises, proper handling techniques, and marksmanship fundamentals.",
+    description:
+      "Hands-on range training with live-fire exercises, proper handling techniques, and marksmanship fundamentals.",
   },
   {
     number: "03",
     icon: FileCheck,
     title: "Assessment",
-    description: "Written and practical assessments to evaluate your understanding and competency with firearms.",
+    description:
+      "Written and practical assessments to evaluate your understanding and competency with firearms.",
   },
   {
     number: "04",
     icon: Award,
     title: "Certification",
-    description: "Upon successful completion, receive your SAPS & PFTC accredited firearm competency certificate.",
-    useBullseye: true,
+    description:
+      "On successful completion, receive your SAPS & PFTC accredited firearm competency certificate.",
   },
 ];
 
 export function TrainingProcess() {
-  const [videoReady, setVideoReady] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current && videoReady) {
-      videoRef.current.play().catch((err) => {
-        console.warn("Video autoplay failed:", err);
-        setVideoFailed(true);
-      });
-    }
-  }, [videoReady]);
-
   return (
     <section
-      className="bg-[#0d1117] px-4 py-16 md:py-24 relative overflow-hidden"
+      id="process"
+      className="relative scroll-mt-20 overflow-hidden bg-[#070a10] py-24 md:py-32"
       aria-labelledby="process-heading"
     >
-      {/* Background video */}
-      {!videoFailed && (
-        <video
-          ref={videoRef}
-          className={`absolute inset-0 h-full w-full object-cover z-0 ${videoReady && !videoFailed ? "opacity-30" : "opacity-0"}`}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          aria-hidden
-          onLoadedData={() => {
-            setVideoReady(true);
-            const video = videoRef.current;
-            if (video) {
-              video.play().catch((err) => {
-                console.warn("Video play() failed:", err);
-                setVideoFailed(true);
-              });
-            }
-          }}
-          onCanPlay={() => {
-            setVideoReady(true);
-            const video = videoRef.current;
-            if (video && video.paused) {
-              video.play().catch(() => setVideoFailed(true));
-            }
-          }}
-          onError={() => setVideoFailed(true)}
-        >
-          <source src="/video/6456665_Shooting Range Aim Marksmanship Firearm_By_Pressmaster_Artlist_HD.mp4" type="video/mp4" />
-        </video>
-      )}
-      {/* Overlay */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/90 via-black/85 to-black/95" />
-      {/* Decorative background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]">
-        {/* Animated grid pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `linear-gradient(rgba(66,153,225,0.1) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(66,153,225,0.1) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px'
-          }}></div>
-        </div>
-        {/* Floating elements */}
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-3 h-3 bg-accent/20 rounded-full"
-            style={{
-              left: `${20 + i * 20}%`,
-              top: `${10 + (i % 2) * 40}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, 10, 0],
-              opacity: [0.2, 0.5, 0.2],
-            }}
-            transition={{
-              duration: 4 + i * 0.5,
-              repeat: Infinity,
-              delay: i * 0.4,
-            }}
-          />
-        ))}
-      </div>
+      <div className="tactical-grid absolute inset-0 opacity-15" aria-hidden />
+      <GlowOrb className="right-[-140px] top-1/3" size="w-80 h-80" color="rgba(14,165,233,0.14)" duration={13} />
 
-      <div className="mx-auto max-w-6xl relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 id="process-heading" className="sr-only">
-            Training process
-          </h2>
-          <div className="flex justify-center mb-6">
-            <div className="flex-shrink-0 p-4 bg-gradient-to-br from-accent/10 to-accent-muted/10 border border-accent/20">
-              <i className="fa-solid fa-gun text-accent text-4xl" aria-hidden></i>
-            </div>
-          </div>
-          <SectionTitle className="mb-6">How It Works</SectionTitle>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-12">
-            Our structured training program ensures you gain the knowledge and skills needed 
-            for responsible firearm ownership.
-          </p>
-          
-          {/* Featured training video (portrait — no stretch) */}
+      <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
+        <h2 id="process-heading" className="sr-only">
+          How our firearm training process works
+        </h2>
+        <SectionHeading
+          eyebrow="// 04 · How It Works"
+          title="From Zero to"
+          highlight="Competent"
+          description="A structured, four-stage training program that ensures you gain the knowledge and skills needed for responsible firearm ownership."
+          className="mb-16"
+        />
+
+        <div className="relative">
+          {/* Connecting line (desktop) */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="absolute left-0 right-0 top-[52px] hidden h-px origin-left bg-gradient-to-r from-accent/60 via-accent/20 to-transparent lg:block"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto mb-16 w-full max-w-[min(100%,22rem)] sm:max-w-xs md:max-w-sm"
-          >
-            <div className="overflow-hidden rounded-2xl border border-accent/25 bg-[#0a0a0a] shadow-[0_24px_48px_-12px_rgba(0,0,0,0.75)] ring-1 ring-white/5">
-              <div className="relative aspect-[9/16] w-full">
+            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+            aria-hidden
+          />
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {steps.map((step, i) => {
+              const IconComponent = step.icon;
+              return (
+                <motion.div
+                  key={step.number}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ delay: i * 0.12, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  className="group relative"
+                >
+                  <div className="tactical-card flex h-full flex-col items-center p-6 pt-8 text-center">
+                    {/* Number + icon node */}
+                    <div className="relative mb-6 flex h-[104px] w-[104px] items-center justify-center">
+                      <span className="absolute inset-0 rotate-45 border border-accent/20 transition-all duration-500 group-hover:rotate-[135deg] group-hover:border-accent/50" aria-hidden />
+                      <span className="absolute inset-2 rotate-45 border border-accent/10 bg-accent/5" aria-hidden />
+                      <motion.div
+                        className="relative flex h-14 w-14 items-center justify-center"
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <span className="ring-pulse absolute inset-0" aria-hidden />
+                        <IconComponent className="h-6 w-6 text-accent" aria-hidden />
+                      </motion.div>
+                    </div>
+
+                    <span className="readout text-accent/70">STEP {step.number}</span>
+                    <h3 className="mt-2 font-display text-xl font-bold uppercase tracking-wide text-white">
+                      {step.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-slate-400">
+                      {step.description}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Cinematic training footage strip */}
+        <Reveal direction="up" delay={0.15} className="mt-20">
+          <div className="group relative grid items-center gap-8 overflow-hidden border border-white/10 bg-gradient-to-r from-[#04121c] to-[#0a0a0f] p-6 md:grid-cols-[auto_1fr] md:p-10">
+            <div className="scanlines absolute inset-0 opacity-20" aria-hidden />
+            {/* Phone frame video */}
+            <div className="relative mx-auto w-full max-w-[220px]">
+              <div className="relative aspect-[9/16] overflow-hidden border border-accent/30 bg-black shadow-[0_24px_60px_-15px_rgba(0,0,0,0.9)]">
                 <video
-                  className="absolute inset-0 h-full w-full object-contain bg-black"
-                  controls
+                  className="absolute inset-0 h-full w-full object-cover"
                   autoPlay
                   muted
                   loop
                   playsInline
                   preload="metadata"
-                  aria-label="Steadfast Tactical firearm training session"
+                  aria-label="Real footage from a Steadfast Tactical competency training course"
                 >
                   <source src="/video/WhatsApp%20Video%202026-06-12%20at%2009.16.40.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
                 </video>
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full border border-accent/40 bg-black/50 backdrop-blur-sm transition-transform duration-500 group-hover:scale-110">
+                    <Play className="ml-0.5 h-5 w-5 text-accent" aria-hidden />
+                  </span>
+                </div>
               </div>
+              <div className="absolute -inset-1 -z-10 bg-gradient-to-br from-accent/30 to-transparent blur-md" aria-hidden />
             </div>
-            <p className="mt-4 text-center text-sm font-medium text-gray-400">
-              Real training footage from our competency courses
-            </p>
-          </motion.div>
-        </motion.div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, i) => (
-            <motion.div
-              key={step.number}
-              initial={{ opacity: 0, y: 40, x: i % 2 === 0 ? -20 : 20 }}
-              whileInView={{ opacity: 1, y: 0, x: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ 
-                duration: 0.6, 
-                delay: i * 0.15,
-                ease: [0.4, 0, 0.2, 1]
-              }}
-              className="relative"
-            >
-              <motion.div
-                whileHover={{ y: -5, scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-              >
-                <HexagonCard className="h-full flex flex-col glow-effect relative overflow-hidden group">
-                  {/* Small decorative corner elements */}
-                  <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-accent/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  
-                  <div className="flex items-start justify-between mb-5">
-                    <motion.div 
-                      className="flex-shrink-0 p-3 bg-gradient-to-br from-accent/10 to-accent-muted/10 border border-accent/20 relative"
-                      whileHover={{ rotate: 360, scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      {/* Glow effect */}
-                      <motion.div
-                        className="absolute inset-0 bg-accent/20 rounded-full blur-md"
-                        animate={{
-                          scale: [1, 1.2, 1],
-                          opacity: [0.3, 0.6, 0.3],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          delay: i * 0.2,
-                        }}
-                      />
-                      {step.number === "04" ? (
-                        <i className="fa-solid fa-bullseye text-accent text-2xl relative z-10" aria-hidden></i>
-                      ) : (
-                        <step.icon className="h-6 w-6 text-accent relative z-10" aria-hidden />
-                      )}
-                    </motion.div>
-                    <motion.span 
-                      className="text-4xl font-bold text-accent/15 relative"
-                      initial={{ scale: 0, rotate: -180 }}
-                      whileInView={{ scale: 1, rotate: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.15 + 0.3, type: "spring" }}
-                    >
-                      {step.number}
-                      {/* Small dot decoration */}
-                      <motion.span
-                        className="absolute -top-1 -right-1 w-2 h-2 bg-accent/40 rounded-full"
-                        animate={{
-                          scale: [1, 1.5, 1],
-                          opacity: [0.5, 1, 0.5],
-                        }}
-                        transition={{
-                          duration: 1.5,
-                          repeat: Infinity,
-                          delay: i * 0.2,
-                        }}
-                      />
-                    </motion.span>
-                  </div>
-                  <h3 className="text-lg font-semibold text-white mb-3">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-gray-300 leading-relaxed flex-1">
-                    {step.description}
-                  </p>
-                  
-                  {/* Bottom accent line */}
-                  <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-accent/40 to-transparent"
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.15 + 0.5, duration: 0.6 }}
-                  />
-                  {i < steps.length - 1 && (
-                    <motion.div 
-                      className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-gradient-to-r from-accent/30 to-accent-muted/30 transform -translate-y-1/2"
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.15 + 0.5, duration: 0.5 }}
-                    />
-                  )}
-                </HexagonCard>
-              </motion.div>
-            </motion.div>
-          ))}
-        </div>
-
+            <div className="relative z-10 text-center md:text-left">
+              <p className="readout mb-3 text-accent">{"// REAL TRAINING FOOTAGE"}</p>
+              <h3 className="font-display text-3xl font-extrabold uppercase leading-tight text-white md:text-4xl">
+                See the range before <span className="text-gradient">you step on it</span>
+              </h3>
+              <p className="mx-auto mt-4 max-w-xl text-slate-300 md:mx-0">
+                Real sessions from our competency courses in Lenasia. Watch how our
+                instructors run theory, coach live-fire drills, and walk students through
+                every stage of certification.
+              </p>
+              <a href="#contact" className="btn-ghost mt-7 text-sm">
+                Book Your Spot
+              </a>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

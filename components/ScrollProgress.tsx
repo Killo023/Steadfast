@@ -1,35 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 
 export function ScrollProgress() {
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const updateScrollProgress = () => {
-      const scrollPx = document.documentElement.scrollTop;
-      const winHeightPx =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-      const scrolled = (scrollPx / winHeightPx) * 100;
-      setScrollProgress(scrolled);
-    };
-
-    window.addEventListener("scroll", updateScrollProgress);
-    updateScrollProgress();
-
-    return () => window.removeEventListener("scroll", updateScrollProgress);
-  }, []);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[100] h-1 bg-black/20">
+    <div className="fixed inset-x-0 top-0 z-[100] h-[3px] bg-transparent" aria-hidden>
       <motion.div
-        className="h-full bg-gradient-to-r from-accent via-accent-muted to-accent"
-        style={{ width: `${scrollProgress}%` }}
-        initial={{ width: 0 }}
-        animate={{ width: `${scrollProgress}%` }}
-        transition={{ duration: 0.1, ease: "linear" }}
+        className="h-full origin-left bg-gradient-to-r from-cyan-400 via-accent to-indigo-400 shadow-[0_0_12px_rgba(56,189,248,0.8)]"
+        style={{ scaleX }}
       />
     </div>
   );

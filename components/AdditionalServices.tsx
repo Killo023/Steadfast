@@ -1,154 +1,150 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
-import { SectionTitle } from "@/components/SectionTitle";
-import { HexagonCard } from "@/components/HexagonCard";
-import { Shield, Building2, Target } from "lucide-react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Shield, Building2, ArrowUpRight, GraduationCap, BadgeCheck } from "lucide-react";
+import { SectionHeading } from "@/components/motion/SectionHeading";
+import { TiltCard } from "@/components/motion/TiltCard";
+import { GlowOrb } from "@/components/motion/GlowOrb";
 import { images, fallbackImage } from "@/lib/images";
 
 const services = [
   {
     title: "Firearm Motivation Training",
-    description: "Expert guidance and comprehensive training for completing your firearm motivation letter. Available for both personal and business license applications. Covers all aspects of responsible firearm ownership, safety protocols, and legal requirements. Perfect for first-time applicants and those renewing their certification.",
+    description:
+      "Expert guidance and comprehensive training for completing your firearm motivation letter. Available for personal and business license applications, covering responsible ownership, safety protocols, and legal requirements. Perfect for first-time applicants and renewals.",
     icon: Shield,
     image: images.training,
+    bullets: ["Personal & business applications", "Legal requirements covered", "First-time applicant friendly"],
   },
   {
     title: "Business & Corporate Training",
-    description: "Specialized training programs designed for businesses, security companies, and organizations. Includes Regulation 21 compliance training, group training options, corporate packages, and tailored programs to meet your organization's specific security training requirements.",
+    description:
+      "Specialised programs for businesses, security companies, and organisations — including Regulation 21 compliance training, group options, corporate packages, and tailored programs built around your security training requirements.",
     icon: Building2,
     image: images.security,
+    bullets: ["Regulation 21 compliance", "Group & corporate packages", "Tailored to your organisation"],
   },
 ];
 
 export function AdditionalServices() {
-  const [videoReady, setVideoReady] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current && videoReady) {
-      videoRef.current.play().catch((err) => {
-        console.warn("Video autoplay failed:", err);
-        setVideoFailed(true);
-      });
-    }
-  }, [videoReady]);
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
 
   return (
     <section
-      className="bg-[#0a0a0a] px-4 py-16 md:py-24 relative overflow-hidden"
+      ref={ref}
+      id="services"
+      className="relative scroll-mt-20 overflow-hidden bg-[#050505] py-24 md:py-32"
       aria-labelledby="services-heading"
     >
-      {/* Background video */}
-      {!videoFailed && (
-        <video
-          ref={videoRef}
-          className={`absolute inset-0 h-full w-full object-cover z-0 ${videoReady && !videoFailed ? "opacity-30" : "opacity-0"}`}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          aria-hidden
-          onLoadedData={() => {
-            setVideoReady(true);
-            const video = videoRef.current;
-            if (video) {
-              video.play().catch((err) => {
-                console.warn("Video play() failed:", err);
-                setVideoFailed(true);
-              });
-            }
-          }}
-          onCanPlay={() => {
-            setVideoReady(true);
-            const video = videoRef.current;
-            if (video && video.paused) {
-              video.play().catch(() => setVideoFailed(true));
-            }
-          }}
-          onError={() => setVideoFailed(true)}
-        >
-          <source src="/video/6489579_Gun Firearm Shooting Interior_By_Nazarii_Ortynskyi_Artlist_HD.mp4" type="video/mp4" />
-        </video>
-      )}
-      {/* Overlay */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/90 via-black/85 to-black/95" />
-      <div className="mx-auto max-w-6xl relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h2 id="services-heading" className="sr-only">
-            Additional services
-          </h2>
-          <div className="flex justify-center mb-6">
-            <div className="flex-shrink-0 p-4 bg-gradient-to-br from-accent/10 to-accent-muted/10 border border-accent/20">
-              <i className="fa-solid fa-gun text-accent text-4xl" aria-hidden></i>
-            </div>
-          </div>
-          <SectionTitle className="mb-12">Additional Services</SectionTitle>
-        </motion.div>
+      <div className="hazard-stripes absolute inset-x-0 top-0 h-2 opacity-40" aria-hidden />
+      <GlowOrb className="left-[-140px] top-1/3" size="w-80 h-80" color="rgba(129,140,248,0.1)" duration={15} />
 
-        <div className="grid gap-6 md:grid-cols-2">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
+        <h2 id="services-heading" className="sr-only">
+          Additional services
+        </h2>
+        <SectionHeading
+          eyebrow="// 07 · More Ways We Help"
+          title="Additional"
+          highlight="Services"
+          description="Beyond core competency courses, we support applicants and organisations at every stage of the journey."
+          className="mb-16"
+        />
+
+        <div className="grid gap-7 lg:grid-cols-2">
           {services.map((service, i) => {
             const IconComponent = service.icon;
             return (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 50, x: i % 2 === 0 ? -30 : 30 }}
-              whileInView={{ opacity: 1, y: 0, x: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ 
-                duration: 0.6, 
-                delay: i * 0.2,
-                ease: [0.4, 0, 0.2, 1]
-              }}
-            >
               <motion.div
-                whileHover={{ y: -8, scale: 1.02 }}
-                transition={{ duration: 0.3 }}
+                key={service.title}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ delay: i * 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="group h-full"
               >
-                <HexagonCard className="group glow-effect">
-                    <div className="relative mb-6 aspect-video w-full overflow-hidden">
-                    <motion.img
-                      src={service.image}
-                      alt=""
-                      className="h-full w-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.src = fallbackImage;
-                      }}
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <motion.div 
-                      className="flex-shrink-0 p-3 bg-gradient-to-br from-accent/10 to-accent-muted/10 border border-accent/20"
-                      whileHover={{ rotate: 360, scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <IconComponent
-                        className="h-6 w-6 text-accent"
-                        aria-hidden
+                <TiltCard maxTilt={5} className="h-full">
+                  <div className="tactical-card flex h-full flex-col overflow-hidden">
+                    {/* Image */}
+                    <div className="relative aspect-[16/9] overflow-hidden">
+                      <motion.img
+                        src={service.image}
+                        alt={`${service.title} at Steadfast Tactical`}
+                        className="h-[120%] w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        style={{ y: imgY }}
+                        onError={(e) => {
+                          e.currentTarget.src = fallbackImage;
+                        }}
                       />
-                    </motion.div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-white mb-3">
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-black/30 to-transparent" aria-hidden />
+                      <div className="scanlines absolute inset-0 opacity-25" aria-hidden />
+                      <div className="absolute left-5 top-5 flex h-12 w-12 items-center justify-center border border-accent/30 bg-black/60 backdrop-blur-sm transition-transform duration-500 group-hover:rotate-12">
+                        <IconComponent className="h-6 w-6 text-accent" aria-hidden />
+                      </div>
+                    </div>
+
+                    {/* Body */}
+                    <div className="flex flex-1 flex-col p-7">
+                      <h3 className="font-display text-2xl font-bold uppercase text-white">
                         {service.title}
                       </h3>
-                      <p className="text-gray-300 leading-relaxed">{service.description}</p>
+                      <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-400">
+                        {service.description}
+                      </p>
+                      <ul className="mt-6 space-y-2 border-t border-white/5 pt-5">
+                        {service.bullets.map((bullet) => (
+                          <li key={bullet} className="flex items-center gap-2 text-sm text-slate-300">
+                            <BadgeCheck className="h-4 w-4 text-accent" aria-hidden />
+                            {bullet}
+                          </li>
+                        ))}
+                      </ul>
+                      <a
+                        href="#contact"
+                        className="mt-6 inline-flex items-center gap-2 font-display text-sm font-bold uppercase tracking-[0.14em] text-white transition-colors hover:text-accent"
+                      >
+                        Enquire about this service
+                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
+                      </a>
                     </div>
                   </div>
-                </HexagonCard>
+                </TiltCard>
               </motion.div>
-            </motion.div>
             );
           })}
+
+          {/* CTA tile */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ delay: 0.25, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="group lg:col-span-2"
+          >
+            <div className="tactical-card relative overflow-hidden p-10 text-center md:p-14">
+              <div className="scanlines absolute inset-0 opacity-20" aria-hidden />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.1),transparent_65%)]" aria-hidden />
+              <div className="relative z-10">
+                <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center border border-accent/30 bg-accent/10">
+                  <GraduationCap className="h-7 w-7 text-accent" aria-hidden />
+                </div>
+                <h3 className="font-display text-3xl font-extrabold uppercase leading-tight text-white md:text-4xl">
+                  Not sure where to <span className="text-gradient">start?</span>
+                </h3>
+                <p className="mx-auto mt-4 max-w-2xl text-slate-300">
+                  Whether you need competency, a motivation, Regulation 21 refresher, or a corporate
+                  program — send us a message and we&apos;ll map the fastest, most cost-effective path to
+                  certification.
+                </p>
+                <a href="#contact" className="btn-primary mt-8 text-sm">
+                  Start the conversation
+                </a>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

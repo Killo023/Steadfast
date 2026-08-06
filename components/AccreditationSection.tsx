@@ -2,6 +2,10 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, BadgeCheck, Shield, Building2 } from "lucide-react";
+import { SectionHeading } from "@/components/motion/SectionHeading";
+import { Reveal } from "@/components/motion/Reveal";
+import { GlowOrb } from "@/components/motion/GlowOrb";
 
 const basicUnitStandards = [
   { title: "Demonstrate knowledge of the firearms control Act", code: "Unit Standard 117705" },
@@ -18,230 +22,122 @@ const businessUnitStandards = [
   { title: "Handle and use a Shotgun for Business Purpose", code: "Unit Standard 123514" },
 ];
 
-const regulation21 = ["Handgun", "Shotgun", "Self Loading rifle", "Manually operated rifle"];
+const regulation21 = ["Handgun", "Shotgun", "Self Loading Rifle", "Manually Operated Rifle"];
 
 type ExpandedSection = "basic" | "business" | "regulation21" | null;
 
 export function AccreditationSection() {
   const [expanded, setExpanded] = useState<ExpandedSection>(null);
 
-  const toggle = (key: ExpandedSection) => {
+  const toggle = (key: ExpandedSection) =>
     setExpanded((prev) => (prev === key ? null : key));
-  };
+
+  const tiles: {
+    key: ExpandedSection;
+    icon: typeof Shield;
+    title: string;
+    subtitle: string;
+    count: string;
+  }[] = [
+    { key: "basic", icon: Shield, title: "Basic Unit Standards", subtitle: "Personal purpose", count: "5 standards" },
+    { key: "business", icon: Building2, title: "Business Unit Standards", subtitle: "Commercial purpose", count: "4 standards" },
+    { key: "regulation21", icon: BadgeCheck, title: "Regulation 21", subtitle: "Security compliance", count: "Annual refresher" },
+  ];
 
   return (
     <section
-      className="bg-[#0d1117] px-4 py-20 md:py-28 relative overflow-hidden"
+      id="accreditation"
+      className="relative scroll-mt-20 overflow-hidden bg-[#050505] py-24 md:py-32"
       aria-labelledby="accreditation-heading"
     >
-      {/* Abstract background */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute inset-0 tactical-grid opacity-30" />
-        <motion.div
-          className="absolute -top-40 -right-40 w-96 h-96 bg-accent/10 rounded-full blur-3xl"
-          animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      <div className="hazard-stripes absolute inset-x-0 bottom-0 h-2 opacity-40" aria-hidden />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,0.07),transparent_60%)]" aria-hidden />
+      <GlowOrb className="left-[-100px] bottom-10" size="w-72 h-72" color="rgba(251,191,36,0.07)" duration={15} delay={1} />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
+        <h2 id="accreditation-heading" className="sr-only">
+          SAPS &amp; PFTC accreditation and unit standards
+        </h2>
+        <SectionHeading
+          eyebrow="// 05 · Credentials"
+          title="SAPS & PFTC"
+          highlight="Accredited"
+          description="We train and assess against national unit standards registered on the Professional Firearm Trainers Council. Select a category to view the standards we deliver."
+          className="mb-14"
         />
-        <motion.div
-          className="absolute bottom-0 left-0 w-72 h-72 bg-[#fbbf24]/10 rounded-full blur-3xl"
-          animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.5, 0.2] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-        {[...Array(12)].map((_, i) => (
-          <motion.div
-            key={i}
-            className={`absolute rounded-full ${
-              i % 3 === 0 ? "w-2 h-2 bg-[#fbbf24]" : i % 3 === 1 ? "w-1.5 h-1.5 bg-accent" : "w-1 h-1 bg-white/60"
-            }`}
-            style={{
-              left: `${8 + (i * 7) % 85}%`,
-              top: `${15 + (i * 11) % 70}%`,
-            }}
-            animate={{
-              y: [0, -15, 0],
-              opacity: [0.4, 1, 0.4],
-              scale: [1, 1.3, 1],
-            }}
-            transition={{
-              duration: 2.5 + (i % 3),
-              repeat: Infinity,
-              delay: i * 0.2,
-            }}
-          />
-        ))}
-      </div>
 
-      <div className="mx-auto max-w-6xl relative z-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-14"
-        >
-          <h2 id="accreditation-heading" className="sr-only">
-            Accreditation and unit standards
-          </h2>
-
-          <motion.h3
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white uppercase tracking-wider mb-4"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <span className="relative inline-block">
-              SAPS & PFTC
-              <span className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#fbbf24] to-transparent" />
-            </span>
-            <br />
-            <span className="text-accent">Accredited Training</span>
-          </motion.h3>
-
-          <motion.p
-            className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg leading-relaxed"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            We offer SAPS & PFTC accredited training and the following unit standards. Click a category to view details.
-          </motion.p>
-        </motion.div>
-
-        {/* Minimal clickable tiles */}
-        <div className="grid gap-4 md:grid-cols-3 mb-6">
-          {/* Basic Unit Standards tile */}
-          <motion.button
-            type="button"
-            onClick={() => toggle("basic")}
-            aria-expanded={expanded === "basic"}
-            aria-controls="accreditation-basic-content"
-            id="accreditation-basic"
-            className={`text-left w-full p-5 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[#0d1117] ${
-              expanded === "basic"
-                ? "border-accent bg-accent/10"
-                : "border-accent/30 bg-black/30 hover:border-accent/50 hover:bg-accent/5"
-            }`}
-            whileHover={{ scale: expanded === "basic" ? 1 : 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <div className="flex items-center gap-3">
-              <div className="p-2.5 border border-accent/40 bg-accent/10 flex-shrink-0">
-                <i className="fa-solid fa-bullseye text-accent text-xl" aria-hidden />
-              </div>
-              <div>
-                <span className="text-white font-bold text-sm uppercase tracking-wide block">
-                  Basic Unit Standards
-                </span>
-                <span className="text-accent/80 text-xs font-mono">{basicUnitStandards.length} standards</span>
-              </div>
-              <span className={`ml-auto text-accent text-lg transition-transform duration-300 ${expanded === "basic" ? "rotate-180" : ""}`}>
-                <i className="fa-solid fa-chevron-down" aria-hidden />
-              </span>
-            </div>
-          </motion.button>
-
-          {/* Business Unit Standards tile */}
-          <motion.button
-            type="button"
-            onClick={() => toggle("business")}
-            aria-expanded={expanded === "business"}
-            aria-controls="accreditation-business-content"
-            id="accreditation-business"
-            className={`text-left w-full p-5 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#fbbf24] focus:ring-offset-2 focus:ring-offset-[#0d1117] ${
-              expanded === "business"
-                ? "border-[#fbbf24] bg-[#fbbf24]/10"
-                : "border-[#fbbf24]/30 bg-black/30 hover:border-[#fbbf24]/50 hover:bg-[#fbbf24]/5"
-            }`}
-            whileHover={{ scale: expanded === "business" ? 1 : 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <div className="flex items-center gap-3">
-              <div className="p-2.5 border border-[#fbbf24]/40 bg-[#fbbf24]/10 flex-shrink-0">
-                <i className="fa-solid fa-gun text-[#fbbf24] text-xl" aria-hidden />
-              </div>
-              <div>
-                <span className="text-white font-bold text-sm uppercase tracking-wide block">
-                  Business Unit Standards
-                </span>
-                <span className="text-[#fbbf24]/80 text-xs font-mono">{businessUnitStandards.length} standards</span>
-              </div>
-              <span className={`ml-auto text-[#fbbf24] text-lg transition-transform duration-300 ${expanded === "business" ? "rotate-180" : ""}`}>
-                <i className="fa-solid fa-chevron-down" aria-hidden />
-              </span>
-            </div>
-          </motion.button>
-
-          {/* Regulation 21 tile */}
-          <motion.button
-            type="button"
-            onClick={() => toggle("regulation21")}
-            aria-expanded={expanded === "regulation21"}
-            aria-controls="accreditation-regulation21-content"
-            id="accreditation-regulation21"
-            className={`text-left w-full p-5 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[#0d1117] ${
-              expanded === "regulation21"
-                ? "border-accent bg-accent/10"
-                : "border-white/20 bg-black/30 hover:border-white/40 hover:bg-white/5"
-            }`}
-            whileHover={{ scale: expanded === "regulation21" ? 1 : 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <div className="flex items-center gap-3">
-              <div className="flex gap-1.5 flex-shrink-0">
-                <div className="p-2 border border-accent/40 bg-accent/10">
-                  <i className="fa-solid fa-bullseye text-accent text-sm" aria-hidden />
+        <div className="grid gap-5 md:grid-cols-3">
+          {tiles.map((tile, i) => {
+            const IconComponent = tile.icon;
+            const isOpen = expanded === tile.key;
+            return (
+              <motion.button
+                key={tile.key}
+                type="button"
+                onClick={() => toggle(tile.key)}
+                aria-expanded={isOpen}
+                aria-controls={`accreditation-${tile.key}-content`}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.6 }}
+                className={`tactical-card group relative p-6 text-left transition-colors duration-300 ${
+                  isOpen ? "!border-accent/50" : ""
+                }`}
+              >
+                <div className="flex items-center gap-4">
+                  <div className="relative flex h-14 w-14 flex-shrink-0 items-center justify-center border border-accent/25 bg-accent/10 transition-transform duration-500 group-hover:rotate-6 group-hover:scale-105">
+                    <span className="ring-pulse absolute inset-0" aria-hidden />
+                    <IconComponent className="h-6 w-6 text-accent" aria-hidden />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-display text-lg font-bold uppercase leading-tight text-white">
+                      {tile.title}
+                    </h3>
+                    <p className="readout mt-1 text-slate-400">{tile.subtitle}</p>
+                  </div>
+                  <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }} className="flex-shrink-0">
+                    <ChevronDown className="h-5 w-5 text-accent" aria-hidden />
+                  </motion.span>
                 </div>
-                <div className="p-2 border border-[#fbbf24]/40 bg-[#fbbf24]/10">
-                  <i className="fa-solid fa-gun text-[#fbbf24] text-sm" aria-hidden />
+                <div className="mt-4 flex items-center justify-between border-t border-white/5 pt-4">
+                  <span className="text-xs text-slate-500">{tile.count}</span>
+                  <span className="readout text-accent/70">{isOpen ? "HIDE" : "VIEW"}</span>
                 </div>
-              </div>
-              <div>
-                <span className="text-white font-bold text-sm uppercase tracking-wide block">
-                  Regulation 21
-                </span>
-                <span className="text-gray-400 text-xs">Compliance training</span>
-              </div>
-              <span className={`ml-auto text-white/70 text-lg transition-transform duration-300 ${expanded === "regulation21" ? "rotate-180" : ""}`}>
-                <i className="fa-solid fa-chevron-down" aria-hidden />
-              </span>
-            </div>
-          </motion.button>
+              </motion.button>
+            );
+          })}
         </div>
 
-        {/* Expanded content */}
         <AnimatePresence mode="wait">
           {expanded === "basic" && (
             <motion.div
+              key="basic"
               id="accreditation-basic-content"
               role="region"
-              aria-labelledby="accreditation-basic"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden mb-6"
+              aria-label="Basic unit standards"
+              initial={{ opacity: 0, height: 0, y: -12 }}
+              animate={{ opacity: 1, height: "auto", y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -12 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden"
             >
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {basicUnitStandards.map((standard, i) => (
                   <motion.div
                     key={standard.code}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.25, delay: i * 0.05 }}
-                    className="group relative"
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.06 }}
+                    className="tactical-card p-5"
                   >
-                    <div className="relative p-4 border border-accent/20 bg-black/40 backdrop-blur-sm rounded-lg">
-                      <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 p-2 border border-accent/30 bg-accent/10">
-                          <i className="fa-solid fa-bullseye text-accent text-sm" aria-hidden />
-                        </div>
-                        <div className="min-w-0">
-                          <h5 className="text-white font-semibold text-sm leading-snug mb-1">{standard.title}</h5>
-                          <p className="text-accent font-mono text-xs">{standard.code}</p>
-                        </div>
+                    <div className="flex items-start gap-3">
+                      <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center border border-accent/30 bg-accent/10">
+                        <BadgeCheck className="h-4 w-4 text-accent" aria-hidden />
+                      </span>
+                      <div>
+                        <p className="text-sm font-semibold leading-snug text-white">{standard.title}</p>
+                        <p className="readout mt-1.5 text-accent">{standard.code}</p>
                       </div>
                     </div>
                   </motion.div>
@@ -252,33 +148,32 @@ export function AccreditationSection() {
 
           {expanded === "business" && (
             <motion.div
+              key="business"
               id="accreditation-business-content"
               role="region"
-              aria-labelledby="accreditation-business"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden mb-6"
+              aria-label="Business unit standards"
+              initial={{ opacity: 0, height: 0, y: -12 }}
+              animate={{ opacity: 1, height: "auto", y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -12 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden"
             >
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="mt-8 grid gap-4 md:grid-cols-2">
                 {businessUnitStandards.map((standard, i) => (
                   <motion.div
                     key={standard.code}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.25, delay: i * 0.05 }}
-                    className="group relative"
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.06 }}
+                    className="tactical-card p-5"
                   >
-                    <div className="relative p-4 border border-[#fbbf24]/20 bg-black/40 backdrop-blur-sm rounded-lg">
-                      <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 p-2 border border-[#fbbf24]/30 bg-[#fbbf24]/10">
-                          <i className="fa-solid fa-gun text-[#fbbf24] text-sm" aria-hidden />
-                        </div>
-                        <div className="min-w-0">
-                          <h5 className="text-white font-semibold text-sm leading-snug mb-1">{standard.title}</h5>
-                          <p className="text-[#fbbf24] font-mono text-xs">{standard.code}</p>
-                        </div>
+                    <div className="flex items-start gap-3">
+                      <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center border border-amber-400/30 bg-amber-400/10">
+                        <Building2 className="h-4 w-4 text-amber-400" aria-hidden />
+                      </span>
+                      <div>
+                        <p className="text-sm font-semibold leading-snug text-white">{standard.title}</p>
+                        <p className="readout mt-1.5 text-amber-400">{standard.code}</p>
                       </div>
                     </div>
                   </motion.div>
@@ -289,40 +184,57 @@ export function AccreditationSection() {
 
           {expanded === "regulation21" && (
             <motion.div
+              key="regulation21"
               id="accreditation-regulation21-content"
               role="region"
-              aria-labelledby="accreditation-regulation21"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden mb-6"
+              aria-label="Regulation 21 compliance training"
+              initial={{ opacity: 0, height: 0, y: -12 }}
+              animate={{ opacity: 1, height: "auto", y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -12 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden"
             >
-              <div className="relative p-6 md:p-8 border border-accent/20 bg-black/40 backdrop-blur-sm rounded-lg overflow-hidden">
-                <div className="absolute top-0 right-0 w-40 h-40 bg-accent/5 rounded-full blur-2xl" />
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#fbbf24]/5 rounded-full blur-2xl" />
-                <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-6 relative z-10">
-                  In addition to these unit standards, we offer Regulation 21 compliance training to Security professionals. Each year Armed security officers are required by law to complete a Regulation 21 refresher course. We hold small classes whereby we provide the training necessary to remain compliant. We also teach peripheral skills and concepts not contained in the course, at no extra charge.
-                </p>
-                <h5 className="text-white font-semibold text-sm mb-3 relative z-10">Regulation 21 Training Categories:</h5>
-                <div className="flex flex-wrap gap-2 relative z-10">
-                  {regulation21.map((category, i) => (
-                    <motion.span
-                      key={category}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.2, delay: i * 0.06 }}
-                      className="inline-flex items-center gap-2 px-3 py-2 border border-accent/30 bg-accent/5 rounded-md text-white text-sm"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#fbbf24]" />
-                      {category}
-                    </motion.span>
-                  ))}
+              <div className="tactical-card relative mt-8 overflow-hidden p-8 md:p-10">
+                <div className="scanlines absolute inset-0 opacity-20" aria-hidden />
+                <div className="relative z-10 grid items-center gap-8 md:grid-cols-[1.5fr_1fr]">
+                  <div>
+                    <p className="text-slate-300 leading-relaxed">
+                      Each year, armed security officers are required by law to complete a
+                      Regulation 21 refresher course. We hold small classes to deliver the
+                      training needed to stay compliant — and we teach peripheral skills and
+                      concepts not contained in the course, at no extra charge.
+                    </p>
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      {regulation21.map((category, i) => (
+                        <motion.span
+                          key={category}
+                          initial={{ opacity: 0, scale: 0.85 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.2 + i * 0.06 }}
+                          className="inline-flex items-center gap-2 border border-amber-400/30 bg-amber-400/5 px-3 py-2 text-sm text-white"
+                        >
+                          <span className="h-1.5 w-1.5 rounded-full bg-amber-400" aria-hidden />
+                          {category}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="border border-accent/20 bg-accent/5 p-6 text-center">
+                    <p className="font-display text-6xl font-extrabold text-gradient">21</p>
+                    <p className="readout mt-2 text-slate-300">Regulation 21</p>
+                    <p className="mt-1 text-xs text-slate-500">Annual compliance refresher for security professionals</p>
+                  </div>
                 </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
+
+        <Reveal direction="fade" delay={0.2} className="mt-12 text-center">
+          <p className="text-sm text-slate-500">
+            Certificates are issued through SAPS-recognised providers and registered with the PFTC.
+          </p>
+        </Reveal>
       </div>
     </section>
   );

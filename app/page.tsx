@@ -1,17 +1,19 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { AboutSection } from "@/components/AboutSection";
+import { MarqueeStrip } from "@/components/MarqueeStrip";
+import { StatsBar } from "@/components/StatsBar";
 import { PricingCards } from "@/components/PricingCards";
-import { AccreditationSection } from "@/components/AccreditationSection";
+import { AboutSection } from "@/components/AboutSection";
 import { MissionSection } from "@/components/MissionSection";
 import { FeaturedCourses } from "@/components/FeaturedCourses";
-import { FirearmAcquisitionGuide } from "@/components/FirearmAcquisitionGuide";
 import { TrainingProcess } from "@/components/TrainingProcess";
+import { AccreditationSection } from "@/components/AccreditationSection";
+import { FirearmAcquisitionGuide } from "@/components/FirearmAcquisitionGuide";
 import { AdditionalServices } from "@/components/AdditionalServices";
 import { Testimonials } from "@/components/Testimonials";
 import { TrustSignals } from "@/components/TrustSignals";
-import { ContactSection } from "@/components/ContactSection";
 import { FAQ } from "@/components/FAQ";
+import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ScrollProgress } from "@/components/ScrollProgress";
@@ -23,13 +25,15 @@ export default function Home() {
       <Header />
       <main id="main-content">
         <Hero />
+        <MarqueeStrip />
+        <StatsBar />
         <PricingCards />
-        <AccreditationSection />
         <AboutSection />
         <MissionSection />
         <FeaturedCourses />
-        <FirearmAcquisitionGuide />
         <TrainingProcess />
+        <AccreditationSection />
+        <FirearmAcquisitionGuide />
         <AdditionalServices />
         <Testimonials />
         <TrustSignals />
