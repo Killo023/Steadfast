@@ -205,7 +205,7 @@ export function Hero() {
               </span>
               <span className="flex items-center gap-2 text-sm text-slate-300">
                 <BadgeCheck className="h-5 w-5 text-amber-400" aria-hidden />
-                PFTC Registered Provider
+                PFTC Accredited Provider
               </span>
               <span className="flex items-center gap-2 text-sm text-slate-300">
                 <BadgeCheck className="h-5 w-5 text-amber-400" aria-hidden />
@@ -280,7 +280,7 @@ export function Hero() {
               transition={{ delay: 1.2, type: "spring", stiffness: 200, damping: 16 }}
             >
               <BadgeCheck className="h-4 w-4 text-amber-400" />
-              <span className="readout text-[0.55rem] text-amber-200">PFTC Registered Provider</span>
+              <span className="readout text-[0.55rem] text-amber-200">PFTC Accredited Provider</span>
             </motion.div>
 
             <motion.div

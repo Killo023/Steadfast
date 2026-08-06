@@ -8,7 +8,7 @@ const items = [
   "Manual Action Rifle",
   "Regulation 21 Training",
   "SAPS Accredited",
-  "PFTC Registered",
+  "PFTC Accredited",
   "Firearm Motivations",
   "Business Purpose",
   "Personal Purpose",

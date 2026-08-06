@@ -7,7 +7,6 @@ import { Reveal } from "@/components/motion/Reveal";
 const stats = [
   { value: 4, suffix: "+", label: "Firearm Categories", sub: "Handgun · Shotgun · Rifle" },
   { value: 500, suffix: "+", label: "Students Trained", sub: "Civilians & professionals" },
-  { value: 2, suffix: "–3", label: "Days To Certify", sub: "Theory + practical range" },
   { value: 100, suffix: "%", label: "Transparent Pricing", sub: "No hidden charges" },
 ];
 
@@ -19,7 +18,7 @@ export function StatsBar() {
       aria-label="Key statistics"
     >
       <div className="scanlines pointer-events-none absolute inset-0 opacity-20" aria-hidden />
-      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px overflow-hidden bg-white/[0.04] lg:grid-cols-4">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-px overflow-hidden bg-white/[0.04] sm:grid-cols-3">
         {stats.map((stat, i) => (
           <div key={stat.label} className="group relative bg-[#050505] px-6 py-10 transition-colors duration-500 hover:bg-[#070b11]">
             <Reveal direction="up" delay={i * 0.08} distance={24}>
