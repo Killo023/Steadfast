@@ -8,7 +8,8 @@ import { Menu, X, MessageCircle, ChevronRight } from "lucide-react";
 import { images } from "@/lib/images";
 
 const NAV_LINKS = [
-  { href: "#pricing", label: "Courses" },
+  { href: "#courses", label: "Courses" },
+  { href: "#pricing", label: "Pricing" },
   { href: "#process", label: "Process" },
   { href: "#accreditation", label: "Accreditation" },
   { href: "#faq", label: "FAQ" },
